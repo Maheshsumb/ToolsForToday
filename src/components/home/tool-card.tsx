@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ToolDefinition } from "@/config/tools";
 import { toolCategories } from "@/config/tools";
-import { ToolIcon } from "@/components/home/tool-icon";
+import { ToolIcon } from "@/components/tools/tool-icon";
 
 const iconStyles = {
   image: "bg-[#FFF1EB] text-[#B84222]",

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
-import { ToolIcon } from "@/components/home/tool-icon";
+import { ToolIcon } from "@/components/tools/tool-icon";
 
 const highlights = [
   { icon: "image-compressor", label: "Images", note: "Resize & convert", tone: "bg-[#FFF1EB] text-[#B84222]" },

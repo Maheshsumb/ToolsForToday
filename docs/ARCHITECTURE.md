@@ -42,6 +42,24 @@ Homepage design uses the approved logo in the shared shell, Poppins headings, In
 
 Known limitation: all 12 catalogue entries remain `coming-soon`; no tool route or file-processing engine is included in this stage. The catalogue's search covers full query substrings, so a multi-word phrase matches when that phrase appears continuously in a title, description, slug, or keyword.
 
+## Reusable tool-page UI
+
+`src/components/tools/tool-page-shell.tsx` is the Server Component frame for a future tool route. It accepts a configured tool, renders Home > category > tool breadcrumbs, the icon/title/description introduction, page content, and related tools. The category crumb is text because category routes do not exist. `RelatedTools` derives entries from `src/config/tools.ts` and only links definitions marked `available` with a real `href`; with the current catalogue it renders no related links.
+
+Use `ToolWorkspace` for a focused input/result group. `ToolInput`, `ToolTextarea`, and `ToolSelect` pair visible labels with optional help and error IDs. `ToolHelpSection` renders supplied instructions, limitations, and only the FAQs passed by the tool page. `ToolPrivacyNote` receives the exact processing statement verified for that implementation. `ToolResultPanel` is a content region with an optional action slot; the tool page may put a real download link or copy control there after a real result exists. It provides no fake download or processing action itself.
+
+Workspace patterns are composed from the same controls:
+
+- File tools use `FileDropzone` and `FileSummary`. The dropzone supports a configured MIME/extension list, per-file size, and single or multiple selection. Drag-and-drop is optional; the labelled file input remains available. Client-side type/size checks give users immediate feedback, but are not a security boundary: an engine must revalidate files before processing. Selection stays in the browser; this component does not upload or process files, create previews, or retain file contents. It stores display metadata and can send selected `File` references through its optional `onSelectionChange` callback. Because callbacks are not serializable across the Server/Client Component boundary, connect that callback from a Client Component controller.
+- Text tools use `ToolTextarea`, `CharacterCount`, `ToolResultPanel`, and `CopyAction`. The count is presentational; a future counter supplies its measured value. `CopyAction` writes only the provided, non-empty result when the visitor presses its button and reports clipboard success or failure.
+- Calculator tools use numeric/date `ToolInput` fields, `ToolSelect` for units, validation text, and `ToolResultPanel`. The UI does not calculate values. Add calculation logic as separate pure TypeScript functions where practical, then connect it to client-side form state.
+
+`ToolStatus` accepts one of `idle`, `ready`, `processing`, `success`, or `error` and a user-facing message. It announces ordinary updates politely and errors assertively. Processing is indeterminate unless a caller provides a measured progress value and label; never supply guessed progress or expose internal exceptions. Keep state updates in the tool's Client Component, while the shell, instructions, privacy statement, and stable content remain server-rendered.
+
+Static route rule: do not create pages for coming-soon definitions. When real tool routes are ready, choose a route such as `/tools/[slug]/`, implement `generateStaticParams()` from only definitions that are available and have a real `href`, and build one HTML page per returned slug. A static export cannot serve a newly added slug at runtime; add the route and parameter at build time. Keep per-tool metadata based on the same configuration. Do not turn on runtime slug resolution, Server Actions, or request-dependent APIs.
+
+Stage 02C's temporary `src/app/ui-preview/page.tsx` fixture was used only for local visual and interaction checks and was removed before the production build and commit. It was not a public route or tool implementation.
+
 ## Outstanding dependency security findings
 
 At Stage 02A verification (2026-10-12), `npm audit` reports five high-severity paths caused by one development dependency chain:
