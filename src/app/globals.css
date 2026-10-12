@@ -1,22 +1,128 @@
 @import "tailwindcss";
 
-@theme {
-  --color-portland-orange: #F26136;
-  --color-princeton-orange: #F18033;
-  --color-indian-yellow: #F1A951;
-  --color-gold-crayola: #E8BA80;
-  --color-medium-aquamarine: #66CDB0;
-  --color-max-blue: #4AAFD5;
-  --color-deep-navy: #16233F;
-  --color-mist-gray: #E9EEF5;
-  --color-white: #FFFFFF;
+:root {
+  color-scheme: light;
+  --brand-portland-orange: #F26136;
+  --brand-princeton-orange: #F18033;
+  --brand-indian-yellow: #F1A951;
+  --brand-gold-crayola: #E8BA80;
+  --brand-medium-aquamarine: #66CDB0;
+  --brand-max-blue: #4AAFD5;
+  --brand-deep-navy: #16233F;
+  --brand-mist-gray: #E9EEF5;
+  --brand-white: #FFFFFF;
+
+  --semantic-action-primary: var(--brand-deep-navy);
+  --semantic-action-primary-hover: #26395C;
+  --semantic-action-primary-foreground: var(--brand-white);
+  --semantic-action-secondary: var(--brand-white);
+  --semantic-action-secondary-hover: #FFF4EF;
+  --semantic-action-secondary-border: var(--brand-portland-orange);
+  --semantic-action-secondary-foreground: var(--brand-deep-navy);
+  --semantic-text: var(--brand-deep-navy);
+  --semantic-muted: #46536A;
+  --semantic-background: var(--brand-white);
+  --semantic-surface: var(--brand-white);
+  --semantic-surface-muted: var(--brand-mist-gray);
+  --semantic-border: #D5DDE8;
+  --semantic-focus-ring: var(--brand-deep-navy);
+  --semantic-brand-accent: var(--brand-portland-orange);
+  --semantic-success: #166534;
+  --semantic-error: #B42318;
+  --semantic-disabled: #E9EEF5;
+  --semantic-disabled-foreground: #46536A;
+}
+
+@theme inline {
+  --color-portland-orange: var(--brand-portland-orange);
+  --color-princeton-orange: var(--brand-princeton-orange);
+  --color-indian-yellow: var(--brand-indian-yellow);
+  --color-gold-crayola: var(--brand-gold-crayola);
+  --color-medium-aquamarine: var(--brand-medium-aquamarine);
+  --color-max-blue: var(--brand-max-blue);
+  --color-deep-navy: var(--brand-deep-navy);
+  --color-mist-gray: var(--brand-mist-gray);
+  --color-white: var(--brand-white);
+  --color-action-primary: var(--semantic-action-primary);
+  --color-action-primary-hover: var(--semantic-action-primary-hover);
+  --color-action-primary-foreground: var(--semantic-action-primary-foreground);
+  --color-action-secondary: var(--semantic-action-secondary);
+  --color-action-secondary-hover: var(--semantic-action-secondary-hover);
+  --color-action-secondary-border: var(--semantic-action-secondary-border);
+  --color-action-secondary-foreground: var(--semantic-action-secondary-foreground);
+  --color-text: var(--semantic-text);
+  --color-muted: var(--semantic-muted);
+  --color-background: var(--semantic-background);
+  --color-surface: var(--semantic-surface);
+  --color-surface-muted: var(--semantic-surface-muted);
+  --color-border: var(--semantic-border);
+  --color-focus-ring: var(--semantic-focus-ring);
+  --color-brand-accent: var(--semantic-brand-accent);
+  --color-success: var(--semantic-success);
+  --color-error: var(--semantic-error);
+  --color-disabled: var(--semantic-disabled);
+  --color-disabled-foreground: var(--semantic-disabled-foreground);
   --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-heading: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
-  background: var(--color-mist-gray);
-  color: var(--color-deep-navy);
+  background: var(--color-background);
+  color: var(--color-text);
   font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+}
+
+.font-heading {
+  font-family: var(--font-heading);
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline-color: var(--color-focus-ring);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.skip-link {
+  position: fixed;
+  z-index: 100;
+  top: 0.75rem;
+  left: 0.75rem;
+  transform: translateY(-200%);
+  border-radius: 0.5rem;
+  background: var(--color-action-primary);
+  padding: 0.75rem 1rem;
+  color: var(--color-action-primary-foreground);
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+  outline: 3px solid var(--color-brand-accent);
+  outline-offset: 3px;
 }
