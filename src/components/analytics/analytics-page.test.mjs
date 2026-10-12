@@ -52,6 +52,16 @@ test("Percentage Calculator uses its fixed path and title for Analytics", () => 
   assert.equal(view?.payload.page_referrer, `${origin}/`);
 });
 
+test("Unit Converter uses its fixed sanitized route and title for Analytics", () => {
+  const view = preparePageView("unitConverter", origin, "/");
+
+  assert.equal(view?.payload.page_title, "Unit Converter | ToolsForToday");
+  assert.equal(view?.payload.page_location, `${origin}/tools/unit-converter`);
+  assert.equal(view?.payload.page_path, "/tools/unit-converter");
+  assert.equal(view?.payload.page_referrer, `${origin}/`);
+  assert.equal(JSON.stringify(view).includes("?") || JSON.stringify(view).includes("kilometer"), false);
+});
+
 test("browser back and forward navigation each emit one page view", () => {
   let lastPath = null;
   let count = 0;
