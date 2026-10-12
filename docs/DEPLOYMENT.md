@@ -5,9 +5,11 @@
 - Git repository root: this directory (`toolsfortoday`); the parent `ToolsForToday` folder is not part of the Git repository.
 - Production branch: `main`.
 - GitHub repository: [Maheshsumb/ToolsForToday](https://github.com/Maheshsumb/ToolsForToday) (SSH remote: `git@github.com:Maheshsumb/ToolsForToday.git`).
-- Pushed branch and commit: `main` at `c068115ce07baf44368a97efa5e1f9ecf5196bbf`.
-- Cloudflare Pages project: not created or connected yet.
-- `pages.dev` URL: not assigned yet.
+- Pushed branch and deployment commit: `main` at `16675174a6161bf7084b38e7b30d7ef32658f0e2` (`docs: record initial GitHub push`).
+- Cloudflare Pages project: `toolsfortoday`, connected to `Maheshsumb/ToolsForToday`.
+- Production URL: <https://toolsfortoday.pages.dev/>.
+- First production deployment: successful on 2026-10-12. Cloudflare installed Node.js `22.18.0`, ran `npm clean-install --progress=false` and `npx next build`, exported `/` and `/_not-found` as static content, then uploaded the site to Cloudflare's global network.
+- Live browser verification: homepage served over HTTPS with the expected `noindex, follow` metadata and logo assets; the catalogue showed 12 Coming Soon tools; searching `PDF` and selecting PDF Tools each showed the four PDF tools; an unknown path displayed the custom Page not found screen. The first request immediately after Cloudflare reported success returned a transient 522; the site served normally on retry after propagation.
 - Custom domain: `toolsfortoday.online` is intentionally not configured. Do not change DNS or nameservers as part of the first deployment.
 - All 12 catalogue entries remain `Coming Soon`; no tool routes or processing engines are live.
 
@@ -35,7 +37,7 @@ Remove the `robots` property from the root metadata only after the first tool is
 
 ## GitHub and automatic deployments
 
-No GitHub remote is configured. Create a **private** repository named `toolsfortoday` under the intended GitHub account or organization, without initializing it with a README, license, or `.gitignore`; then add it as `origin` to this existing repository so its commit history is preserved. Confirm the destination before the first push. Never put a password, personal access token, or other credential in a file or chat; use GitHub's supported browser/device login or credential manager.
+The GitHub remote is configured as `origin` at `git@github.com:Maheshsumb/ToolsForToday.git`; `main` is pushed and Cloudflare builds from that branch. Never put a password, personal access token, or other credential in a file or chat; use GitHub's supported browser/device login or credential manager.
 
 After Cloudflare Pages is connected to that repository, new commits pushed to `main` should trigger production builds automatically. Pull request branches can be used for Pages preview deployments. Review the build log and preview URL before merging changes intended for production.
 
@@ -50,7 +52,5 @@ After Cloudflare Pages is connected to that repository, new commits pushed to `m
 
 ## Outstanding items
 
-- Sign in to Cloudflare manually, connect the GitHub repository, and configure the Pages project using the settings above; then record its actual project URL and successful deployment commit here.
-- Verify the assigned `pages.dev` deployment in a browser before reporting the launch complete.
 - Recheck the development-tool dependency audit finding documented in `docs/ARCHITECTURE.md` when upstream releases are available.
-- Connect the custom domain only after a separate user approval; this task must stop after the first successful `pages.dev` deployment.
+- Keep the custom domain `toolsfortoday.online` disconnected until separately approved; do not change DNS or nameservers.
