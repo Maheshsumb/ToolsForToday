@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { AnalyticsPageView } from "@/components/analytics/analytics-consent";
 import { BenefitsSection } from "@/components/home/benefits-section";
 import { HeroSection } from "@/components/home/hero-section";
 import { ToolCatalogue } from "@/components/home/tool-catalogue";
@@ -11,7 +12,9 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main id="main-content" className="flex-1">
+    <>
+      <AnalyticsPageView page="home" />
+      <main id="main-content" className="flex-1">
       <HeroSection />
       <ToolCatalogue />
       <BenefitsSection />
@@ -30,6 +33,7 @@ export default function Home() {
           </div>
         </Container>
       </section>
-    </main>
+      </main>
+    </>
   );
 }

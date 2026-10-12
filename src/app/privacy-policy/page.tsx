@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { AnalyticsPageView } from "@/components/analytics/analytics-consent";
 import { Container } from "@/components/ui/container";
 
 export const metadata: Metadata = {
@@ -9,7 +10,9 @@ export const metadata: Metadata = {
 
 export default function PrivacyPolicyPage() {
   return (
-    <main id="main-content" className="flex-1 py-12 sm:py-16">
+    <>
+      <AnalyticsPageView page="privacyPolicy" />
+      <main id="main-content" className="flex-1 py-12 sm:py-16">
       <Container className="max-w-3xl">
         <p className="text-sm font-semibold uppercase tracking-[0.12em] text-muted">Privacy</p>
         <h1 className="mt-3 font-heading text-3xl font-semibold tracking-tight text-text sm:text-4xl">Privacy Policy</h1>
@@ -19,13 +22,13 @@ export default function PrivacyPolicyPage() {
           <section aria-labelledby="analytics-heading">
             <h2 id="analytics-heading" className="font-heading text-xl font-semibold text-text">Google Analytics</h2>
             <p className="mt-3">
-              ToolsForToday uses Google Analytics 4 (GA4) to understand visits to this website. We send basic page-view events only after you choose “Accept analytics.” These events use a limited set of known page paths and fixed page titles. We do not send search text, query-string values, filenames, or tool input in our manually configured events.
+              ToolsForToday uses Google Analytics 4 (GA4) to understand visits to this website. After you choose “Accept analytics,” the website sends manually configured page-view events using a limited set of known page paths and fixed titles. These manual events exclude search text, query-string values, filenames, and tool input. The current GA4 automatic-event settings are described below.
             </p>
             <p className="mt-3">
               Google Analytics may process information such as the pages visited, the time of a visit, browser and device details, and technical identifiers. Analytics cookies and similar storage may be used after consent. We do not describe GA4 data as anonymous; Google may receive and process information when analytics is enabled.
             </p>
             <p className="mt-3">
-              Enhanced Measurement is disabled for this GA4 web stream. Automatic browser-history page views, scrolls, outbound clicks, site-search tracking, form interactions, video engagement, and file-download events are turned off. The website sends limited manual page views only after you accept analytics. Its configuration disables the tag’s automatic initial page view and uses an allowlist of known routes and fixed titles; it excludes search text, query-string values, filenames, and tool input from those events. Google Analytics may still process technical identifiers and browser or device information when analytics is enabled.
+              The current GA4 configuration has Enhanced Measurement enabled. Google tag automatic event detection is also enabled for browser-history page views, scrolls, outbound clicks, site search, form interactions, video engagement, and file downloads. These automatic events are separate from this website’s manually configured page views and may be sent after you accept analytics when their conditions are met. Google may receive page-location details, including URL query values, for automatically detected page views and site-search events; do not put personal or sensitive information in a page URL. The website’s manual page views use fixed paths and titles and exclude query-string values, search text, filenames, and tool input. Google Analytics may still process technical identifiers and browser or device information when analytics is enabled.
             </p>
           </section>
 
@@ -42,7 +45,7 @@ export default function PrivacyPolicyPage() {
           <section aria-labelledby="cookies-heading">
             <h2 id="cookies-heading" className="font-heading text-xl font-semibold text-text">Cookies and similar technologies</h2>
             <p className="mt-3">
-              Before you accept analytics, this website does not load the GA4 tag or set analytics cookies. Your choice is saved in local browser storage. After acceptance, GA4 may use analytics cookies or similar technologies as described by Google. The stream’s automatic event controls are disabled; only the consent-gated manual page views described above are configured by this website.
+              Before you accept analytics, this website does not load the GA4 tag or set analytics cookies. Your choice is saved in local browser storage. After acceptance, GA4 may use analytics cookies or similar technologies as described by Google. The current stream has automatic event detection enabled as described above, in addition to the consent-gated manual page views configured by this website.
             </p>
           </section>
 
@@ -58,6 +61,7 @@ export default function PrivacyPolicyPage() {
           <Link className="font-semibold text-text underline underline-offset-4" href="/">Return to ToolsForToday</Link>
         </p>
       </Container>
-    </main>
+      </main>
+    </>
   );
 }

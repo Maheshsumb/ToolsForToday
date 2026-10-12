@@ -1,17 +1,11 @@
 "use client";
 
 import Script from "next/script";
-import { usePathname } from "next/navigation";
-import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { canTrackPageView, preparePageView, type AnalyticsPageKey } from "@/components/analytics/analytics-page";
 
 const MEASUREMENT_ID = "G-8HTP8B0KY5";
 const CONSENT_STORAGE_KEY = "toolsfortoday-analytics-consent";
-const PAGE_TITLES: Record<string, string> = {
-  "/": "ToolsForToday | Home",
-  "/privacy-policy": "ToolsForToday | Privacy Policy",
-  "/404": "ToolsForToday | Page not found",
-};
-
 type ConsentChoice = "accepted" | "rejected" | null;
 type GtagCommand = (...args: unknown[]) => void;
 
@@ -24,6 +18,9 @@ declare global {
 
 type AnalyticsConsentContextValue = {
   openAnalyticsSettings: () => void;
+  choice: ConsentChoice;
+  scriptReady: boolean;
+  trackPageView: (page: AnalyticsPageKey) => void;
 };
 
 const AnalyticsConsentContext = createContext<AnalyticsConsentContextValue | null>(null);
@@ -76,7 +73,6 @@ function readSavedChoice(): ConsentChoice {
 }
 
 export function AnalyticsConsentProvider({ children }: Readonly<{ children: ReactNode }>) {
-  const pathname = usePathname();
   const [choice, setChoice] = useState<ConsentChoice>(() =>
     typeof window === "undefined" ? null : readSavedChoice(),
   );
@@ -150,26 +146,24 @@ export function AnalyticsConsentProvider({ children }: Readonly<{ children: Reac
     setShowSettings(true);
   }, []);
 
-  useEffect(() => {
-    if (choice !== "accepted" || !scriptReady || !window.gtag) {
+  const trackPageView = useCallback((page: AnalyticsPageKey) => {
+    if (!canTrackPageView(choiceRef.current, analyticsConfiguredRef.current) || !window.gtag) {
       return;
     }
 
-    const safePath = pathname === "/" || pathname === "/privacy-policy" ? pathname : "/404";
-    if (lastPagePathRef.current === safePath) {
+    const preparedView = preparePageView(page, window.location.origin, lastPagePathRef.current);
+    if (!preparedView) {
       return;
     }
 
-    const previousPath = lastPagePathRef.current;
-    const pageLocation = `${window.location.origin}${safePath}`;
-    window.gtag("event", "page_view", {
-      page_title: PAGE_TITLES[safePath],
-      page_location: pageLocation,
-      page_path: safePath,
-      page_referrer: previousPath ? `${window.location.origin}${previousPath}` : "",
-    });
-    lastPagePathRef.current = safePath;
-  }, [choice, pathname, scriptReady]);
+    window.gtag("event", "page_view", preparedView.payload);
+    lastPagePathRef.current = preparedView.pagePath;
+  }, []);
+
+  const contextValue = useMemo(
+    () => ({ openAnalyticsSettings, choice, scriptReady, trackPageView }),
+    [openAnalyticsSettings, choice, scriptReady, trackPageView],
+  );
 
   const handleScriptLoad = useCallback(() => {
     scriptLoadedRef.current = true;
@@ -177,7 +171,7 @@ export function AnalyticsConsentProvider({ children }: Readonly<{ children: Reac
   }, [configureAnalytics]);
 
   return (
-    <AnalyticsConsentContext.Provider value={{ openAnalyticsSettings }}>
+    <AnalyticsConsentContext.Provider value={contextValue}>
       {children}
       {showSettings && (
         <aside
@@ -222,6 +216,18 @@ export function AnalyticsConsentProvider({ children }: Readonly<{ children: Reac
       )}
     </AnalyticsConsentContext.Provider>
   );
+}
+
+export function AnalyticsPageView({ page }: Readonly<{ page: AnalyticsPageKey }>) {
+  const context = useContext(AnalyticsConsentContext);
+
+  useEffect(() => {
+    if (context?.choice === "accepted" && context.scriptReady) {
+      context.trackPageView(page);
+    }
+  }, [context, page]);
+
+  return null;
 }
 
 export function AnalyticsSettingsButton() {
