@@ -15,7 +15,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      {/* Browser extensions can inject attributes on <html> before React hydrates. */}
       <body className="flex min-h-svh flex-col">
         <a className="skip-link" href="#main-content">Skip to main content</a>
         <SiteHeader />
