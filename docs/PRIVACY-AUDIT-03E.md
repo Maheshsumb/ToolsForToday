@@ -13,8 +13,30 @@ This is a record of the read-only GA4 dashboard review and a source review of th
 
 - Website: ToolsForToday — <https://toolsfortoday.online>
 - Operator: Mahesh Sumb
+- Location: Maharashtra, India
+- Operation: Personal website; no registered company
 - Privacy contact: <maheshsumb.dev@gmail.com>
-- No company, business address, registration number, DPO, legal representative, country, or jurisdiction was supplied. The policy does not imply an incorporated entity.
+- No postal address, registration number, DPO, or legal representative was supplied. The policy does not imply an incorporated entity.
+
+## India law review and commencement status
+
+Read the official MeitY-hosted Gazette notifications G.S.R. 843(E) (Act commencement) and G.S.R. 846(E) (DPDP Rules commencement), both dated November 13, 2025, and the Rules corrigendum G.S.R. 892(E), published December 11, 2025. The corrigendum corrects text at specified pages and does not change the phased commencement dates. The MeitY Act-and-Policies listing also shows the Rules, their enforcement timeline, and the corrigendum. No later commencement change was identified in that official listing as of October 13, 2026.
+
+The notifications phase in commencement; enactment and rulemaking do not mean every provision is currently operative:
+
+- Effective November 13, 2025 under G.S.R. 843(E): Act section 1(2), section 2, sections 18–26, 35, and 38–43, and section 44(1) and (3). Under G.S.R. 846(E), Rules 1, 2, and 17–21 commenced on publication.
+- Scheduled for November 13, 2026: Act section 6(9) and section 27(1)(d), and Rule 4. As of this audit date, these scheduled dates are still in the future.
+- Scheduled for May 13, 2027: Act sections 3–5, 6(1)–(8) and (10), 7–17, 27 except clause (d) of subsection (1), 28–34, 36, 37, and 44(2); Rules 3, 5–16, 22, and 23. These dates are computed as eighteen months after publication of the November 13, 2025 Gazette notifications.
+
+The 18-month group includes the Act's principal processing and fiduciary duties, consent and notice framework, rights and grievance provisions, security, breach, retention/erasure and transfer provisions, together with implementing Rules 3 and 5–16. In particular, the Rules on security safeguards, breach intimation, and specified-purpose retention/erasure are Rules 6–8 within the scheduled Rules 5–16 group. This is a commencement summary only; counsel should map each duty to the actual processing and providers.
+
+This is a reading of the commencement notices, not advice that the operator has no current obligations under other Indian laws, nor a conclusion that the DPDP Act applies to each activity on the site. Counsel should confirm how the phased provisions apply to this personal website and what changes or notice content will be needed by each effective date. Official references: Act commencement notification, <https://www.meity.gov.in/static/uploads/2025/11/c56ceae6c383460ca69577428d36828b.pdf>; Rules notification, <https://www.meity.gov.in/static/uploads/2025/11/53450e6e5dc0bfa85ebd78686cadad39.pdf>; corrigendum, <https://www.meity.gov.in/static/uploads/2025/12/3c7ebbae0e5456f493f486e6845df86b.pdf>; MeitY Act-and-Policies listing, <https://www.meity.gov.in/documents/act-and-policies>.
+
+## International audience review
+
+The site is intended for worldwide visitors. The EU GDPR applies in defined territorial-scope cases, including processing connected with an EU establishment and certain processing by an operator outside the Union related to offering services to people in the Union or monitoring their behaviour there. UK GDPR has comparable establishment, targeting, and monitoring questions. Public accessibility alone does not determine the outcome; the global audience statement and use of GA4 mean scope needs a fact-specific legal review. If EU/EEA or UK rules apply, counsel should determine the lawful basis for each processing purpose, rights and request routes, any representative requirement, cookie/similar-technology rules, and international transfer mechanisms. The policy flags these matters without asserting applicability or compliance.
+
+Official primary references reviewed: EU GDPR Article 3, <https://eur-lex.europa.eu/eli/reg/2016/679/oj>; UK ICO territorial-scope guidance, <https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/data-protection-and-the-eu-in-detail/the-uk-gdpr/territorial-scope/>.
 
 ## Website implementation reviewed
 
@@ -95,8 +117,8 @@ Official references added to the policy:
 
 The page remains a draft and is **not ready for publication** until the operator or qualified counsel confirms:
 
-1. Country/region of establishment and whether the operator acts personally or through a legal entity.
-2. Applicable privacy laws, visitor rights, request procedures, and any legally required operator address or contact disclosures.
+1. Which current laws apply to this India-based personal website and the applicability/timing of DPDP obligations as provisions commence.
+2. For each relevant visitor jurisdiction, applicable lawful bases, individual rights, request/grievance procedures, representative requirements, and legally required operator/contact disclosures. No postal address has been provided.
 3. Which Google and Cloudflare processing locations, data-transfer terms, and safeguards apply to this website and its visitors.
 4. Cloudflare request/security-log retention and the operator's email-correspondence retention.
 5. Whether the enabled Google products-and-services data-sharing, modeling, technical-support, and recommendations settings are intended and adequately disclosed.

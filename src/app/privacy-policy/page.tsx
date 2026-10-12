@@ -31,7 +31,7 @@ export default function PrivacyPolicyPage() {
             <section aria-labelledby="operator-heading">
               <h2 id="operator-heading" className="font-heading text-xl font-semibold text-text">Who operates this website</h2>
               <p className="mt-3">
-                ToolsForToday (<ExternalLink href="https://toolsfortoday.online">toolsfortoday.online</ExternalLink>) is operated by Mahesh Sumb. For privacy questions or requests, email <a className="font-medium text-text underline underline-offset-4" href="mailto:maheshsumb.dev@gmail.com">maheshsumb.dev@gmail.com</a>.
+                ToolsForToday (<ExternalLink href="https://toolsfortoday.online">toolsfortoday.online</ExternalLink>) is operated by Mahesh Sumb, an individual based in Maharashtra, India. This is a personal website; it is not operated by a registered company. For privacy questions or requests, email <a className="font-medium text-text underline underline-offset-4" href="mailto:maheshsumb.dev@gmail.com">maheshsumb.dev@gmail.com</a>. No postal address or separate privacy-request portal is currently provided.
               </p>
             </section>
 
@@ -55,7 +55,7 @@ export default function PrivacyPolicyPage() {
             <section aria-labelledby="analytics-heading">
               <h2 id="analytics-heading" className="font-heading text-xl font-semibold text-text">Google Analytics 4</h2>
               <p className="mt-3">
-                ToolsForToday uses Google Analytics 4 (GA4), measurement ID G-8HTP8B0KY5, to understand visits to the website. The Google Analytics tag is not loaded until you choose “Accept analytics.” If you reject, the tag is not loaded. The site then sends consent-gated manual page views for supported routes. Those events use fixed, allowlisted paths and titles and do not include search text, tool inputs, filenames, or query-string values supplied by a visitor.
+                ToolsForToday uses Google Analytics 4 (GA4), measurement ID G-8HTP8B0KY5, to understand visits to the website. The Google Analytics tag is not loaded until you choose “Accept analytics.” If you reject, the tag is not loaded. After you accept, the site sends consent-gated manual page views for supported routes. Those events use fixed, allowlisted paths and titles and do not include search text, tool inputs, filenames, or query-string values supplied by a visitor.
               </p>
               <p className="mt-3">
                 The GA4 web stream has Enhanced Measurement turned off. The editable automatic-event controls for browser-history page views, scrolls, outbound clicks, form interactions, video engagement, and file downloads are also off. The locked page-load page-view control remains enabled in Google&apos;s settings, while this website configures <code>send_page_view: false</code> and sends its own page views after a supported route renders. Standard GA4 events may still be collected after consent, such as <code>session_start</code> and <code>first_visit</code>. No claim is made here that production has been independently checked for duplicate page views, scroll events, or every event parameter.
@@ -90,7 +90,7 @@ export default function PrivacyPolicyPage() {
                 The website is hosted and delivered through Cloudflare Pages and Cloudflare&apos;s delivery infrastructure. Cloudflare may process connection and request information to provide its services. See <ExternalLink href="https://www.cloudflare.com/privacypolicy/">Cloudflare&apos;s Privacy Policy</ExternalLink>. The particular logs, processing locations, retention periods, and contractual terms applicable to this site have not been independently confirmed.
               </p>
               <p className="mt-3">
-                Google provides the GA4 measurement service described above. The Google Analytics account records acceptance of Google data-processing terms on October 12, 2026; the operator&apos;s jurisdiction and the applicability of particular transfer terms have not been confirmed. When you contact the operator by email, additional email service providers may process the message in transit and at delivery.
+                Google provides the GA4 measurement service described above. The Google Analytics account records acceptance of Google data-processing terms on October 12, 2026. The operator is based in India, but the legal applicability of particular transfer terms has not been confirmed. When you contact the operator by email, additional email service providers may process the message in transit and at delivery.
               </p>
             </section>
 
@@ -116,12 +116,18 @@ export default function PrivacyPolicyPage() {
               <p className="mt-3">
                 Cloudflare&apos;s delivery network and Google&apos;s services may involve processing in more than one country. The exact processing locations and transfer mechanism that apply to this site and its visitors have not been established. Google publishes information about its <ExternalLink href="https://policies.google.com/privacy/frameworks">international data-transfer frameworks</ExternalLink>; Cloudflare describes its practices in its <ExternalLink href="https://www.cloudflare.com/privacypolicy/">Privacy Policy</ExternalLink>. The operator must confirm which terms and safeguards apply before publication.
               </p>
+              <p className="mt-3">
+                The operator is based in India. The Digital Personal Data Protection Act, 2023 and the Digital Personal Data Protection Rules, 2025 have phased commencement dates. Under the commencement notifications currently identified, most substantive processing provisions of the Act, including sections 3–17, and Rules 3 and 5–16 are scheduled to commence on May 13, 2027; specified provisions commenced on November 13, 2025, and a limited group is scheduled for November 13, 2026. These dates describe the published schedule as of this policy&apos;s update date; they are not a statement that every duty is currently in force or that this website is legally compliant. The operator must obtain advice on which current and future requirements apply to this service. See the official <ExternalLink href="https://www.meity.gov.in/static/uploads/2025/11/c56ceae6c383460ca69577428d36828b.pdf">Act commencement notification</ExternalLink> and <ExternalLink href="https://www.meity.gov.in/static/uploads/2025/11/53450e6e5dc0bfa85ebd78686cadad39.pdf">Rules notification</ExternalLink>.
+              </p>
+              <p className="mt-3">
+                ToolsForToday is intended for visitors worldwide, but international accessibility alone does not determine whether a particular privacy law applies. For example, EU GDPR and UK GDPR territorial scope may depend on establishment, targeting an offer of services to people in that territory, or monitoring their behaviour there. Whether this website&apos;s audience and Analytics use meet those tests needs legal review. If a regime applies, the operator must confirm the lawful basis, visitor rights and request handling, any representative requirement, cookie or similar-technology rules, and transfer safeguards. See <ExternalLink href="https://eur-lex.europa.eu/eli/reg/2016/679/oj">EU GDPR Article 3</ExternalLink> and the UK ICO&apos;s <ExternalLink href="https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/personal-information-what-is-it/who-does-the-uk-gdpr-apply-to/">territorial-scope guidance</ExternalLink>.
+              </p>
             </section>
 
             <section aria-labelledby="rights-heading">
               <h2 id="rights-heading" className="font-heading text-xl font-semibold text-text">Privacy questions and requests</h2>
               <p className="mt-3">
-                You may email <a className="font-medium text-text underline underline-offset-4" href="mailto:maheshsumb.dev@gmail.com">maheshsumb.dev@gmail.com</a> with a privacy question or request. The rights available to you and the procedures and deadlines that apply depend on the privacy laws relevant to you and the operator. Those laws and any additional required contact or address information have not been determined for this draft. A request to the operator does not automatically delete data already held by Google, Cloudflare, or an email provider.
+                To raise a privacy question or request, email <a className="font-medium text-text underline underline-offset-4" href="mailto:maheshsumb.dev@gmail.com">maheshsumb.dev@gmail.com</a> and identify the request and the ToolsForToday visit or service it concerns. The operator will review it under the privacy laws that apply. The rights, identity checks, response procedures, deadlines, and any escalation route depend on those laws and have not been legally determined for this draft; no statutory deadline is promised here. You can withdraw Analytics consent at any time using “Analytics settings” in the footer. Withdrawal stops future site-initiated Analytics collection under the implemented controls, but does not retrieve or erase information already received by Google. A request to the operator also does not automatically delete data held by Google, Cloudflare, or an email provider.
               </p>
             </section>
 
@@ -131,7 +137,7 @@ export default function PrivacyPolicyPage() {
                 This draft was updated October 13, 2026 and may be revised as the website and its services change. It is not legal advice or a claim of legal compliance.
               </p>
               <p className="mt-3">
-                Before publication, the operator must confirm the country and region of establishment, whether the site is operated personally or through a legal entity, applicable visitor rights and request procedures, required operator contact details, applicable Google and Cloudflare transfer terms, and retention for Cloudflare logs and email correspondence. The operator should also resolve the GA4 consent-signals warning and review the enabled account-level data-sharing settings.
+                Before publication, the operator or qualified counsel must confirm which privacy laws apply, the rights and request/grievance procedures and any additional legally required contact details, the applicable Google and Cloudflare transfer terms and safeguards, and retention for Cloudflare logs and email correspondence. Review is also needed for the enabled Google products-and-services data-sharing, modeling, technical-support, and recommendations settings, and for the GA4 consent-signals warning. The operator details above are owner-confirmed; no postal address, registered company, or legal representative is stated.
               </p>
             </section>
           </div>
