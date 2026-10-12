@@ -4,7 +4,8 @@
 
 - Git repository root: this directory (`toolsfortoday`); the parent `ToolsForToday` folder is not part of the Git repository.
 - Production branch: `main`.
-- GitHub remote: not configured yet. No GitHub repository URL or pushed commit exists yet.
+- GitHub repository: [Maheshsumb/ToolsForToday](https://github.com/Maheshsumb/ToolsForToday) (SSH remote: `git@github.com:Maheshsumb/ToolsForToday.git`).
+- Pushed branch and commit: `main` at `c068115ce07baf44368a97efa5e1f9ecf5196bbf`.
 - Cloudflare Pages project: not created or connected yet.
 - `pages.dev` URL: not assigned yet.
 - Custom domain: `toolsfortoday.online` is intentionally not configured. Do not change DNS or nameservers as part of the first deployment.
@@ -49,8 +50,7 @@ After Cloudflare Pages is connected to that repository, new commits pushed to `m
 
 ## Outstanding items
 
-- Create the private GitHub repository and verify its owner/name before confirming the first push.
-- Configure the Cloudflare Pages project using the settings above, then record its actual project URL and successful deployment commit here.
+- Sign in to Cloudflare manually, connect the GitHub repository, and configure the Pages project using the settings above; then record its actual project URL and successful deployment commit here.
 - Verify the assigned `pages.dev` deployment in a browser before reporting the launch complete.
 - Recheck the development-tool dependency audit finding documented in `docs/ARCHITECTURE.md` when upstream releases are available.
 - Connect the custom domain only after a separate user approval; this task must stop after the first successful `pages.dev` deployment.
