@@ -9,7 +9,9 @@ The launch scope is 12 free browser-based tools with no mandatory accounts, subs
 5. Four PDF tools — browser-side processing.
 6. SEO and essential pages.
 7. QA, accessibility, security and performance.
-8. Cloudflare Pages deployment and custom domain — explicit deployment and DNS authorization required.
+8. Cloudflare Pages deployment and custom domain — Stage 02D-1 prepares and validates the first Pages deployment; custom-domain DNS remains a separate step requiring explicit approval.
 9. Post-launch analytics and monetization readiness — eventual advertising; no ad scripts now.
 
 No work beyond the explicitly assigned stage is included; each future stage needs its own assigned scope.
+
+Stage 02D-1 deployment preparation is in progress. The first Pages deployment must stop at its assigned `pages.dev` URL; do not connect `toolsfortoday.online` or change nameservers without the user's later approval.

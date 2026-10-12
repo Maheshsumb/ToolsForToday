@@ -2,7 +2,7 @@
 
 Everyday Tools. One Simple Place.
 
-Stage 01 foundation for a global website offering 12 free browser-based everyday tools at launch. The current application is only a setup-confirmation page; tools and the final homepage are not implemented.
+ToolsForToday is preparing a collection of 12 free, browser-based everyday tools. The homepage and reusable tool-page UI are in place, but all 12 tools still display Coming Soon and none is operational yet.
 
 ## Requirements
 
@@ -12,10 +12,9 @@ Stage 01 foundation for a global website offering 12 free browser-based everyday
 
 ## Local setup
 
-From PowerShell:
+From the repository root:
 
 ```powershell
-cd C:\Users\mahes\OneDrive\Desktop\ToolsForToday\toolsfortoday
 npm ci
 npm run dev
 ```
@@ -34,15 +33,16 @@ Lint uses the ESLint CLI. Typecheck generates Next.js route types before checkin
 
 There is no next start command because this application is exported as static files. Production requires only a static file host, not a Next.js server.
 
-## Hosting target
+## Hosting and deployment
 
-Cloudflare Pages Free, with npm run build as the eventual build command and out as the output directory relative to this repository root. The intended domain is https://toolsfortoday.online. No remote repository, deployment, Cloudflare connection, or DNS changes are part of Stage 01.
+The application uses Next.js static export. The intended host is Cloudflare Pages Free and the intended site domain is https://toolsfortoday.online. Deployment preparation and current connection status are documented in [Deployment](docs/DEPLOYMENT.md). The temporary `noindex,follow` directive remains enabled while the tools are incomplete.
 
 ## Project guides
 
 - [Architecture](docs/ARCHITECTURE.md): static constraints and browser processing strategy.
 - [Brand](docs/BRAND.md): colours, typography, and approved-logo policy.
 - [Project plan](docs/PROJECT_PLAN.md): all nine milestones.
+- [Deployment](docs/DEPLOYMENT.md): GitHub and Cloudflare Pages configuration and launch workflow.
 - [Agent instructions](AGENTS.md): permanent task boundaries and validation requirements.
 
 Fonts are bundled with the app using Fontsource, without runtime font-service requests. Approved logos should be supplied in public/brand/. Existing parent-folder brand images are preserved. No accounts, database, paid APIs, analytics, or advertising scripts have been added.

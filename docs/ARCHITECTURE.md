@@ -2,7 +2,7 @@
 
 ## Static application
 
-Next.js App Router exports HTML, CSS, JavaScript, and local assets to `out/`. Cloudflare Pages Free is the intended host. Static export avoids server operations and supports free access without accounts, a database, or paid APIs. No deployment is configured in Stage 01.
+Next.js App Router exports HTML, CSS, JavaScript, and local assets to `out/`. Cloudflare Pages Free is the intended host. Static export avoids server operations and supports free access without accounts, a database, or paid APIs. Deployment preparation and current connection status are tracked in `docs/DEPLOYMENT.md`.
 
 The root layout renders a shared `SiteHeader` and `SiteFooter`, a skip link, and each route’s main content. Reusable UI components live in `src/components/ui/`; page-shell parts live in `src/components/layout/`. The brand tokens and responsive global conventions live in `src/app/globals.css`.
 
@@ -31,6 +31,8 @@ Files will be selected explicitly by the user and processed locally using browse
 The Inter and Poppins font files are bundled from Fontsource and served from the same static host; font-display: swap and system fallbacks keep text readable. Current subsets are Latin; expand subsets when adding other languages.
 
 ## Homepage and tool catalogue
+
+The root metadata currently sets `robots: { index: false, follow: true }` through the Next.js Metadata API while the site contains no functional tools. Remove this temporary directive from `src/app/layout.tsx` once the first functional tool and its useful page content are ready. Do not block crawling in `robots.txt`, because crawlers need to read the noindex directive.
 
 The home route (`src/app/page.tsx`) is a Server Component with page-specific title and description metadata. It composes the hero, catalogue, benefits, and closing sections from `src/components/home/`. The shared header, footer, skip link, and locally bundled fonts remain in the root layout. The existing `suppressHydrationWarning` on `<html>` is retained to tolerate attributes injected by browser extensions before hydration; do not add client-only values or branches to the root markup.
 

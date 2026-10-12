@@ -11,6 +11,10 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://toolsfortoday.online"),
   title: "ToolsForToday | Everyday Tools. One Simple Place.",
   description: "ToolsForToday is under development: a future home for free, browser-based everyday tools.",
+  robots: {
+    index: false,
+    follow: true,
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
