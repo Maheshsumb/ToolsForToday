@@ -1,5 +1,6 @@
 export const ANALYTICS_PAGES = {
   home: { path: "/", title: "ToolsForToday | Home" },
+  wordCharacterCounter: { path: "/tools/word-character-counter", title: "Word & Character Counter | ToolsForToday" },
   privacyPolicy: { path: "/privacy-policy", title: "ToolsForToday | Privacy Policy" },
   notFound: { path: "/404", title: "ToolsForToday | Page not found" },
 } as const;

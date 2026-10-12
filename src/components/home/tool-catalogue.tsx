@@ -39,7 +39,7 @@ export function ToolCatalogue() {
           <SectionHeading
             id="tools-heading"
             title="Find the tool you need"
-            description="The first 12 tools are being prepared. Search the planned collection or browse by category."
+            description="Try the first live tool and browse the planned collection. Search all 12 tools or browse by category."
           />
           <div className="w-full lg:max-w-sm">
             <label htmlFor="tool-search" className="mb-2 block text-sm font-semibold text-text">Search tools</label>

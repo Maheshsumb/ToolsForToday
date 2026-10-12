@@ -24,7 +24,7 @@ export default function Home() {
             <div className="max-w-2xl">
               <p className="text-sm font-semibold text-[#F4B99F]">ToolsForToday</p>
               <h2 id="closing-heading" className="mt-2 font-heading text-2xl leading-tight font-semibold sm:text-3xl">Everyday Tools. One Simple Place.</h2>
-              <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">We are getting the first tools ready. Browse the planned collection and see what is on the way.</p>
+              <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">Try the Word & Character Counter, then browse the rest of the planned collection.</p>
             </div>
             <a href="#tools" className="mt-7 inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-semibold text-deep-navy transition-colors hover:bg-[#F3F6FA] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white lg:mt-0">
               Explore the catalogue

@@ -34,6 +34,15 @@ test("Home to Privacy Policy to Home produces exactly three page views", () => {
   assert.equal(lastPath, "/");
 });
 
+test("Word & Character Counter uses its fixed path and title for Analytics", () => {
+  const view = preparePageView("wordCharacterCounter", origin, "/");
+
+  assert.equal(view?.payload.page_title, "Word & Character Counter | ToolsForToday");
+  assert.equal(view?.payload.page_location, `${origin}/tools/word-character-counter`);
+  assert.equal(view?.payload.page_path, "/tools/word-character-counter");
+  assert.equal(view?.payload.page_referrer, `${origin}/`);
+});
+
 test("browser back and forward navigation each emit one page view", () => {
   let lastPath = null;
   let count = 0;

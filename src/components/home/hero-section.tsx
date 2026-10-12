@@ -17,7 +17,7 @@ export function HeroSection() {
         <div className="max-w-2xl">
           <p className="inline-flex min-h-8 items-center gap-2 rounded-full border border-[#E7C2B1] bg-[#FFF8F4] px-3 text-xs font-semibold tracking-wide text-[#77321D]">
             <span aria-hidden="true" className="h-2 w-2 rounded-full bg-portland-orange" />
-            A useful collection is on its way
+            A growing collection of everyday tools
           </p>
           <h1 id="home-title" className="mt-6 max-w-2xl font-heading text-4xl leading-[1.12] font-semibold tracking-tight text-text sm:text-5xl lg:text-[3.5rem]">
             Free online tools for everyday tasks
@@ -30,7 +30,7 @@ export function HeroSection() {
               Explore Tools
               <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" className="h-4 w-4"><path d="M4 10h12m-5-5 5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
             </Link>
-            <p className="text-sm text-muted">12 tools planned, all coming soon</p>
+            <p className="text-sm text-muted">1 tool available · 11 coming soon</p>
           </div>
           <p className="mt-8 border-l-2 border-brand-accent pl-3 text-sm font-medium text-text">Everyday Tools. One Simple Place.</p>
         </div>

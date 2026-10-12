@@ -32,7 +32,7 @@ The Inter and Poppins font files are bundled from Fontsource and served from the
 
 ## Homepage and tool catalogue
 
-The root metadata currently sets `robots: { index: false, follow: true }` through the Next.js Metadata API while the site contains no functional tools. Remove this temporary directive from `src/app/layout.tsx` once the first functional tool and its useful page content are ready. Do not block crawling in `robots.txt`, because crawlers need to read the noindex directive.
+The root metadata sets `robots: { index: false, follow: true }` through the Next.js Metadata API. Keep this temporary noindex directive until the owner separately approves indexing; do not block crawling in `robots.txt`, because crawlers need to read the noindex directive.
 
 The home route (`src/app/page.tsx`) is a Server Component with page-specific title and description metadata. It composes the hero, catalogue, benefits, and closing sections from `src/components/home/`. The shared header, footer, skip link, and locally bundled fonts remain in the root layout. The existing `suppressHydrationWarning` on `<html>` is retained to tolerate attributes injected by browser extensions before hydration; do not add client-only values or branches to the root markup.
 
@@ -42,7 +42,7 @@ The home route (`src/app/page.tsx`) is a Server Component with page-specific tit
 
 Homepage design uses the approved logo in the shared shell, Poppins headings, Inter interface text, and the existing semantic palette. Category icon tints use accessible dark foregrounds on pale surfaces. The hero preview is a lightweight decorative CSS/inline-SVG composition, not an interactive tool or a status dashboard.
 
-Known limitation: all 12 catalogue entries remain `coming-soon`; no tool route or file-processing engine is included in this stage. The catalogue's search covers full query substrings, so a multi-word phrase matches when that phrase appears continuously in a title, description, slug, or keyword.
+The Word & Character Counter is the first available catalogue entry at `/tools/word-character-counter/`. The other 11 entries remain `coming-soon`. The catalogue's search covers full query substrings, so a multi-word phrase matches when that phrase appears continuously in a title, description, slug, or keyword.
 
 ## Reusable tool-page UI
 
@@ -53,7 +53,7 @@ Use `ToolWorkspace` for a focused input/result group. `ToolInput`, `ToolTextarea
 Workspace patterns are composed from the same controls:
 
 - File tools use `FileDropzone` and `FileSummary`. The dropzone supports a configured MIME/extension list, per-file size, and single or multiple selection. Drag-and-drop is optional; the labelled file input remains available. Client-side type/size checks give users immediate feedback, but are not a security boundary: an engine must revalidate files before processing. Selection stays in the browser; this component does not upload or process files, create previews, or retain file contents. It stores display metadata and can send selected `File` references through its optional `onSelectionChange` callback. Because callbacks are not serializable across the Server/Client Component boundary, connect that callback from a Client Component controller.
-- Text tools use `ToolTextarea`, `CharacterCount`, `ToolResultPanel`, and `CopyAction`. The count is presentational; a future counter supplies its measured value. `CopyAction` writes only the provided, non-empty result when the visitor presses its button and reports clipboard success or failure.
+- The Word & Character Counter uses `ToolTextarea`, `ToolWorkspace`, `ToolHelpSection`, and `ToolPrivacyNote`. Its pure `src/lib/text-counts.ts` utility calculates words, grapheme-cluster characters, non-whitespace characters, sentences, paragraphs, and estimated reading time in the browser. Text remains in the component's in-memory state; it is not uploaded, logged, sent to Analytics, or saved to browser storage. Its copy action only writes text to the clipboard after an explicit button press. Other text tools can reuse `CharacterCount`, `ToolResultPanel`, and `CopyAction` when appropriate.
 - Calculator tools use numeric/date `ToolInput` fields, `ToolSelect` for units, validation text, and `ToolResultPanel`. The UI does not calculate values. Add calculation logic as separate pure TypeScript functions where practical, then connect it to client-side form state.
 
 `ToolStatus` accepts one of `idle`, `ready`, `processing`, `success`, or `error` and a user-facing message. It announces ordinary updates politely and errors assertively. Processing is indeterminate unless a caller provides a measured progress value and label; never supply guessed progress or expose internal exceptions. Keep state updates in the tool's Client Component, while the shell, instructions, privacy statement, and stable content remain server-rendered.

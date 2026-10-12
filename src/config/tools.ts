@@ -115,7 +115,8 @@ export const tools = [
     description: "Count words, characters, and other useful text details.",
     searchKeywords: ["word count", "character count", "text counter", "letter count", "writing"],
     icon: "text-counter",
-    availability: "coming-soon",
+    availability: "available",
+    href: "/tools/word-character-counter",
   },
   {
     id: "percentage-calculator",
