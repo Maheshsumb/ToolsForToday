@@ -43,6 +43,15 @@ test("Word & Character Counter uses its fixed path and title for Analytics", () 
   assert.equal(view?.payload.page_referrer, `${origin}/`);
 });
 
+test("Percentage Calculator uses its fixed path and title for Analytics", () => {
+  const view = preparePageView("percentageCalculator", origin, "/");
+
+  assert.equal(view?.payload.page_title, "Percentage Calculator | ToolsForToday");
+  assert.equal(view?.payload.page_location, `${origin}/tools/percentage-calculator`);
+  assert.equal(view?.payload.page_path, "/tools/percentage-calculator");
+  assert.equal(view?.payload.page_referrer, `${origin}/`);
+});
+
 test("browser back and forward navigation each emit one page view", () => {
   let lastPath = null;
   let count = 0;

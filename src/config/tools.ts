@@ -123,10 +123,11 @@ export const tools = [
     slug: "percentage-calculator",
     title: "Percentage Calculator",
     category: "utility",
-    description: "Work out percentages, changes, increases, and discounts.",
+    description: "Calculate percentages, find percentage changes, and increase or decrease numbers instantly with our free online percentage calculator.",
     searchKeywords: ["percent", "percentage change", "discount calculator", "increase", "decrease"],
     icon: "percentage",
-    availability: "coming-soon",
+    availability: "available",
+    href: "/tools/percentage-calculator",
   },
   {
     id: "unit-converter",

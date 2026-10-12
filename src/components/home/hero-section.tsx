@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { ToolIcon } from "@/components/tools/tool-icon";
+import { tools } from "@/config/tools";
 
 const highlights = [
   { icon: "image-compressor", label: "Images", note: "Resize & convert", tone: "bg-[#FFF1EB] text-[#B84222]" },
@@ -8,6 +9,9 @@ const highlights = [
   { icon: "percentage", label: "Calculations", note: "Everyday answers", tone: "bg-[#E9F7F3] text-[#176B58]" },
   { icon: "date-calculator", label: "More tools", note: "Useful, simple tasks", tone: "bg-[#FFF6E8] text-[#805013]" },
 ] as const;
+
+const availableToolCount = tools.filter((tool) => tool.availability === "available").length;
+const comingSoonToolCount = tools.length - availableToolCount;
 
 export function HeroSection() {
   return (
@@ -30,7 +34,7 @@ export function HeroSection() {
               Explore Tools
               <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" className="h-4 w-4"><path d="M4 10h12m-5-5 5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
             </Link>
-            <p className="text-sm text-muted">1 tool available · 11 coming soon</p>
+            <p className="text-sm text-muted">{availableToolCount} tools available · {comingSoonToolCount} coming soon</p>
           </div>
           <p className="mt-8 border-l-2 border-brand-accent pl-3 text-sm font-medium text-text">Everyday Tools. One Simple Place.</p>
         </div>
