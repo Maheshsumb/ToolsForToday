@@ -30,6 +30,18 @@ Files will be selected explicitly by the user and processed locally using browse
 
 The Inter and Poppins font files are bundled from Fontsource and served from the same static host; font-display: swap and system fallbacks keep text readable. Current subsets are Latin; expand subsets when adding other languages.
 
+## Homepage and tool catalogue
+
+The home route (`src/app/page.tsx`) is a Server Component with page-specific title and description metadata. It composes the hero, catalogue, benefits, and closing sections from `src/components/home/`. The shared header, footer, skip link, and locally bundled fonts remain in the root layout. The existing `suppressHydrationWarning` on `<html>` is retained to tolerate attributes injected by browser extensions before hydration; do not add client-only values or branches to the root markup.
+
+`src/config/tools.ts` is the single typed source for the 12 planned tools. Each entry has a stable ID and slug, title, category, description, search keywords, icon identifier, and availability. Keep unbuilt tools' copy descriptive and clearly paired with their `Coming soon` status; do not claim the tools already work. To publish a tool in a later stage, implement its real static route first, then set its entry to `availability: "available"` and add the matching local `href`. The reusable `ToolCard` only renders a link for entries that are both available and have a route. Do not add placeholder routes or open buttons.
+
+`ToolCatalogue` is the only homepage client island. It filters the imported catalogue in memory by title, description, slug, and keywords, and applies category and search criteria together. Its initial state renders all tool cards in the statically generated page. Keep search data in the shared configuration; do not duplicate it in UI components or connect an external service. The benefit and hero copy describe the intended product and explicitly say tools are being prepared; browser-based processing is a plan for supported future tools, not a claim that current tools process files.
+
+Homepage design uses the approved logo in the shared shell, Poppins headings, Inter interface text, and the existing semantic palette. Category icon tints use accessible dark foregrounds on pale surfaces. The hero preview is a lightweight decorative CSS/inline-SVG composition, not an interactive tool or a status dashboard.
+
+Known limitation: all 12 catalogue entries remain `coming-soon`; no tool route or file-processing engine is included in this stage. The catalogue's search covers full query substrings, so a multi-word phrase matches when that phrase appears continuously in a title, description, slug, or keyword.
+
 ## Outstanding dependency security findings
 
 At Stage 02A verification (2026-10-12), `npm audit` reports five high-severity paths caused by one development dependency chain:

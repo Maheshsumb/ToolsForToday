@@ -1,9 +1,9 @@
 # Project plan
 
-Stage 01 establishes the foundation only. No tools are available yet. Launch scope is 12 free browser-based tools with no mandatory accounts, subscriptions, database, or paid APIs.
+The launch scope is 12 free browser-based tools with no mandatory accounts, subscriptions, database, or paid APIs. Stages 01 and 02A establish the foundation and shared brand shell. Stage 02B builds the professional homepage and planned-tool catalogue; the catalogue entries are still marked coming soon.
 
-1. Initial setup — current stage: framework, static export, tokens, confirmation page, documentation, and validation.
-2. Design system and homepage — requires explicit approval before starting.
+1. Initial setup — completed: framework, static export, tokens, confirmation page, documentation, and validation.
+2. Design system and homepage — Stage 02A brand shell and Stage 02B homepage completed; no tool engines included.
 3. Five utility tools — exact tool scope to be agreed.
 4. Three image tools — browser-side processing.
 5. Four PDF tools — browser-side processing.
