@@ -25,7 +25,7 @@ export default function PrivacyPolicyPage() {
         <Container className="max-w-3xl">
           <p className="text-sm font-semibold uppercase tracking-[0.12em] text-muted">Privacy</p>
           <h1 className="mt-3 font-heading text-3xl font-semibold tracking-tight text-text sm:text-4xl">Privacy Policy</h1>
-          <p className="mt-4 text-sm text-muted">Draft for owner and legal review · Last updated October 13, 2026</p>
+          <p className="mt-4 text-sm text-muted">Last updated October 13, 2026</p>
 
           <div className="mt-8 space-y-8 text-base leading-relaxed text-muted">
             <section aria-labelledby="operator-heading">
@@ -38,59 +38,59 @@ export default function PrivacyPolicyPage() {
             <section aria-labelledby="information-heading">
               <h2 id="information-heading" className="font-heading text-xl font-semibold text-text">Information processed</h2>
               <p className="mt-3">
-                When your browser requests a page, the services that deliver and protect the website may process ordinary connection and request information, such as an IP address, requested URL, browser or device details, and request headers. The precise server and security logs retained for this website, and their retention periods, have not been confirmed.
+                When you visit the website, the services that deliver and protect it may process connection and request details such as your IP address, requested page, browser or device information, and request headers. We do not control all records held by these providers. Their specific log-retention periods for this website have not been confirmed.
               </p>
               <p className="mt-3">
-                The analytics choice is stored in this browser&apos;s local storage as “accepted” or “rejected.” If you email the privacy contact, your email address, message, any attachments, and delivery information are processed by the email services involved. How long correspondence is retained has not been established for this draft.
+                Your Analytics choice is saved in this browser when browser storage is available. If you email the privacy contact, the email address, message, attachments, and delivery information may be processed by the email services involved. The retention period for correspondence has not been confirmed.
               </p>
             </section>
 
             <section aria-labelledby="tools-heading">
               <h2 id="tools-heading" className="font-heading text-xl font-semibold text-text">Browser-based tools</h2>
               <p className="mt-3">
-                The Word &amp; Character Counter and Percentage Calculator perform their calculations in your browser. Their implementation does not send the text or calculation inputs to a ToolsForToday application server, and it does not pass those values to the website&apos;s Google Analytics events. The site&apos;s manual Analytics page views use fixed, allowlisted page paths, titles, and referrer paths rather than tool inputs or search text. This implementation review is not a capture of every network request made by third-party scripts.
+                The Word &amp; Character Counter and Percentage Calculator process your text and calculation inputs in your browser. The tools do not send those inputs to a ToolsForToday application server or include them in the site&apos;s manual Google Analytics page views.
               </p>
             </section>
 
             <section aria-labelledby="analytics-heading">
               <h2 id="analytics-heading" className="font-heading text-xl font-semibold text-text">Google Analytics 4</h2>
               <p className="mt-3">
-                ToolsForToday uses Google Analytics 4 (GA4), measurement ID G-8HTP8B0KY5, to understand visits to the website. The Google Analytics tag is not loaded until you choose “Accept analytics.” If you reject, the tag is not loaded. After you accept, the site sends consent-gated manual page views for supported routes. Those events use fixed, allowlisted paths and titles and do not include search text, tool inputs, filenames, or query-string values supplied by a visitor.
+                ToolsForToday uses Google Analytics 4 (GA4) to understand visits. The GA4 tag loads only after you accept Analytics. If you reject, the tag is not loaded. After acceptance, the site sends page-view events for supported pages using fixed page paths and titles. These manual page views do not include your search text, tool inputs, filenames, or URL query values.
               </p>
               <p className="mt-3">
-                The GA4 web stream has Enhanced Measurement turned off. The editable automatic-event controls for browser-history page views, scrolls, outbound clicks, form interactions, video engagement, and file downloads are also off. The locked page-load page-view control remains enabled in Google&apos;s settings, while this website configures <code>send_page_view: false</code> and sends its own page views after a supported route renders. Standard GA4 events may still be collected after consent, such as <code>session_start</code> and <code>first_visit</code>. No claim is made here that production has been independently checked for duplicate page views, scroll events, or every event parameter.
+                Enhanced Measurement is turned off. The separate automatic-event controls for browser-history page views, scrolls, outbound clicks, form interactions, video engagement, and file downloads are also turned off. The site sends its own page views after a supported page loads. Google may still collect standard events after consent, such as session starts and first visits.
               </p>
               <p className="mt-3">
-                The site sets Google consent signals for <code>ad_storage</code>, <code>ad_user_data</code>, and <code>ad_personalization</code> to denied, including after Analytics is accepted. These site-side signals are separate from the account-level data-sharing settings below. GA4 may process page and event details, browser and device information, technical identifiers, and approximate location information. Analytics cookies or similar technologies may be used after consent. This policy does not claim that Analytics collects no personal data or uses no cookies.
+                Advertising-related consent signals remain denied even when Analytics is accepted. Google signals and collection of user-provided data are turned off. After consent, GA4 may process visited-page and event details, browser and device information, technical identifiers, and approximate location information. Google Analytics may use cookies or similar technologies. Analytics data should not be assumed to be anonymous or free of personal information.
               </p>
               <p className="mt-3">
-                The GA4 property currently allows granular city-level location and device-detail collection in all 307 regions shown in its settings. Google signals are not activated, and the user-provided data collection control is not enabled. The account-level setting to share Analytics data with Google for products and services is enabled, as are the settings for modeling contributions and business insights, technical support, and business recommendations. Google describes these settings and their effects in its <ExternalLink href="https://support.google.com/analytics/answer/1011397">data-sharing information</ExternalLink>. This configuration means data use and access may extend beyond providing the Analytics service; the exact application of these account settings to visitor data requires owner and legal review.
+                The GA4 property allows city-level location and detailed device information in all 307 regions listed in its settings. This is a property setting and does not mean every visit is necessarily collected at that level. Four account-level data-sharing options are enabled: Google may use shared Analytics data to improve its products and services; contribute aggregated and de-identified measurement data to modeling and business insights; allow support personnel to access Analytics data when needed for support; and use account usage, configuration, spending, and associated-user information for business recommendations. Read Google&apos;s <ExternalLink href="https://support.google.com/analytics/answer/1011397">data-sharing information</ExternalLink> for details.
               </p>
               <p className="mt-3">
-                Email redaction is active in the web stream, but URL query-parameter redaction is inactive. Although the website&apos;s own page-view parameters use sanitized routes, live payloads for every standard or other GA4 event have not been inspected. Do not place personal or sensitive information in a URL.
+                Google&apos;s email-redaction setting is on, but URL query-parameter redaction is off. The site&apos;s manual page views use fixed paths; other Analytics event details may differ. Avoid putting personal or sensitive information in a URL.
               </p>
               <p className="mt-3">
-                Google&apos;s <ExternalLink href="https://policies.google.com/privacy">Privacy Policy</ExternalLink>, <ExternalLink href="https://support.google.com/analytics/answer/7318509">Analytics privacy information</ExternalLink>, and <ExternalLink href="https://developers.google.com/tag-platform/security/concepts/consent-mode">Consent Mode overview</ExternalLink> explain Google&apos;s data practices and consent controls.
+                See Google&apos;s <ExternalLink href="https://policies.google.com/privacy">Privacy Policy</ExternalLink> and <ExternalLink href="https://support.google.com/analytics/answer/7318509">Analytics privacy information</ExternalLink> for more about Google&apos;s data practices.
               </p>
             </section>
 
             <section aria-labelledby="choices-heading">
               <h2 id="choices-heading" className="font-heading text-xl font-semibold text-text">Your Analytics choices</h2>
               <p className="mt-3">
-                You can accept or reject Analytics using the consent prompt. Your choice is saved in local storage on this browser until you change it or clear the browser&apos;s site data. If local storage is unavailable, the site cannot reliably save your choice. You can reopen the controls with “Analytics settings” in the footer and reject Analytics to withdraw a previous acceptance.
+                You can accept or reject Analytics in the consent prompt. When browser storage is available, your choice is saved in this browser until you change it or clear the site data. Use “Analytics settings” in the footer to change your choice or withdraw consent by selecting “Reject analytics.”
               </p>
               <p className="mt-3">
-                When you withdraw, the site updates its consent state to denied, prevents future site-initiated Analytics events under the implemented controls, clears accessible Google Analytics cookies for this site, and reloads the page if the tag had been requested. This does not retract or delete information Google already received. You may also clear site data in your browser settings.
+                When you withdraw, the site changes its Analytics consent to denied, stops sending its own manual page views, clears Google Analytics cookies it can access, and reloads the page if the GA4 tag had loaded. Withdrawal cannot retrieve or erase information Google already received. You can also clear this site&apos;s data in your browser settings.
               </p>
             </section>
 
             <section aria-labelledby="providers-heading">
               <h2 id="providers-heading" className="font-heading text-xl font-semibold text-text">Hosting and service providers</h2>
               <p className="mt-3">
-                The website is hosted and delivered through Cloudflare Pages and Cloudflare&apos;s delivery infrastructure. Cloudflare may process connection and request information to provide its services. See <ExternalLink href="https://www.cloudflare.com/privacypolicy/">Cloudflare&apos;s Privacy Policy</ExternalLink>. The particular logs, processing locations, retention periods, and contractual terms applicable to this site have not been independently confirmed.
+                Cloudflare Pages hosts and delivers this website. Cloudflare may process connection and request information to provide and protect the service. See <ExternalLink href="https://www.cloudflare.com/privacypolicy/">Cloudflare&apos;s Privacy Policy</ExternalLink>. The specific processing locations and retention periods for this website have not been confirmed.
               </p>
               <p className="mt-3">
-                Google provides the GA4 measurement service described above. The Google Analytics account records acceptance of Google data-processing terms on October 12, 2026. The operator is based in India, but the legal applicability of particular transfer terms has not been confirmed. When you contact the operator by email, additional email service providers may process the message in transit and at delivery.
+                Google provides the GA4 service described above. Email providers may also process messages sent to the privacy contact.
               </p>
             </section>
 
@@ -104,7 +104,7 @@ export default function PrivacyPolicyPage() {
             <section aria-labelledby="retention-heading">
               <h2 id="retention-heading" className="font-heading text-xl font-semibold text-text">Retention</h2>
               <p className="mt-3">
-                The GA4 property is configured for 2 months of event-level data retention and 14 months of user-level data retention. “Reset on new user activity” is on for user-level data. Google says these controls do not affect most standard reports based on aggregated data. The settings do not establish how long every copy or category of information may remain in other Google systems. Cloudflare request-log and email-correspondence retention periods have not been confirmed.
+                GA4 event-level data retention is set to 2 months. User-level data retention is set to 14 months, with the retention period resetting when there is new user activity. This means the period may extend for active users. These settings do not establish how long information may remain in every Google system or aggregated report. Retention periods for Cloudflare request logs and privacy emails have not been confirmed.
               </p>
               <p className="mt-3">
                 See Google&apos;s <ExternalLink href="https://support.google.com/analytics/answer/7667196">Analytics data-retention information</ExternalLink> for an explanation of these controls.
@@ -114,30 +114,27 @@ export default function PrivacyPolicyPage() {
             <section aria-labelledby="international-heading">
               <h2 id="international-heading" className="font-heading text-xl font-semibold text-text">International processing</h2>
               <p className="mt-3">
-                Cloudflare&apos;s delivery network and Google&apos;s services may involve processing in more than one country. The exact processing locations and transfer mechanism that apply to this site and its visitors have not been established. Google publishes information about its <ExternalLink href="https://policies.google.com/privacy/frameworks">international data-transfer frameworks</ExternalLink>; Cloudflare describes its practices in its <ExternalLink href="https://www.cloudflare.com/privacypolicy/">Privacy Policy</ExternalLink>. The operator must confirm which terms and safeguards apply before publication.
+                Cloudflare and Google may process information in countries outside the country where you are located. The specific locations and transfer arrangements used for this website have not been confirmed. See Google&apos;s <ExternalLink href="https://policies.google.com/privacy/frameworks">international data-transfer information</ExternalLink> and <ExternalLink href="https://www.cloudflare.com/privacypolicy/">Cloudflare&apos;s Privacy Policy</ExternalLink>.
               </p>
               <p className="mt-3">
-                The operator is based in India. The Digital Personal Data Protection Act, 2023 and the Digital Personal Data Protection Rules, 2025 have phased commencement dates. Under the commencement notifications currently identified, most substantive processing provisions of the Act, including sections 3–17, and Rules 3 and 5–16 are scheduled to commence on May 13, 2027; specified provisions commenced on November 13, 2025, and a limited group is scheduled for November 13, 2026. These dates describe the published schedule as of this policy&apos;s update date; they are not a statement that every duty is currently in force or that this website is legally compliant. The operator must obtain advice on which current and future requirements apply to this service. See the official <ExternalLink href="https://www.meity.gov.in/static/uploads/2025/11/c56ceae6c383460ca69577428d36828b.pdf">Act commencement notification</ExternalLink> and <ExternalLink href="https://www.meity.gov.in/static/uploads/2025/11/53450e6e5dc0bfa85ebd78686cadad39.pdf">Rules notification</ExternalLink>.
+                India&apos;s Digital Personal Data Protection Act, 2023 and the 2025 Rules have phased start dates. Some provisions took effect on November 13, 2025. Most provisions concerning personal-data processing and related duties are scheduled to take effect on May 13, 2027, with a smaller group scheduled for November 13, 2026. Not all provisions are currently in force. See the official <ExternalLink href="https://www.meity.gov.in/static/uploads/2025/11/c56ceae6c383460ca69577428d36828b.pdf">Act commencement notice</ExternalLink> and <ExternalLink href="https://www.meity.gov.in/static/uploads/2025/11/53450e6e5dc0bfa85ebd78686cadad39.pdf">Rules notice</ExternalLink>.
               </p>
               <p className="mt-3">
-                ToolsForToday is intended for visitors worldwide, but international accessibility alone does not determine whether a particular privacy law applies. For example, EU GDPR and UK GDPR territorial scope may depend on establishment, targeting an offer of services to people in that territory, or monitoring their behaviour there. Whether this website&apos;s audience and Analytics use meet those tests needs legal review. If a regime applies, the operator must confirm the lawful basis, visitor rights and request handling, any representative requirement, cookie or similar-technology rules, and transfer safeguards. See <ExternalLink href="https://eur-lex.europa.eu/eli/reg/2016/679/oj">EU GDPR Article 3</ExternalLink> and the UK ICO&apos;s <ExternalLink href="https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/personal-information-what-is-it/who-does-the-uk-gdpr-apply-to/">territorial-scope guidance</ExternalLink>.
+                This website is intended for visitors worldwide, but international accessibility alone does not automatically mean every country&apos;s privacy law applies. For example, EU GDPR and UK GDPR may apply depending on an organisation&apos;s establishment and whether it targets or monitors people in those regions. If a law applies, the rights available and the rules for using personal information depend on that law. See <ExternalLink href="https://eur-lex.europa.eu/eli/reg/2016/679/oj">EU GDPR Article 3</ExternalLink> and the UK ICO&apos;s <ExternalLink href="https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/personal-information-what-is-it/who-does-the-uk-gdpr-apply-to/">UK GDPR guidance</ExternalLink>.
               </p>
             </section>
 
             <section aria-labelledby="rights-heading">
               <h2 id="rights-heading" className="font-heading text-xl font-semibold text-text">Privacy questions and requests</h2>
               <p className="mt-3">
-                To raise a privacy question or request, email <a className="font-medium text-text underline underline-offset-4" href="mailto:maheshsumb.dev@gmail.com">maheshsumb.dev@gmail.com</a> and identify the request and the ToolsForToday visit or service it concerns. The operator will review it under the privacy laws that apply. The rights, identity checks, response procedures, deadlines, and any escalation route depend on those laws and have not been legally determined for this draft; no statutory deadline is promised here. You can withdraw Analytics consent at any time using “Analytics settings” in the footer. Withdrawal stops future site-initiated Analytics collection under the implemented controls, but does not retrieve or erase information already received by Google. A request to the operator also does not automatically delete data held by Google, Cloudflare, or an email provider.
+                To make a privacy request, email <a className="font-medium text-text underline underline-offset-4" href="mailto:maheshsumb.dev@gmail.com">maheshsumb.dev@gmail.com</a> and describe your request and the ToolsForToday visit or service it concerns. The rights and response process depend on the laws that apply. No response deadline is stated here. A request to the operator does not automatically delete information already held by Google, Cloudflare, or an email provider.
               </p>
             </section>
 
             <section aria-labelledby="updates-heading">
-              <h2 id="updates-heading" className="font-heading text-xl font-semibold text-text">Policy updates and items for review</h2>
+              <h2 id="updates-heading" className="font-heading text-xl font-semibold text-text">Policy updates</h2>
               <p className="mt-3">
-                This draft was updated October 13, 2026 and may be revised as the website and its services change. It is not legal advice or a claim of legal compliance.
-              </p>
-              <p className="mt-3">
-                Before publication, the operator or qualified counsel must confirm which privacy laws apply, the rights and request/grievance procedures and any additional legally required contact details, the applicable Google and Cloudflare transfer terms and safeguards, and retention for Cloudflare logs and email correspondence. Review is also needed for the enabled Google products-and-services data-sharing, modeling, technical-support, and recommendations settings, and for the GA4 consent-signals warning. The operator details above are owner-confirmed; no postal address, registered company, or legal representative is stated.
+                This policy was last updated October 13, 2026. It may be updated when the website or its services change.
               </p>
             </section>
           </div>

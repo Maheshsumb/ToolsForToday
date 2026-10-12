@@ -101,7 +101,24 @@ The dashboard also showed no data received in the prior 48 hours. This audit rec
 
 ## Privacy Policy changes
 
-The policy now identifies Mahesh Sumb as operator and provides a clickable email contact. It describes request/connection information, consent storage, voluntary email correspondence, local processing in the two available tools, the implemented manual Analytics routes and consent controls, standard GA4 events, disabled Enhanced Measurement controls, enabled account-level data sharing, city/device collection, URL-query redaction status, verified retention, hosting/provider roles, the current AdSense verification-only setup, and the unresolved transfer and jurisdiction details.
+The visitor-facing policy identifies Mahesh Sumb as an individual operator based in Maharashtra, India, states that the site is not operated by a registered company, and provides the confirmed privacy email. It explains browser-only tool input processing; connection/request information; Cloudflare and Google; Analytics consent, key collection settings and sharing practices; retention; international processing; AdSense verification-only status; and how to submit a privacy request or withdraw Analytics consent.
+
+The operator's location is confirmed. What remains unresolved is which privacy laws apply to the site and its visitors, and the legal application of transfer terms and safeguards. The public policy no longer includes internal review instructions, test caveats, or a statement that it is a draft. It does not claim legal approval or compliance.
+
+### Internal details and checks retained here
+
+- The exact Enhanced Measurement and six editable automatic-event controls are OFF. The locked page-load view control is ON; application configuration uses `send_page_view: false` and manual fixed-route page views. Source tests cover these paths, but a production network capture has not verified event-by-event behavior.
+- The consent code grants `analytics_storage` after acceptance and keeps `ad_storage`, `ad_user_data`, and `ad_personalization` denied. It loads the tag only after a saved or new accepted choice, saves consent in local storage, clears accessible `_ga` cookies and reloads after rejection/withdrawal when the tag was requested. Production network behavior before consent, after rejection, and after withdrawal remains unverified.
+- Google signals and user-provided data collection are OFF. Email redaction is ON; URL-query redaction is OFF. Manual page-view parameters use fixed paths/titles/referrers and omit query strings and visitor inputs. Other standard GA4 event payloads have not been inspected; the query-redaction setting makes this an outstanding data-minimization check.
+- The property setting allows city-level location and detailed device information in all 307 listed regions. This describes a collection allowance, not proof that each visit is collected at that precision.
+- All four account-level sharing options are ON: Google products/services; modeling and business insights; technical support access; and business recommendations. The account UI recorded acceptance of controller-controller data protection terms and Google Ads Data Processing Terms on October 12, 2026. Google Ads Data Processing Terms are an account record; no Google Ads or AdSense product link was listed. The policy omits the acceptance date and does not name these terms because their visitor-facing relevance has not been confirmed.
+- The GA4 account's Country of Business field showed “Select country.” This account-field status is distinct from the owner-confirmed operator location (Maharashtra, India).
+- The source confirms the tools do not send inputs to a ToolsForToday application server or pass those inputs in manual Analytics events. Source review is not a capture of all browser/provider traffic.
+- The public text says messages to the privacy contact may be processed by email providers and that email retention is unconfirmed. The mailbox's delivery, actual email providers, who handles requests, any identity-check process, response workflow, and retention need owner confirmation. Do not promise a deadline without verifying applicable law and capability.
+- Cloudflare request/security-log retention, provider processing locations, contractual terms, and transfer mechanisms remain unknown. The public policy states those limits without supplying an unsupported period or safeguard.
+- `ads.txt` and the AdSense verification tag remain present; no advertising JavaScript or active ad unit was found in source. The policy does not claim AdSense account verification has succeeded.
+
+The published DPDP commencement summary was checked against the official notifications listed above. It intentionally gives the reader the phased overview rather than the full section-by-section legal inventory; retain the detailed dates and sections in this audit for legal review.
 
 Official references added to the policy:
 
@@ -115,14 +132,15 @@ Official references added to the policy:
 
 ## Owner and legal review still required
 
-The page remains a draft and is **not ready for publication** until the operator or qualified counsel confirms:
+The visitor-facing policy no longer labels itself as a draft or includes internal review instructions. That editorial change is not legal approval or a conclusion that the policy is complete. The operator or qualified counsel should review these open questions:
 
 1. Which current laws apply to this India-based personal website and the applicability/timing of DPDP obligations as provisions commence.
 2. For each relevant visitor jurisdiction, applicable lawful bases, individual rights, request/grievance procedures, representative requirements, and legally required operator/contact disclosures. No postal address has been provided.
 3. Which Google and Cloudflare processing locations, data-transfer terms, and safeguards apply to this website and its visitors.
 4. Cloudflare request/security-log retention and the operator's email-correspondence retention.
-5. Whether the enabled Google products-and-services data-sharing, modeling, technical-support, and recommendations settings are intended and adequately disclosed.
-6. The reason for the GA4 Consent settings warning, and production network evidence for requests before acceptance, after rejection, on acceptance/navigation, and after withdrawal.
-7. The URL-query redaction control remains inactive; inspect production payloads before making any stronger statement about query strings or other parameters.
+5. The reason for the GA4 Consent settings warning, and production network evidence for requests before acceptance, after rejection, on acceptance/navigation, and after withdrawal.
+6. The URL-query redaction control remains inactive; inspect production payloads before making any stronger statement about query strings or other parameters.
+7. Confirm the privacy-contact mailbox is deliverable and who will monitor and handle incoming privacy requests. Confirm actual email service and correspondence retention practices.
+8. Review whether the four enabled Google data-sharing options are intended and whether the current plain-language explanation accurately represents their application to this account.
 
 No GA4, Cloudflare, DNS, redirect, or website consent setting was changed during this audit.
