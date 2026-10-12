@@ -6,6 +6,8 @@ import "@fontsource/poppins/latin-600.css";
 import "./globals.css";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { AnalyticsConsentProvider } from "@/components/analytics/analytics-consent";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://toolsfortoday.online"),
@@ -21,11 +23,25 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" suppressHydrationWarning>
       {/* Browser extensions can inject attributes on <html> before React hydrates. */}
+      <Script id="google-consent-default" strategy="beforeInteractive">
+        {`(function (window) {
+          window.dataLayer = window.dataLayer || [];
+          window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+          window.gtag('consent', 'default', {
+            analytics_storage: 'denied',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied'
+          });
+        })(window);`}
+      </Script>
       <body className="flex min-h-svh flex-col">
         <a className="skip-link" href="#main-content">Skip to main content</a>
-        <SiteHeader />
-        {children}
-        <SiteFooter />
+        <AnalyticsConsentProvider>
+          <SiteHeader />
+          {children}
+          <SiteFooter />
+        </AnalyticsConsentProvider>
       </body>
     </html>
   );

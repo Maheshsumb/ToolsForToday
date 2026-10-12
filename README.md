@@ -45,7 +45,7 @@ The application uses Next.js static export. The intended host is Cloudflare Page
 - [Deployment](docs/DEPLOYMENT.md): GitHub and Cloudflare Pages configuration and launch workflow.
 - [Agent instructions](AGENTS.md): permanent task boundaries and validation requirements.
 
-Fonts are bundled with the app using Fontsource, without runtime font-service requests. Approved logos should be supplied in public/brand/. Existing parent-folder brand images are preserved. No accounts, database, paid APIs, analytics, or advertising scripts have been added.
+Fonts are bundled with the app using Fontsource, without runtime font-service requests. Approved logos should be supplied in public/brand/. Existing parent-folder brand images are preserved. Google Analytics 4 is integrated behind explicit analytics consent; no accounts, database, paid APIs, or advertising scripts have been added.
 
 ## Recorded Stage 01 versions
 
