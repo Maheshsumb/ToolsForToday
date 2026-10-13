@@ -5,6 +5,7 @@ export const ANALYTICS_PAGES = {
   unitConverter: { path: "/tools/unit-converter", title: "Unit Converter | ToolsForToday" },
   dateDifferenceAgeCalculator: { path: "/tools/date-difference-age-calculator", title: "Date Difference & Age Calculator | ToolsForToday" },
   qrCodeGenerator: { path: "/tools/qr-code-generator", title: "QR Code Generator | ToolsForToday" },
+  imageCompressor: { path: "/tools/image-compressor", title: "Image Compressor | ToolsForToday" },
   privacyPolicy: { path: "/privacy-policy", title: "ToolsForToday | Privacy Policy" },
   notFound: { path: "/404", title: "ToolsForToday | Page not found" },
 } as const;

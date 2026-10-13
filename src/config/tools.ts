@@ -32,10 +32,11 @@ export const tools = [
     slug: "image-compressor",
     title: "Image Compressor",
     category: "image",
-    description: "Reduce JPG, PNG, and other supported image file sizes.",
+    description: "Compress JPG, PNG and WebP images directly in your browser. Adjust quality, compare file sizes, and download your optimized image.",
     searchKeywords: ["compress image", "reduce image size", "shrink photo", "optimize image", "jpg", "png"],
     icon: "image-compressor",
-    availability: "coming-soon",
+    availability: "available",
+    href: "/tools/image-compressor",
   },
   {
     id: "image-resizer-cropper",

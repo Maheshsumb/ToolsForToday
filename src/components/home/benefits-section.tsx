@@ -4,7 +4,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 const benefits = [
   {
     title: "Free everyday utilities",
-    description: "The Word & Character Counter, Percentage Calculator, Unit Converter, Date Difference & Age Calculator, and QR Code Generator are free to use without an account or subscription.",
+    description: "The Word & Character Counter, Percentage Calculator, Unit Converter, Date Difference & Age Calculator, QR Code Generator, and Image Compressor are free to use without an account or subscription.",
     icon: <path d="M12 2.8v18.4M17 6.2H9.5a3.2 3.2 0 0 0 0 6.4h5a3.2 3.2 0 0 1 0 6.4H6.8" />,
     tone: "bg-[#FFF1EB] text-[#B84222]",
   },
@@ -22,7 +22,7 @@ const benefits = [
   },
   {
     title: "Browser-based where supported",
-    description: "The five available tools calculate or generate results locally in your browser. Seven more tools are in development.",
+    description: "The six available tools calculate, compress, or generate results locally in your browser. Six more tools are in development.",
     icon: <><circle cx="12" cy="12" r="9" /><path d="M3.5 9h17M3.5 15h17M12 3a15 15 0 0 1 0 18m0-18a15 15 0 0 0 0 18" /></>,
     tone: "bg-[#FFF6E8] text-[#805013]",
   },

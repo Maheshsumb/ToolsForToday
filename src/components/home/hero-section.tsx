@@ -59,9 +59,9 @@ export function HeroSection() {
               ))}
             </div>
             <div className="mt-3 flex items-center gap-3 rounded-xl bg-surface-muted/80 px-4 py-3">
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-white text-[#176B58]"><ToolIcon name="qr-code" className="h-4 w-4" /></span>
+              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-white text-[#176B58]"><ToolIcon name="image-compressor" className="h-4 w-4" /></span>
               <div className="min-w-0 flex-1"><div className="h-2 w-24 max-w-full rounded-full bg-[#C9D3E0]" /><div className="mt-2 h-2 w-36 max-w-full rounded-full bg-[#E0E6ED]" /></div>
-              <span className="rounded-full bg-[#FFF1EB] px-2.5 py-1 text-[10px] font-semibold text-[#8C351C]">Coming soon</span>
+              <span className="rounded-full bg-[#EFF9F5] px-2.5 py-1 text-[10px] font-semibold text-[#14563F]">Available</span>
             </div>
           </div>
           <div className="absolute -bottom-5 -left-3 hidden items-center gap-2 rounded-xl border border-border bg-white px-3 py-2.5 text-xs font-medium text-text shadow-lg sm:flex">

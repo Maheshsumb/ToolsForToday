@@ -81,6 +81,16 @@ test("QR Code Generator uses a fixed sanitized route and title without encoded u
   assert.equal(JSON.stringify(view).includes("example.com"), false);
 });
 
+test("Image Compressor uses a fixed sanitized route and title without file details", () => {
+  const view = preparePageView("imageCompressor", origin, "/tools/qr-code-generator");
+  assert.equal(view?.payload.page_title, "Image Compressor | ToolsForToday");
+  assert.equal(view?.payload.page_location, `${origin}/tools/image-compressor`);
+  assert.equal(view?.payload.page_path, "/tools/image-compressor");
+  assert.equal(view?.payload.page_referrer, `${origin}/tools/qr-code-generator`);
+  assert.equal(JSON.stringify(view).includes("?"), false);
+  assert.equal(JSON.stringify(view).includes("photo-private-name.jpg"), false);
+});
+
 test("browser back and forward navigation each emit one page view", () => {
   let lastPath = null;
   let count = 0;
