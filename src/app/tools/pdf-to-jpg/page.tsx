@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo-metadata";
 import { AnalyticsPageView } from "@/components/analytics/analytics-consent";
 import { PdfToJpgTool } from "@/components/tools/pdf-to-jpg";
 import { ToolHelpSection } from "@/components/tools/tool-help-section";
@@ -6,18 +7,18 @@ import { ToolPageShell } from "@/components/tools/tool-page-shell";
 import { tools } from "@/config/tools";
 
 const tool = tools.find((entry) => entry.id === "pdf-to-jpg") as (typeof tools)[number];
-const description = "Convert PDF pages into high-quality JPG images online for free. Select pages, adjust resolution and image quality, then download your JPG files.";
 
-export const metadata: Metadata = {
-  title: "PDF to JPG Converter | ToolsForToday",
-  description,
-};
+export const metadata: Metadata = createPageMetadata({
+  title: 'PDF to JPG Converter – Extract Pages | ToolsForToday',
+  description: 'Convert selected PDF pages into JPG images in your browser. Choose pages, rasterization scale and image quality.',
+  path: "/tools/pdf-to-jpg/",
+});
 
 export default function PdfToJpgPage() {
   return (
     <>
       <AnalyticsPageView page="pdfToJpg" />
-      <ToolPageShell tool={tool} showRelatedTools={false}>
+      <ToolPageShell tool={tool}>
         <PdfToJpgTool />
 
         <section aria-labelledby="pdf-to-jpg-guide-heading" className="mt-10 space-y-5">

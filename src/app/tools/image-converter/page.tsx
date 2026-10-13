@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo-metadata";
 import { AnalyticsPageView } from "@/components/analytics/analytics-consent";
 import { ImageConverter } from "@/components/tools/image-converter";
 import { ToolHelpSection } from "@/components/tools/tool-help-section";
@@ -7,16 +8,17 @@ import { tools } from "@/config/tools";
 
 const tool = tools.find((entry) => entry.id === "image-format-converter") as (typeof tools)[number];
 
-export const metadata: Metadata = {
-  title: "JPG, PNG & WebP Image Converter | ToolsForToday",
-  description: "Convert JPG, PNG and WebP images online for free. Preview your image, choose the output format, and download the converted file instantly.",
-};
+export const metadata: Metadata = createPageMetadata({
+  title: 'Image Converter: JPG, PNG & WebP | ToolsForToday',
+  description: 'Convert JPG, PNG and WebP images between supported formats, with a preview and measured output size.',
+  path: "/tools/image-converter/",
+});
 
 export default function ImageConverterPage() {
   return (
     <>
       <AnalyticsPageView page="imageConverter" />
-      <ToolPageShell tool={tool} showRelatedTools={false}>
+      <ToolPageShell tool={tool}>
         <ImageConverter />
 
         <section aria-labelledby="image-converter-guide-heading" className="mt-10 space-y-5">

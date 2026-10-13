@@ -24,6 +24,7 @@ export interface ToolDefinition {
   icon: ToolIcon;
   availability: ToolAvailability;
   href?: `/${string}`;
+  relatedToolIds?: readonly string[];
 }
 
 export const tools = [
@@ -37,6 +38,7 @@ export const tools = [
     icon: "image-compressor",
     availability: "available",
     href: "/tools/image-compressor",
+    relatedToolIds: ["image-resizer-cropper", "image-format-converter"],
   },
   {
     id: "image-resizer-cropper",
@@ -48,6 +50,7 @@ export const tools = [
     icon: "image-resizer",
     availability: "available",
     href: "/tools/image-resizer-cropper",
+    relatedToolIds: ["image-compressor", "image-format-converter"],
   },
   {
     id: "image-format-converter",
@@ -59,6 +62,7 @@ export const tools = [
     icon: "image-converter",
     availability: "available",
     href: "/tools/image-converter",
+    relatedToolIds: ["images-to-pdf", "image-compressor"],
   },
   {
     id: "merge-pdf",
@@ -70,6 +74,7 @@ export const tools = [
     icon: "merge-pdf",
     availability: "available",
     href: "/tools/merge-pdf",
+    relatedToolIds: ["split-pdf", "images-to-pdf"],
   },
   {
     id: "split-pdf",
@@ -81,6 +86,7 @@ export const tools = [
     icon: "split-pdf",
     availability: "available",
     href: "/tools/split-pdf",
+    relatedToolIds: ["merge-pdf", "pdf-to-jpg"],
   },
   {
     id: "images-to-pdf",
@@ -92,6 +98,7 @@ export const tools = [
     icon: "images-to-pdf",
     availability: "available",
     href: "/tools/images-to-pdf",
+    relatedToolIds: ["pdf-to-jpg", "merge-pdf"],
   },
   {
     id: "pdf-to-jpg",
@@ -103,6 +110,7 @@ export const tools = [
     icon: "pdf-to-jpg",
     availability: "available",
     href: "/tools/pdf-to-jpg",
+    relatedToolIds: ["images-to-pdf", "split-pdf"],
   },
   {
     id: "qr-code-generator",
@@ -114,6 +122,7 @@ export const tools = [
     icon: "qr-code",
     availability: "available",
     href: "/tools/qr-code-generator",
+    relatedToolIds: ["image-format-converter", "image-resizer-cropper"],
   },
   {
     id: "word-character-counter",
@@ -136,6 +145,7 @@ export const tools = [
     icon: "percentage",
     availability: "available",
     href: "/tools/percentage-calculator",
+    relatedToolIds: ["unit-converter", "date-difference-age-calculator"],
   },
   {
     id: "unit-converter",
@@ -147,6 +157,7 @@ export const tools = [
     icon: "unit-converter",
     availability: "available",
     href: "/tools/unit-converter",
+    relatedToolIds: ["percentage-calculator", "date-difference-age-calculator"],
   },
   {
     id: "date-difference-age-calculator",
@@ -158,6 +169,7 @@ export const tools = [
     icon: "date-calculator",
     availability: "available",
     href: "/tools/date-difference-age-calculator",
+    relatedToolIds: ["percentage-calculator", "unit-converter"],
   },
 ] as const satisfies readonly ToolDefinition[];
 

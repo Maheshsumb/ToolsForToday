@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo-metadata";
 import { AnalyticsPageView } from "@/components/analytics/analytics-consent";
 import { ToolHelpSection } from "@/components/tools/tool-help-section";
 import { ToolPageShell } from "@/components/tools/tool-page-shell";
@@ -7,16 +8,17 @@ import { tools } from "@/config/tools";
 
 const tool = tools.find((entry) => entry.id === "word-character-counter") as (typeof tools)[number];
 
-export const metadata: Metadata = {
-  title: "Word & Character Counter | ToolsForToday",
-  description: "Count words, characters, sentences, and paragraphs instantly with a private, browser-based text counter.",
-};
+export const metadata: Metadata = createPageMetadata({
+  title: 'Word Counter & Character Counter Online | ToolsForToday',
+  description: 'Count words, characters, sentences and paragraphs, and check estimated reading time. Text is processed in your browser.',
+  path: "/tools/word-character-counter/",
+});
 
 export default function WordCharacterCounterPage() {
   return (
     <>
       <AnalyticsPageView page="wordCharacterCounter" />
-      <ToolPageShell tool={tool} showRelatedTools={false}>
+      <ToolPageShell tool={tool}>
         <WordCharacterCounter />
 
         <section aria-labelledby="counter-about-heading" className="mt-10 space-y-4">

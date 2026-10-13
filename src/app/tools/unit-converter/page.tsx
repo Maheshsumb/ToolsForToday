@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo-metadata";
 import { AnalyticsPageView } from "@/components/analytics/analytics-consent";
 import { ToolHelpSection } from "@/components/tools/tool-help-section";
 import { ToolPageShell } from "@/components/tools/tool-page-shell";
@@ -7,16 +8,17 @@ import { tools } from "@/config/tools";
 
 const tool = tools.find((entry) => entry.id === "unit-converter") as (typeof tools)[number];
 
-export const metadata: Metadata = {
-  title: "Unit Converter | ToolsForToday",
-  description: "Convert length, weight, temperature, area, volume, and time units instantly with our free online unit converter.",
-};
+export const metadata: Metadata = createPageMetadata({
+  title: 'Unit Converter – Length, Mass & More | ToolsForToday',
+  description: 'Convert length, mass, temperature, area, volume and time units, including clearly labeled US customary volume measures.',
+  path: "/tools/unit-converter/",
+});
 
 export default function UnitConverterPage() {
   return (
     <>
       <AnalyticsPageView page="unitConverter" />
-      <ToolPageShell tool={tool} showRelatedTools={false}>
+      <ToolPageShell tool={tool}>
         <UnitConverter />
 
         <section aria-labelledby="unit-conversion-guide-heading" className="mt-10 space-y-5">

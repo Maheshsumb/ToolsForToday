@@ -4,7 +4,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 const benefits = [
   {
     title: "Free everyday utilities",
-    description: "The Word & Character Counter, Percentage Calculator, Unit Converter, Date Difference & Age Calculator, QR Code Generator, Image Compressor, Image Resizer & Cropper, and Image Converter are free to use without an account or subscription.",
+    description: "Use 12 browser-based tools across Utilities, Image Tools and PDF Tools without creating an account.",
     icon: <path d="M12 2.8v18.4M17 6.2H9.5a3.2 3.2 0 0 0 0 6.4h5a3.2 3.2 0 0 1 0 6.4H6.8" />,
     tone: "bg-[#FFF1EB] text-[#B84222]",
   },
@@ -22,7 +22,7 @@ const benefits = [
   },
   {
     title: "Browser-based where supported",
-    description: "The eight available tools calculate, convert, compress, resize, crop, or generate results locally in your browser. Four more tools are in development.",
+    description: "All 12 available tools calculate, convert, compress, resize, crop, or generate results in your browser. Files and tool inputs stay on your device for processing.",
     icon: <><circle cx="12" cy="12" r="9" /><path d="M3.5 9h17M3.5 15h17M12 3a15 15 0 0 1 0 18m0-18a15 15 0 0 0 0 18" /></>,
     tone: "bg-[#FFF6E8] text-[#805013]",
   },
@@ -35,7 +35,7 @@ export function BenefitsSection() {
         <SectionHeading
           id="benefits-heading"
           title="Useful tools, without the fuss"
-          description="ToolsForToday is being built around a few simple ideas that make everyday tasks easier."
+          description="ToolsForToday brings 12 practical browser-based tools together for everyday tasks."
         />
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:mt-12 lg:grid-cols-4">
           {benefits.map((benefit) => (

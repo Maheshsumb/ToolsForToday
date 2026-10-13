@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo-metadata";
 import { AnalyticsPageView } from "@/components/analytics/analytics-consent";
 import { ImageCompressor } from "@/components/tools/image-compressor";
 import { ToolHelpSection } from "@/components/tools/tool-help-section";
@@ -7,18 +8,18 @@ import { tools } from "@/config/tools";
 
 const tool = tools.find((entry) => entry.id === "image-compressor") as (typeof tools)[number];
 
-const description = "Compress JPG, PNG and WebP images directly in your browser. Adjust quality, compare file sizes, and download your optimized image.";
 
-export const metadata: Metadata = {
-  title: "Image Compressor | ToolsForToday",
-  description,
-};
+export const metadata: Metadata = createPageMetadata({
+  title: 'Image Compressor for JPG, PNG & WebP | ToolsForToday',
+  description: 'Compress JPG, PNG or WebP images in your browser, compare the actual output size, and download the result.',
+  path: "/tools/image-compressor/",
+});
 
 export default function ImageCompressorPage() {
   return (
     <>
       <AnalyticsPageView page="imageCompressor" />
-      <ToolPageShell tool={tool} showRelatedTools={false}>
+      <ToolPageShell tool={tool}>
         <ImageCompressor />
 
         <section aria-labelledby="image-compression-guide-heading" className="mt-10 space-y-5">

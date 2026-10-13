@@ -12,7 +12,7 @@ import Script from "next/script";
 export const metadata: Metadata = {
   metadataBase: new URL("https://toolsfortoday.online"),
   title: "ToolsForToday | Everyday Tools. One Simple Place.",
-  description: "ToolsForToday is under development: a future home for free, browser-based everyday tools.",
+  description: "Explore free online tools for PDFs, images, calculations, dates, text and QR codes. ToolsForToday brings everyday tasks together in one place.",
   robots: {
     index: false,
     follow: true,

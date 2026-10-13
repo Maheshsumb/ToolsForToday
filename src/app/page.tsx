@@ -4,15 +4,24 @@ import { BenefitsSection } from "@/components/home/benefits-section";
 import { HeroSection } from "@/components/home/hero-section";
 import { ToolCatalogue } from "@/components/home/tool-catalogue";
 import { Container } from "@/components/ui/container";
+import { createPageMetadata } from "@/lib/seo-metadata";
+import { StructuredData } from "@/components/seo/structured-data";
 
-export const metadata: Metadata = {
-  title: "ToolsForToday - Free Online Tools for Everyday Tasks",
-  description: "ToolsForToday is preparing free online tools for images, PDFs, calculations, and everyday tasks.",
-};
+const description = "Use 12 free browser-based tools for PDFs, images, text and everyday calculations. Convert files, work with documents and get clear results in one place.";
+
+export const metadata: Metadata = createPageMetadata({
+  title: "ToolsForToday – Free Online PDF, Image & Utility Tools",
+  description,
+  path: "/",
+});
 
 export default function Home() {
   return (
     <>
+      <StructuredData data={[
+        { "@context": "https://schema.org", "@type": "WebSite", name: "ToolsForToday", url: "https://toolsfortoday.online/", description, inLanguage: "en" },
+        { "@context": "https://schema.org", "@type": "WebPage", name: "ToolsForToday – Free Online PDF, Image & Utility Tools", url: "https://toolsfortoday.online/", description, inLanguage: "en" },
+      ]} />
       <AnalyticsPageView page="home" />
       <main id="main-content" className="flex-1">
       <HeroSection />
@@ -24,7 +33,7 @@ export default function Home() {
             <div className="max-w-2xl">
               <p className="text-sm font-semibold text-[#F4B99F]">ToolsForToday</p>
               <h2 id="closing-heading" className="mt-2 font-heading text-2xl leading-tight font-semibold sm:text-3xl">Everyday Tools. One Simple Place.</h2>
-              <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">Try the Word &amp; Character Counter, Percentage Calculator, Unit Converter, Date Difference &amp; Age Calculator, QR Code Generator, Image Compressor, Image Resizer &amp; Cropper, or Image Converter, then browse the rest of the planned collection.</p>
+              <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">Explore all 12 available tools for text, calculations, dates, QR codes, images, and PDFs, with 5 Utilities, 3 Image Tools, and 4 PDF Tools.</p>
             </div>
             <a href="#tools" className="mt-7 inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-semibold text-deep-navy transition-colors hover:bg-[#F3F6FA] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white lg:mt-0">
               Explore the catalogue

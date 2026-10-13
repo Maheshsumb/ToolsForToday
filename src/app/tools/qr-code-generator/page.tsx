@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo-metadata";
 import { AnalyticsPageView } from "@/components/analytics/analytics-consent";
 import { QrCodeGenerator } from "@/components/tools/qr-code-generator";
 import { ToolHelpSection } from "@/components/tools/tool-help-section";
@@ -7,16 +8,17 @@ import { tools } from "@/config/tools";
 
 const tool = tools.find((entry) => entry.id === "qr-code-generator") as (typeof tools)[number];
 
-export const metadata: Metadata = {
-  title: "QR Code Generator | ToolsForToday",
-  description: "Create QR codes for text and website links instantly. Customize the colors and size, then download your QR code as PNG or SVG.",
-};
+export const metadata: Metadata = createPageMetadata({
+  title: 'QR Code Generator Online – PNG & SVG | ToolsForToday',
+  description: 'Create a QR code from text or a website link, choose colors and size, then download it as PNG or SVG.',
+  path: "/tools/qr-code-generator/",
+});
 
 export default function QrCodeGeneratorPage() {
   return (
     <>
       <AnalyticsPageView page="qrCodeGenerator" />
-      <ToolPageShell tool={tool} showRelatedTools={false}>
+      <ToolPageShell tool={tool}>
         <QrCodeGenerator />
 
         <section aria-labelledby="qr-code-guide-heading" className="mt-10 space-y-5">

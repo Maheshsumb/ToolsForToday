@@ -1,22 +1,23 @@
 import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo-metadata";
 import { AnalyticsPageView } from "@/components/analytics/analytics-consent";
 import { SplitPdfTool } from "@/components/tools/split-pdf";
 import { ToolPageShell } from "@/components/tools/tool-page-shell";
 import { tools } from "@/config/tools";
 
 const tool = tools.find((entry) => entry.id === "split-pdf") as (typeof tools)[number];
-const description = "Split PDF files online for free. Extract selected pages into a new PDF or separate each page into its own document, directly in your browser.";
 
-export const metadata: Metadata = {
-  title: "Split PDF | ToolsForToday",
-  description,
-};
+export const metadata: Metadata = createPageMetadata({
+  title: 'Split PDF & Extract Pages Online | ToolsForToday',
+  description: 'Extract selected pages into a new PDF or split pages into separate PDF files, processed in your browser.',
+  path: "/tools/split-pdf/",
+});
 
 export default function SplitPdfPage() {
   return (
     <>
       <AnalyticsPageView page="splitPdf" />
-      <ToolPageShell tool={tool} showRelatedTools={false}>
+      <ToolPageShell tool={tool}>
         <SplitPdfTool />
 
         <section aria-labelledby="split-pdf-guide-heading" className="mt-10 space-y-5">

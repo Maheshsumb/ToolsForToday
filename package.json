@@ -19,7 +19,8 @@
     "test:images-to-pdf": "node --experimental-strip-types --test src/lib/images-to-pdf.test.mjs",
     "test:pdf-to-jpg": "node --experimental-strip-types --test src/lib/pdf-to-jpg.test.mjs",
     "test:analytics": "node --experimental-strip-types --test src/components/analytics/analytics-page.test.mjs",
-    "test:text-counter": "node --experimental-strip-types --test src/lib/text-counts.test.mjs"
+    "test:text-counter": "node --experimental-strip-types --test src/lib/text-counts.test.mjs",
+    "test:seo": "node --test tests/seo-static.test.mjs"
   },
   "dependencies": {
     "@cantoo/pdf-lib": "^2.11.1",

@@ -11,8 +11,11 @@ interface RelatedToolsProps {
 
 export function RelatedTools({ currentToolId, title = "Related tools", limit = 3 }: RelatedToolsProps) {
   const configuredTools: readonly ToolDefinition[] = tools;
-  const availableTools = configuredTools
-    .filter((tool: ToolDefinition): tool is AvailableTool => tool.id !== currentToolId && tool.availability === "available" && Boolean(tool.href))
+  const currentTool = configuredTools.find((tool) => tool.id === currentToolId);
+  const relatedIds = currentTool?.relatedToolIds ?? [];
+  const availableTools = relatedIds
+    .map((id) => configuredTools.find((tool): tool is AvailableTool => tool.id === id && tool.availability === "available" && Boolean(tool.href)))
+    .filter((tool): tool is AvailableTool => Boolean(tool))
     .slice(0, limit);
 
   if (availableTools.length === 0) return null;

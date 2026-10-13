@@ -5,6 +5,7 @@ import { toolCategories } from "@/config/tools";
 import { ToolIcon } from "@/components/tools/tool-icon";
 import { Container } from "@/components/ui/container";
 import { RelatedTools } from "@/components/tools/related-tools";
+import { StructuredData } from "@/components/seo/structured-data";
 
 interface ToolPageShellProps {
   tool: ToolDefinition;
@@ -19,9 +20,19 @@ const iconTones = {
 } as const;
 
 export function ToolPageShell({ tool, children, showRelatedTools = true }: ToolPageShellProps) {
+  const canonicalUrl = `https://toolsfortoday.online${tool.href}/`;
   return (
-    <main id="main-content" className="flex-1 py-8 sm:py-10 lg:py-12">
-      <Container>
+    <>
+      <StructuredData data={{
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        name: tool.title,
+        url: canonicalUrl,
+        description: tool.description,
+        inLanguage: "en",
+      }} />
+      <main id="main-content" className="flex-1 py-8 sm:py-10 lg:py-12">
+        <Container>
         <nav aria-label="Breadcrumb" className="mb-8">
           <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted">
             <li><Link href="/" className="rounded-sm underline-offset-4 hover:text-text hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring">Home</Link></li>
@@ -45,7 +56,8 @@ export function ToolPageShell({ tool, children, showRelatedTools = true }: ToolP
 
         {children}
         {showRelatedTools ? <RelatedTools currentToolId={tool.id} /> : null}
-      </Container>
-    </main>
+        </Container>
+      </main>
+    </>
   );
 }

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo-metadata";
 import { AnalyticsPageView } from "@/components/analytics/analytics-consent";
 import { ToolHelpSection } from "@/components/tools/tool-help-section";
 import { ToolPageShell } from "@/components/tools/tool-page-shell";
@@ -7,16 +8,17 @@ import { tools } from "@/config/tools";
 
 const tool = tools.find((entry) => entry.id === "percentage-calculator") as (typeof tools)[number];
 
-export const metadata: Metadata = {
-  title: "Percentage Calculator | ToolsForToday",
-  description: "Calculate percentages, find percentage changes, and increase or decrease numbers instantly with our free online percentage calculator.",
-};
+export const metadata: Metadata = createPageMetadata({
+  title: 'Percentage Calculator – Percent & Change | ToolsForToday',
+  description: 'Find a percentage of a number, calculate percentage change, or increase or decrease a value with four calculator modes.',
+  path: "/tools/percentage-calculator/",
+});
 
 export default function PercentageCalculatorPage() {
   return (
     <>
       <AnalyticsPageView page="percentageCalculator" />
-      <ToolPageShell tool={tool} showRelatedTools={false}>
+      <ToolPageShell tool={tool}>
         <PercentageCalculator />
 
         <section aria-labelledby="percentage-guide-heading" className="mt-10 space-y-5">

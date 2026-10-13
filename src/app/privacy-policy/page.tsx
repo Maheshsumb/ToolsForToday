@@ -3,11 +3,13 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { AnalyticsPageView } from "@/components/analytics/analytics-consent";
 import { Container } from "@/components/ui/container";
+import { createPageMetadata } from "@/lib/seo-metadata";
+import { StructuredData } from "@/components/seo/structured-data";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy | ToolsForToday",
-  description: "How ToolsForToday handles website requests, browser-based tools, and consent-based Google Analytics.",
-};
+const title = "Privacy Policy | ToolsForToday";
+const description = "Read how ToolsForToday handles website requests, browser-based tools, consent-based Google Analytics, and privacy requests.";
+
+export const metadata: Metadata = createPageMetadata({ title, description, path: "/privacy-policy/" });
 
 function ExternalLink({ href, children }: Readonly<{ href: string; children: ReactNode }>) {
   return (
@@ -20,6 +22,14 @@ function ExternalLink({ href, children }: Readonly<{ href: string; children: Rea
 export default function PrivacyPolicyPage() {
   return (
     <>
+      <StructuredData data={{
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        name: title,
+        url: "https://toolsfortoday.online/privacy-policy/",
+        description,
+        inLanguage: "en",
+      }} />
       <AnalyticsPageView page="privacyPolicy" />
       <main id="main-content" className="flex-1 py-12 sm:py-16">
         <Container className="max-w-3xl">

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo-metadata";
 import { AnalyticsPageView } from "@/components/analytics/analytics-consent";
 import { ImagesToPdfTool } from "@/components/tools/images-to-pdf";
 import { ToolHelpSection } from "@/components/tools/tool-help-section";
@@ -6,18 +7,18 @@ import { ToolPageShell } from "@/components/tools/tool-page-shell";
 import { tools } from "@/config/tools";
 
 const tool = tools.find((entry) => entry.id === "images-to-pdf") as (typeof tools)[number];
-const description = "Convert JPG, PNG and WebP images into one PDF. Arrange your images, choose page settings, and download your document for free.";
 
-export const metadata: Metadata = {
-  title: "Images to PDF | ToolsForToday",
-  description,
-};
+export const metadata: Metadata = createPageMetadata({
+  title: 'Images to PDF Converter – JPG, PNG & WebP | ToolsForToday',
+  description: 'Arrange JPG, PNG or WebP images, choose PDF page settings, and create a PDF in your browser.',
+  path: "/tools/images-to-pdf/",
+});
 
 export default function ImagesToPdfPage() {
   return (
     <>
       <AnalyticsPageView page="imagesToPdf" />
-      <ToolPageShell tool={tool} showRelatedTools={false}>
+      <ToolPageShell tool={tool}>
         <ImagesToPdfTool />
 
         <section aria-labelledby="images-to-pdf-guide-heading" className="mt-10 space-y-5">

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo-metadata";
 import { AnalyticsPageView } from "@/components/analytics/analytics-consent";
 import { ImageResizerCropper } from "@/components/tools/image-resizer-cropper";
 import { ToolHelpSection } from "@/components/tools/tool-help-section";
@@ -6,17 +7,17 @@ import { ToolPageShell } from "@/components/tools/tool-page-shell";
 import { tools } from "@/config/tools";
 
 const tool = tools.find((entry) => entry.id === "image-resizer-cropper") as (typeof tools)[number];
-const description = "Resize and crop JPG, PNG and WebP images online for free. Choose custom dimensions, lock aspect ratio, and download your edited image.";
 
-export const metadata: Metadata = {
-  title: "Image Resizer & Cropper | ToolsForToday",
-  description,
-};
+export const metadata: Metadata = createPageMetadata({
+  title: 'Image Resizer & Cropper Online | ToolsForToday',
+  description: 'Resize or crop JPG, PNG and WebP images with custom dimensions and aspect-ratio controls, then download a previewed result.',
+  path: "/tools/image-resizer-cropper/",
+});
 
 export default function ImageResizerCropperPage() {
   return <>
     <AnalyticsPageView page="imageResizerCropper" />
-    <ToolPageShell tool={tool} showRelatedTools={false}>
+    <ToolPageShell tool={tool}>
       <ImageResizerCropper />
       <section aria-labelledby="image-resizer-guide" className="mt-10 space-y-5">
         <article className="rounded-2xl border border-border bg-surface p-5 sm:p-6">

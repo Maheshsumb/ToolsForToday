@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo-metadata";
 import { AnalyticsPageView } from "@/components/analytics/analytics-consent";
 import { MergePdfTool } from "@/components/tools/merge-pdf";
 import { ToolHelpSection } from "@/components/tools/tool-help-section";
@@ -6,18 +7,18 @@ import { ToolPageShell } from "@/components/tools/tool-page-shell";
 import { tools } from "@/config/tools";
 
 const tool = tools.find((entry) => entry.id === "merge-pdf") as (typeof tools)[number];
-const description = "Combine multiple PDF files into one document for free. Arrange your files in the order you want, merge them in your browser, and download your PDF.";
 
-export const metadata: Metadata = {
-  title: "Merge PDF | ToolsForToday",
-  description,
-};
+export const metadata: Metadata = createPageMetadata({
+  title: 'Merge PDF Files Online | ToolsForToday',
+  description: 'Combine multiple PDFs in a chosen order and download one merged document, processed in your browser.',
+  path: "/tools/merge-pdf/",
+});
 
 export default function MergePdfPage() {
   return (
     <>
       <AnalyticsPageView page="mergePdf" />
-      <ToolPageShell tool={tool} showRelatedTools={false}>
+      <ToolPageShell tool={tool}>
         <MergePdfTool />
 
         <section aria-labelledby="merge-pdf-guide-heading" className="mt-10 space-y-5">
