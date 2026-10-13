@@ -1,13 +1,14 @@
 import { PDFDocument } from "@cantoo/pdf-lib";
 import { Zip, ZipPassThrough } from "fflate";
 import { MAX_PDF_FILE_BYTES, MAX_PDF_TOTAL_PAGES, validatePdfBytes } from "./pdf-merging.ts";
+import { parsePdfPageRange } from "./pdf-page-ranges.ts";
+export { MAX_PAGE_RANGE_CHARACTERS } from "./pdf-page-ranges.ts";
 
 export const MAX_SPLIT_PDF_FILE_BYTES = MAX_PDF_FILE_BYTES;
 export const MAX_SPLIT_PDF_PAGES = MAX_PDF_TOTAL_PAGES;
 export const MAX_SPLIT_ZIP_PAGES = 50;
 export const MAX_EXTRACTED_PDF_BYTES = 50 * 1024 * 1024;
 export const MAX_SPLIT_ZIP_BYTES = 75 * 1024 * 1024;
-export const MAX_PAGE_RANGE_CHARACTERS = 4096;
 export const EXTRACTED_PDF_FILENAME = "toolsfortoday-extracted-pages.pdf";
 export const SPLIT_PDF_ZIP_FILENAME = "toolsfortoday-split-pages.zip";
 
@@ -54,36 +55,10 @@ function assertPageNumbers(pageNumbers: readonly number[], pageCount: number): v
 }
 
 export function parsePageRange(selection: string, pageCount: number): number[] {
-  if (!Number.isInteger(pageCount) || pageCount < 1) throw new Error("Choose a PDF with at least one page first.");
-  if (pageCount > MAX_SPLIT_PDF_PAGES) throw new Error(`This PDF exceeds the ${MAX_SPLIT_PDF_PAGES}-page limit.`);
-  if (selection.length > MAX_PAGE_RANGE_CHARACTERS) throw new Error("The page selection is too long.");
-  const value = selection.trim();
-  if (!value) throw new Error("Enter one or more page numbers or ranges.");
-
-  const selected: number[] = [];
-  const seen = new Set<number>();
-  for (const rawPart of value.split(",")) {
-    const part = rawPart.trim();
-    if (!part) throw new Error("Use commas only between page numbers or ranges.");
-    if (/^-\s*\d/.test(part)) throw new Error("Negative page numbers are not allowed. Page numbering starts at 1.");
-    const match = /^(\d+)\s*(?:-\s*(\d+))?$/.exec(part);
-    if (!match) throw new Error(`“${part}” is not a valid page number or inclusive range.`);
-    const first = Number(match[1]);
-    const last = match[2] === undefined ? first : Number(match[2]);
-    if (!Number.isSafeInteger(first) || !Number.isSafeInteger(last)) throw new Error("Page numbers must be whole numbers.");
-    if (first < 1 || last < 1) throw new Error("Page numbers start at 1. Page 0 is not valid.");
-    if (last < first) throw new Error(`The range ${first}-${last} is reversed. Put the smaller page first.`);
-    if (last > pageCount) throw new Error(`Page ${last} is outside this ${pageCount}-page PDF.`);
-
-    for (let page = first; page <= last; page += 1) {
-      if (seen.has(page)) throw new Error(`Page ${page} is selected more than once. Remove duplicates or overlapping ranges.`);
-      seen.add(page);
-      selected.push(page);
-      if (selected.length > MAX_SPLIT_PDF_PAGES) throw new Error(`Select no more than ${MAX_SPLIT_PDF_PAGES} pages at a time.`);
-    }
-  }
-  if (selected.length === 0) throw new Error("Enter at least one page to extract.");
-  return selected;
+  return parsePdfPageRange(selection, pageCount, {
+    maxSourcePages: MAX_PDF_TOTAL_PAGES,
+    maxSelectedPages: MAX_SPLIT_PDF_PAGES,
+  });
 }
 
 export function estimateStoredZipSize(

@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Vendored, minified third-party worker; lint source files, not upstream generated code.
+    "public/vendor/pdfjs/**",
   ]),
 ]);
 

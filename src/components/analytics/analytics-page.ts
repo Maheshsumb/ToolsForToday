@@ -11,6 +11,7 @@ export const ANALYTICS_PAGES = {
   mergePdf: { path: "/tools/merge-pdf", title: "Merge PDF | ToolsForToday" },
   splitPdf: { path: "/tools/split-pdf", title: "Split PDF | ToolsForToday" },
   imagesToPdf: { path: "/tools/images-to-pdf", title: "Images to PDF | ToolsForToday" },
+  pdfToJpg: { path: "/tools/pdf-to-jpg", title: "PDF to JPG Converter | ToolsForToday" },
   privacyPolicy: { path: "/privacy-policy", title: "ToolsForToday | Privacy Policy" },
   notFound: { path: "/404", title: "ToolsForToday | Page not found" },
 } as const;

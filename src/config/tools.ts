@@ -96,12 +96,13 @@ export const tools = [
   {
     id: "pdf-to-jpg",
     slug: "pdf-to-jpg",
-    title: "PDF to JPG",
+    title: "PDF to JPG Converter",
     category: "pdf",
-    description: "Convert the pages in a PDF into JPG images.",
+    description: "Convert PDF pages into high-quality JPG images online for free. Select pages, adjust resolution and image quality, then download your JPG files.",
     searchKeywords: ["pdf to image", "pdf to jpeg", "pdf converter", "export pdf pages"],
     icon: "pdf-to-jpg",
-    availability: "coming-soon",
+    availability: "available",
+    href: "/tools/pdf-to-jpg",
   },
   {
     id: "qr-code-generator",

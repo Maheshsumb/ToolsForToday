@@ -165,6 +165,24 @@ test("Images to PDF route is included in the fixed analytics allowlist", () => {
   });
 });
 
+test("PDF to JPG uses a fixed sanitized route and title without document details", () => {
+  const view = preparePageView("pdfToJpg", origin, "/tools/images-to-pdf");
+  assert.equal(view?.payload.page_title, "PDF to JPG Converter | ToolsForToday");
+  assert.equal(view?.payload.page_location, `${origin}/tools/pdf-to-jpg`);
+  assert.equal(view?.payload.page_path, "/tools/pdf-to-jpg");
+  assert.equal(view?.payload.page_referrer, `${origin}/tools/images-to-pdf`);
+  for (const privateValue of ["?", "statement.pdf", "pageRange", "1,3,5-7", "rendered.jpg", "document contents"]) {
+    assert.equal(JSON.stringify(view).includes(privateValue), false);
+  }
+});
+
+test("PDF to JPG route is included in the fixed analytics allowlist", () => {
+  assert.deepEqual(ANALYTICS_PAGES.pdfToJpg, {
+    path: "/tools/pdf-to-jpg",
+    title: "PDF to JPG Converter | ToolsForToday",
+  });
+});
+
 test("Merge PDF Analytics data does not contain file names, pages, or contents", () => {
   const view = preparePageView("mergePdf", origin, "/");
   const payload = JSON.stringify(view);
