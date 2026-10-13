@@ -62,6 +62,15 @@ test("Unit Converter uses its fixed sanitized route and title for Analytics", ()
   assert.equal(JSON.stringify(view).includes("?") || JSON.stringify(view).includes("kilometer"), false);
 });
 
+test("Date Difference & Age Calculator uses a fixed sanitized route and title for Analytics", () => {
+  const view = preparePageView("dateDifferenceAgeCalculator", origin, "/");
+  assert.equal(view?.payload.page_title, "Date Difference & Age Calculator | ToolsForToday");
+  assert.equal(view?.payload.page_location, `${origin}/tools/date-difference-age-calculator`);
+  assert.equal(view?.payload.page_path, "/tools/date-difference-age-calculator");
+  assert.equal(view?.payload.page_referrer, `${origin}/`);
+  assert.equal(JSON.stringify(view).includes("?"), false);
+});
+
 test("browser back and forward navigation each emit one page view", () => {
   let lastPath = null;
   let count = 0;

@@ -145,10 +145,11 @@ export const tools = [
     slug: "date-difference-age-calculator",
     title: "Date Difference & Age Calculator",
     category: "utility",
-    description: "Find the time between two dates or calculate an age.",
-    searchKeywords: ["date calculator", "days between dates", "age calculator", "time between", "birthday"],
+    description: "Calculate the difference between dates, your age, or days until a date with this free date calculator.",
+    searchKeywords: ["date calculator", "days between dates", "age calculator", "time between", "birthday", "days until", "date difference"],
     icon: "date-calculator",
-    availability: "coming-soon",
+    availability: "available",
+    href: "/tools/date-difference-age-calculator",
   },
 ] as const satisfies readonly ToolDefinition[];
 
