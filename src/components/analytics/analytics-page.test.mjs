@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { canTrackPageView, preparePageView } from "./analytics-page.ts";
+import { ANALYTICS_PAGES, canTrackPageView, preparePageView } from "./analytics-page.ts";
 
 const origin = "https://toolsfortoday.online";
 
@@ -110,6 +110,31 @@ test("Image Converter uses its fixed sanitized route and excludes image details"
   assert.equal(view?.payload.page_referrer, `${origin}/tools/image-resizer-cropper`);
   assert.equal(JSON.stringify(view).includes("?"), false);
   assert.equal(JSON.stringify(view).includes("private-photo.jpg"), false);
+});
+
+test("Merge PDF uses a fixed route and title without document details", () => {
+  const view = preparePageView("mergePdf", origin, "/tools/image-converter");
+  assert.equal(view?.payload.page_title, "Merge PDF | ToolsForToday");
+  assert.equal(view?.payload.page_location, `${origin}/tools/merge-pdf`);
+  assert.equal(view?.payload.page_path, "/tools/merge-pdf");
+  assert.equal(view?.payload.page_referrer, `${origin}/tools/image-converter`);
+  assert.equal(JSON.stringify(view).includes("?"), false);
+  assert.equal(JSON.stringify(view).includes("invoice-private.pdf"), false);
+});
+
+test("Merge PDF route is included in the fixed analytics allowlist", () => {
+  assert.deepEqual(ANALYTICS_PAGES.mergePdf, {
+    path: "/tools/merge-pdf",
+    title: "Merge PDF | ToolsForToday",
+  });
+});
+
+test("Merge PDF Analytics data does not contain file names, pages, or contents", () => {
+  const view = preparePageView("mergePdf", origin, "/");
+  const payload = JSON.stringify(view);
+  for (const privateValue of ["contract.pdf", "pageCount", "Acme confidential", "?file="]) {
+    assert.equal(payload.includes(privateValue), false);
+  }
 });
 
 test("browser back and forward navigation each emit one page view", () => {

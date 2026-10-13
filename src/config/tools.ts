@@ -65,10 +65,11 @@ export const tools = [
     slug: "merge-pdf",
     title: "Merge PDF",
     category: "pdf",
-    description: "Bring multiple PDF files together into one document.",
+    description: "Combine multiple PDF files into one document for free. Arrange your files in the order you want, merge them in your browser, and download your PDF.",
     searchKeywords: ["combine pdf", "join pdf", "pdf merger", "merge documents"],
     icon: "merge-pdf",
-    availability: "coming-soon",
+    availability: "available",
+    href: "/tools/merge-pdf",
   },
   {
     id: "split-pdf",

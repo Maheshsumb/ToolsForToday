@@ -48,7 +48,7 @@ export default function PrivacyPolicyPage() {
             <section aria-labelledby="tools-heading">
               <h2 id="tools-heading" className="font-heading text-xl font-semibold text-text">Browser-based tools</h2>
               <p className="mt-3">
-                The Word &amp; Character Counter, Percentage Calculator, Unit Converter, Date Difference &amp; Age Calculator, QR Code Generator, Image Compressor, Image Resizer &amp; Cropper, and JPG, PNG &amp; WebP Image Converter process entered values or selected image content locally in your browser. QR content is encoded locally, and selected images are re-encoded using browser image APIs. Tool inputs and image files are not sent to a ToolsForToday application server or included in the site&apos;s manual Google Analytics page-view events.
+                The Word &amp; Character Counter, Percentage Calculator, Unit Converter, Date Difference &amp; Age Calculator, QR Code Generator, Image Compressor, Image Resizer &amp; Cropper, JPG, PNG &amp; WebP Image Converter, and Merge PDF process entered values or selected files locally in your browser. QR content is encoded locally, images are re-encoded using browser image APIs, and PDFs are merged in the browser. Tool inputs and selected files are not sent to a ToolsForToday application server or included in the site&apos;s manual Google Analytics page-view events.
               </p>
             </section>
 
