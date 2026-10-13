@@ -43,10 +43,11 @@ export const tools = [
     slug: "image-resizer-cropper",
     title: "Image Resizer & Cropper",
     category: "image",
-    description: "Change image dimensions or adjust the framing of a photo.",
+    description: "Resize and crop JPG, PNG and WebP images online for free. Choose custom dimensions, lock aspect ratio, and download your edited image.",
     searchKeywords: ["resize image", "crop image", "change picture size", "dimensions", "photo"],
     icon: "image-resizer",
-    availability: "coming-soon",
+    availability: "available",
+    href: "/tools/image-resizer-cropper",
   },
   {
     id: "image-format-converter",

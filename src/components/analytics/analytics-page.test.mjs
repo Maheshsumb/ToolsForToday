@@ -91,6 +91,17 @@ test("Image Compressor uses a fixed sanitized route and title without file detai
   assert.equal(JSON.stringify(view).includes("photo-private-name.jpg"), false);
 });
 
+test("Image Resizer & Cropper uses its fixed sanitized route and excludes image details", () => {
+  const view = preparePageView("imageResizerCropper", origin, "/tools/image-compressor");
+  assert.equal(view?.payload.page_title, "Image Resizer & Cropper | ToolsForToday");
+  assert.equal(view?.payload.page_location, `${origin}/tools/image-resizer-cropper`);
+  assert.equal(view?.payload.page_path, "/tools/image-resizer-cropper");
+  assert.equal(view?.payload.page_referrer, `${origin}/tools/image-compressor`);
+  assert.equal(JSON.stringify(view).includes("?"), false);
+  assert.equal(JSON.stringify(view).includes("private-photo.jpg"), false);
+  assert.equal(JSON.stringify(view).includes("crop=10,20"), false);
+});
+
 test("browser back and forward navigation each emit one page view", () => {
   let lastPath = null;
   let count = 0;
