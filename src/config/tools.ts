@@ -76,10 +76,11 @@ export const tools = [
     slug: "split-pdf",
     title: "Split PDF",
     category: "pdf",
-    description: "Separate a PDF or extract the pages you need.",
+    description: "Split PDF files online for free. Extract selected pages into a new PDF or separate each page into its own document, directly in your browser.",
     searchKeywords: ["extract pdf pages", "separate pdf", "divide pdf", "pdf splitter"],
     icon: "split-pdf",
-    availability: "coming-soon",
+    availability: "available",
+    href: "/tools/split-pdf",
   },
   {
     id: "images-to-pdf",

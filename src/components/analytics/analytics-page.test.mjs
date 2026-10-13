@@ -129,6 +129,24 @@ test("Merge PDF route is included in the fixed analytics allowlist", () => {
   });
 });
 
+test("Split PDF uses a fixed sanitized route and title without document details", () => {
+  const view = preparePageView("splitPdf", origin, "/tools/merge-pdf");
+  assert.equal(view?.payload.page_title, "Split PDF | ToolsForToday");
+  assert.equal(view?.payload.page_location, `${origin}/tools/split-pdf`);
+  assert.equal(view?.payload.page_path, "/tools/split-pdf");
+  assert.equal(view?.payload.page_referrer, `${origin}/tools/merge-pdf`);
+  for (const privateValue of ["?", "private.pdf", "1-3,6", "pageCount", "SOURCE PAGE 1"]) {
+    assert.equal(JSON.stringify(view).includes(privateValue), false);
+  }
+});
+
+test("Split PDF route is included in the fixed analytics allowlist", () => {
+  assert.deepEqual(ANALYTICS_PAGES.splitPdf, {
+    path: "/tools/split-pdf",
+    title: "Split PDF | ToolsForToday",
+  });
+});
+
 test("Merge PDF Analytics data does not contain file names, pages, or contents", () => {
   const view = preparePageView("mergePdf", origin, "/");
   const payload = JSON.stringify(view);

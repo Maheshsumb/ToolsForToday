@@ -9,6 +9,7 @@ export const ANALYTICS_PAGES = {
   imageResizerCropper: { path: "/tools/image-resizer-cropper", title: "Image Resizer & Cropper | ToolsForToday" },
   imageConverter: { path: "/tools/image-converter", title: "JPG, PNG & WebP Image Converter | ToolsForToday" },
   mergePdf: { path: "/tools/merge-pdf", title: "Merge PDF | ToolsForToday" },
+  splitPdf: { path: "/tools/split-pdf", title: "Split PDF | ToolsForToday" },
   privacyPolicy: { path: "/privacy-policy", title: "ToolsForToday | Privacy Policy" },
   notFound: { path: "/404", title: "ToolsForToday | Page not found" },
 } as const;
