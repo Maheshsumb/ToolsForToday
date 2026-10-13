@@ -48,7 +48,7 @@ export default function PrivacyPolicyPage() {
             <section aria-labelledby="tools-heading">
               <h2 id="tools-heading" className="font-heading text-xl font-semibold text-text">Browser-based tools</h2>
               <p className="mt-3">
-                The Word &amp; Character Counter and Percentage Calculator process your text and calculation inputs in your browser. The tools do not send those inputs to a ToolsForToday application server or include them in the site&apos;s manual Google Analytics page views.
+                The Word &amp; Character Counter, Percentage Calculator, and Unit Converter process the values you enter locally in your browser. Tool inputs are not sent to a ToolsForToday application server or included in the site&apos;s manual Google Analytics page-view events.
               </p>
             </section>
 
