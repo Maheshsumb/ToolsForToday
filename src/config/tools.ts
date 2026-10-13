@@ -51,13 +51,14 @@ export const tools = [
   },
   {
     id: "image-format-converter",
-    slug: "image-format-converter",
-    title: "Image Format Converter",
+    slug: "image-converter",
+    title: "JPG, PNG & WebP Image Converter",
     category: "image",
-    description: "Convert between supported JPG, PNG, and WebP formats.",
+    description: "Convert JPG, PNG and WebP images online for free. Preview your image, choose the output format, and download the converted file instantly.",
     searchKeywords: ["convert image", "jpg to png", "png to jpg", "webp", "picture format"],
     icon: "image-converter",
-    availability: "coming-soon",
+    availability: "available",
+    href: "/tools/image-converter",
   },
   {
     id: "merge-pdf",

@@ -7,6 +7,7 @@ export const ANALYTICS_PAGES = {
   qrCodeGenerator: { path: "/tools/qr-code-generator", title: "QR Code Generator | ToolsForToday" },
   imageCompressor: { path: "/tools/image-compressor", title: "Image Compressor | ToolsForToday" },
   imageResizerCropper: { path: "/tools/image-resizer-cropper", title: "Image Resizer & Cropper | ToolsForToday" },
+  imageConverter: { path: "/tools/image-converter", title: "JPG, PNG & WebP Image Converter | ToolsForToday" },
   privacyPolicy: { path: "/privacy-policy", title: "ToolsForToday | Privacy Policy" },
   notFound: { path: "/404", title: "ToolsForToday | Page not found" },
 } as const;

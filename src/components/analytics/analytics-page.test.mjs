@@ -102,6 +102,16 @@ test("Image Resizer & Cropper uses its fixed sanitized route and excludes image 
   assert.equal(JSON.stringify(view).includes("crop=10,20"), false);
 });
 
+test("Image Converter uses its fixed sanitized route and excludes image details", () => {
+  const view = preparePageView("imageConverter", origin, "/tools/image-resizer-cropper");
+  assert.equal(view?.payload.page_title, "JPG, PNG & WebP Image Converter | ToolsForToday");
+  assert.equal(view?.payload.page_location, `${origin}/tools/image-converter`);
+  assert.equal(view?.payload.page_path, "/tools/image-converter");
+  assert.equal(view?.payload.page_referrer, `${origin}/tools/image-resizer-cropper`);
+  assert.equal(JSON.stringify(view).includes("?"), false);
+  assert.equal(JSON.stringify(view).includes("private-photo.jpg"), false);
+});
+
 test("browser back and forward navigation each emit one page view", () => {
   let lastPath = null;
   let count = 0;
