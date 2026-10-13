@@ -1,0 +1,54 @@
+name: Bug report
+description: Report a reproducible problem in a ToolsForToday page or tool.
+title: "[Bug]: "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: Please search existing issues first. Do not include passwords, private files, personal data, or real sensitive tool inputs.
+  - type: input
+    id: route
+    attributes:
+      label: Page or tool
+      description: Link the page where the issue occurred.
+      placeholder: https://toolsfortoday.online/tools/...
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: 1. Open the page…
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and version
+    validations:
+      required: false
+  - type: input
+    id: device
+    attributes:
+      label: Device and operating system
+    validations:
+      required: false
+  - type: checkboxes
+    id: safe
+    attributes:
+      label: Privacy check
+      options:
+        - label: I removed credentials, private data, and sensitive file contents from this report.
+          required: true

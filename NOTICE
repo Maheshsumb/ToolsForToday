@@ -1,0 +1,11 @@
+ToolsForToday source code
+Copyright 2026 Mahesh Sumb
+
+Unless a file or directory states otherwise, the project source code is
+licensed under the Apache License, Version 2.0; see LICENSE.
+
+The ToolsForToday name, logo, favicon, and other brand assets are not
+licensed for reuse by the project source-code license. Third-party
+software, fonts, and bundled assets retain their own licenses and notices.
+See docs/third-party/THIRD_PARTY_NOTICES.md and the notices alongside the
+bundled PDF.js worker.

@@ -1,16 +1,59 @@
 # ToolsForToday
 
-Everyday Tools. One Simple Place.
+**Everyday Tools. One Simple Place.**
 
-ToolsForToday is preparing a collection of 12 free, browser-based everyday tools. The homepage and reusable tool-page UI are in place, but all 12 tools still display Coming Soon and none is operational yet.
+![ToolsForToday logo](public/brand/toolsfortoday-logo.webp)
 
-## Requirements
+ToolsForToday is a collection of 12 free browser-based tools for everyday text, calculations, dates, images, and PDFs. The tools run in the visitor's browser; see the [Privacy Policy](https://toolsfortoday.online/privacy-policy/) for the current data-handling details.
 
-- Node.js 22 LTS (validated with 22.18.0; see .nvmrc). Use a maintained security patch in this LTS line for future builds.
-- npm 10 or later (validated with 10.9.3).
-- Git.
+**Website:** <https://toolsfortoday.online/>
 
-## Local setup
+## The tools
+
+### Utilities
+
+- [Word & Character Counter](https://toolsfortoday.online/tools/word-character-counter/)
+- [Percentage Calculator](https://toolsfortoday.online/tools/percentage-calculator/)
+- [Unit Converter](https://toolsfortoday.online/tools/unit-converter/)
+- [Date Difference & Age Calculator](https://toolsfortoday.online/tools/date-difference-age-calculator/)
+- [QR Code Generator](https://toolsfortoday.online/tools/qr-code-generator/)
+
+### Image Tools
+
+- [Image Compressor](https://toolsfortoday.online/tools/image-compressor/)
+- [Image Resizer & Cropper](https://toolsfortoday.online/tools/image-resizer-cropper/)
+- [JPG, PNG & WebP Image Converter](https://toolsfortoday.online/tools/image-converter/)
+
+### PDF Tools
+
+- [Merge PDF](https://toolsfortoday.online/tools/merge-pdf/)
+- [Split PDF](https://toolsfortoday.online/tools/split-pdf/)
+- [Images to PDF](https://toolsfortoday.online/tools/images-to-pdf/)
+- [PDF to JPG Converter](https://toolsfortoday.online/tools/pdf-to-jpg/)
+
+## Why we're building this
+
+The goal is a community-driven collection of genuinely useful everyday tools that remains approachable, free, and privacy-conscious. We welcome ideas, bug reports, accessibility feedback, mobile improvements, performance work, tests, and documentation corrections.
+
+## Open source and contributions
+
+ToolsForToday is licensed under the [Apache License 2.0](LICENSE). The license applies to the project code; it does not grant permission to use the ToolsForToday name, logo, or other brand assets. Third-party components and bundled assets remain subject to their own licenses and notices.
+
+Have an idea for a useful tool or found something we can improve? Open an issue, suggest a feature, fix a bug, or submit a pull request. See [CONTRIBUTING.md](CONTRIBUTING.md) for the workflow and expectations.
+
+## Technology
+
+- Next.js 16 App Router with static export
+- React and TypeScript
+- Tailwind CSS v4
+- Cloudflare Pages hosting
+- Browser APIs for client-side tool processing
+
+The production app is statically exported to `out/`; it does not use a Next.js runtime server for tool processing.
+
+## Local development
+
+Requirements: Node.js `22.18.0` (see `.nvmrc`), npm 10 or later, and Git.
 
 From the repository root:
 
@@ -19,9 +62,9 @@ npm ci
 npm run dev
 ```
 
-Open http://localhost:3000. Stop the server with Ctrl+C.
+Open <http://localhost:3000/>. Stop the server with Ctrl+C.
 
-## Commands
+Run quality checks:
 
 ```powershell
 npm run lint
@@ -29,47 +72,39 @@ npm run typecheck
 npm run build
 ```
 
-Lint uses the ESLint CLI. Typecheck generates Next.js route types before checking strict TypeScript, so it also works on a fresh checkout. Build produces out/index.html and static assets in out/. Generated output, dependencies, environment files, and TypeScript caches are ignored by Git. Commit package-lock.json with dependency changes and use npm ci for reproducible installation.
+The build creates static files under `out/`. There is no `next start` script because production uses static hosting.
 
-There is no next start command because this application is exported as static files. Production requires only a static file host, not a Next.js server.
+Run every automated test suite in PowerShell:
 
-## Hosting and deployment
+```powershell
+$suites = @(
+  'test:percentage-calculator', 'test:date-calculator', 'test:unit-converter',
+  'test:qr-code', 'test:image-compressor', 'test:image-resizer',
+  'test:image-converter', 'test:merge-pdf', 'test:split-pdf',
+  'test:images-to-pdf', 'test:pdf-to-jpg', 'test:analytics',
+  'test:text-counter', 'test:seo'
+)
+foreach ($suite in $suites) {
+  npm run $suite
+  if ($LASTEXITCODE -ne 0) { throw "Test suite failed: $suite" }
+}
+```
 
-The application uses Next.js static export. The intended host is Cloudflare Pages Free and the intended site domain is https://toolsfortoday.online. Deployment preparation and current connection status are documented in [Deployment](docs/DEPLOYMENT.md). The temporary `noindex,follow` directive remains enabled while the tools are incomplete.
+Use `npm ci` for reproducible installs and commit `package-lock.json` when dependencies change. Do not add server-side processing, secret keys to browser code, or unexpected external network calls.
 
-## Project guides
+## Contributing
 
-- [Architecture](docs/ARCHITECTURE.md): static constraints and browser processing strategy.
-- [Brand](docs/BRAND.md): colours, typography, and approved-logo policy.
-- [Project plan](docs/PROJECT_PLAN.md): all nine milestones.
-- [Deployment](docs/DEPLOYMENT.md): GitHub and Cloudflare Pages configuration and launch workflow.
-- [Agent instructions](AGENTS.md): permanent task boundaries and validation requirements.
+The intended contribution areas and pull-request workflow are described in [CONTRIBUTING.md](CONTRIBUTING.md). The [Code of Conduct](CODE_OF_CONDUCT.md) and [Security Policy](SECURITY.md) explain community and vulnerability reporting.
 
-Fonts are bundled with the app using Fontsource, without runtime font-service requests. Approved logos should be supplied in public/brand/. Existing parent-folder brand images are preserved. Google Analytics 4 is integrated behind explicit analytics consent; no accounts, database, paid APIs, or advertising scripts have been added.
+Issues are enabled for feature ideas and bug reports. Pull requests are welcome and reviewed by the maintainer before any changes are merged.
 
-## Recorded Stage 01 versions
+## Project documentation
 
-Validated on 2026-10-12 using Node.js 22.18.0 and npm 10.9.3:
+- [Architecture](docs/ARCHITECTURE.md)
+- [Brand guide](docs/BRAND.md)
+- [Deployment notes](docs/DEPLOYMENT.md)
+- [Privacy Policy](https://toolsfortoday.online/privacy-policy/)
 
-| Package | Installed version |
-| --- | --- |
-| Next.js / eslint-config-next | 16.4.0 |
-| React / React DOM | 19.3.0 |
-| TypeScript | 5.9.3 |
-| Tailwind CSS / Tailwind Turbopack loader | 4.3.3 |
-| ESLint | 9.39.5 |
-| Fontsource Inter / Poppins | 5.3.0 |
+## Third-party notices and branding
 
-The lockfile records exact transitive versions. Next.js, React, and Tailwind versions were checked against npm stable tags. Node 22 is a supported maintenance LTS line: https://github.com/nodejs/Release.
-
-## Stage 01 validation and known limitations
-
-- npm run lint: passed.
-- npm run typecheck: passed with strict mode.
-- npm run build: passed without build warnings; out/index.html and local WOFF/WOFF2 assets exist.
-- Development browser check: HTTP 200, expected title and content, desktop and 375px mobile layouts checked; no horizontal overflow at 375px or console errors/warnings observed on the home page.
-- Custom missing-page route: HTTP 404 and expected recovery link verified.
-- npm audit --omit=dev: zero vulnerabilities.
-- Full npm audit: five high-severity findings in one development-only chain (eslint-config-next -> @next/eslint-plugin-next -> fast-glob -> micromatch -> braces). The reported advisory is GHSA-vfj7-8cjw-p6xm. npm proposes downgrading eslint-config-next to 14.2.35; this incompatible fix was not applied. Recheck upstream updates before production release.
-- ESLint 9.39.5 emits a support/deprecation warning. ESLint 10.12.0 was evaluated, but the current React/import/accessibility plugins required by eslint-config-next do not declare support for ESLint 10. The final setup uses compatible ESLint 9 without forced peer overrides. Upgrade when the full lint stack supports it.
-- No exhaustive accessibility, cross-browser, or tool-functionality testing is claimed; these belong to future stages. The setup is validated, with the tooling limitations above still open.
+The application includes third-party libraries, a PDF.js worker and bundled fonts. See [third-party notices](docs/third-party/THIRD_PARTY_NOTICES.md) and preserve each component's terms. The ToolsForToday name, logo and other brand assets are not licensed for reuse by the source-code license; see [Brand guide](docs/BRAND.md).

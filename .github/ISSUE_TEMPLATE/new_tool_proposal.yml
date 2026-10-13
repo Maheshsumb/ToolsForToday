@@ -1,0 +1,55 @@
+name: New tool proposal
+description: Propose a genuinely useful browser-based everyday tool.
+title: "[New tool]: "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: Search the existing catalogue and issues first. Proposals are reviewed; they are not commitments to build or merge a tool.
+  - type: textarea
+    id: problem
+    attributes:
+      label: User problem and beneficiaries
+      description: What real task is difficult today, and who would benefit?
+    validations:
+      required: true
+  - type: textarea
+    id: fit
+    attributes:
+      label: Why it belongs in ToolsForToday
+      description: Explain value and overlap with the existing tools.
+    validations:
+      required: true
+  - type: textarea
+    id: inputs_outputs
+    attributes:
+      label: Inputs and outputs
+    validations:
+      required: true
+  - type: textarea
+    id: browser_processing
+    attributes:
+      label: Browser support and client-side feasibility
+      description: Can it run entirely in the browser? List any fallback needs.
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies and resource limits
+      description: Include file-size, memory, performance, and licensing considerations.
+    validations:
+      required: true
+  - type: textarea
+    id: privacy_accessibility
+    attributes:
+      label: Privacy and accessibility
+      description: Explain data flows, keyboard/screen-reader use, and relevant limitations.
+    validations:
+      required: true
+  - type: textarea
+    id: testing
+    attributes:
+      label: Testing plan
+    validations:
+      required: true

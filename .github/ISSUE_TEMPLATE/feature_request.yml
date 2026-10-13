@@ -1,0 +1,33 @@
+name: Feature request
+description: Suggest an improvement to an existing ToolsForToday feature.
+title: "[Feature]: "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: Please search existing issues. Requests should solve a real user problem, not target search keywords alone.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem should this solve?
+      description: Who experiences it and in what situation?
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: What would you like to happen?
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives or related tools
+    validations:
+      required: false
+  - type: textarea
+    id: privacy_accessibility
+    attributes:
+      label: Privacy and accessibility considerations
+    validations:
+      required: false

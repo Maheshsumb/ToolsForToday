@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.18.0
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Run tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm run test:percentage-calculator
+          npm run test:date-calculator
+          npm run test:unit-converter
+          npm run test:qr-code
+          npm run test:image-compressor
+          npm run test:image-resizer
+          npm run test:image-converter
+          npm run test:merge-pdf
+          npm run test:split-pdf
+          npm run test:images-to-pdf
+          npm run test:pdf-to-jpg
+          npm run test:analytics
+          npm run test:text-counter
+          npm run test:seo
+
+      - name: Build static site
+        run: npm run build
