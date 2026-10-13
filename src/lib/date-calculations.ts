@@ -256,21 +256,25 @@ export function formatCalendarDate(value: string): string {
 }
 
 export function formatWeekBreakdown(wholeWeeks: number, weekDays: number): string {
-  return `${wholeWeeks} ${wholeWeeks === 1 ? "week" : "weeks"} and ${weekDays} ${weekDays === 1 ? "day" : "days"}`;
+  return `${formatCount(wholeWeeks, "week")} and ${formatCount(weekDays, "day")}`;
+}
+
+export function formatCount(value: number | string, singular: string, plural = `${singular}s`): string {
+  return `${value} ${Number(value) === 1 ? singular : plural}`;
 }
 
 function formatCalendarDayCount(value: number): string {
-  return `${value} calendar ${value === 1 ? "day" : "days"}`;
+  return formatCount(value, "calendar day", "calendar days");
 }
 
 export function formatDateDifferenceCopyText(startDate: string, endDate: string, result: Extract<DateDifferenceResult, { ok: true }>): string {
   const direction = result.direction === "before" ? "the end date is before the start date" : result.direction === "after" ? "the end date is after the start date" : "both dates are the same";
-  return `Date difference: ${formatCalendarDate(startDate)} to ${formatCalendarDate(endDate)}. ${formatCalendarDayCount(result.absoluteDays)}; ${direction}. Calendar breakdown: ${result.years} years, ${result.months} months, ${result.days} days. ${formatWeekBreakdown(result.wholeWeeks, result.weekDays)}.`;
+  return `Date difference: ${formatCalendarDate(startDate)} to ${formatCalendarDate(endDate)}. ${formatCalendarDayCount(result.absoluteDays)}; ${direction}. Calendar breakdown: ${formatCount(result.years, "year")}, ${formatCount(result.months, "month")}, ${formatCount(result.days, "day")}. ${formatWeekBreakdown(result.wholeWeeks, result.weekDays)}.`;
 }
 
 export function formatAgeCopyText(birthDate: string, asOfDate: string, result: Extract<AgeResult, { ok: true }>): string {
-  const nextBirthday = result.daysUntilNextBirthday === null ? "Next birthday is outside the supported date range." : `${result.daysUntilNextBirthday} days until the next birthday.`;
-  return `Age as of ${formatCalendarDate(asOfDate)}: ${result.years} years, ${result.months} months, and ${result.days} days. Born ${formatCalendarDate(birthDate)}. ${result.totalDaysLived} total days lived. ${nextBirthday}`;
+  const nextBirthday = result.daysUntilNextBirthday === null ? "Next birthday is outside the supported date range." : `${formatCount(result.daysUntilNextBirthday, "day")} until the next birthday.`;
+  return `Age as of ${formatCalendarDate(asOfDate)}: ${formatCount(result.years, "year")}, ${formatCount(result.months, "month")}, and ${formatCount(result.days, "day")}. Born ${formatCalendarDate(birthDate)}. ${formatCount(result.totalDaysLived, "total day", "total days")} lived. ${nextBirthday}`;
 }
 
 export function formatDaysCopyText(targetDate: string, today: string, result: Extract<DaysRelativeResult, { ok: true }>): string {

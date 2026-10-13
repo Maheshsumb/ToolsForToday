@@ -13,6 +13,7 @@ import {
   daysInMonth,
   formatAgeCopyText,
   formatCalendarDate,
+  formatCount,
   formatDateDifferenceCopyText,
   formatDaysCopyText,
   formatWeekBreakdown,
@@ -185,8 +186,11 @@ test("formats week and day singulars correctly in every date-difference display"
   assert.equal(formatWeekBreakdown(0, 1), "0 weeks and 1 day");
   assert.equal(formatWeekBreakdown(1, 1), "1 week and 1 day");
   assert.equal(formatWeekBreakdown(2, 2), "2 weeks and 2 days");
+  assert.equal(formatCount(1, "calendar day", "calendar days"), "1 calendar day");
+  assert.equal(formatCount(0, "day"), "0 days");
   const oneDay = calculateDateDifference("2025-01-01", "2025-01-02");
   assert.match(formatDateDifferenceCopyText("2025-01-01", "2025-01-02", oneDay), /0 weeks and 1 day/);
+  assert.match(formatDateDifferenceCopyText("2025-01-01", "2025-01-02", oneDay), /1 calendar day;/);
   const relative = calculateDaysUntilSince("2025-01-02", "2025-01-01");
   assert.match(formatDaysCopyText("2025-01-02", "2025-01-01", relative), /0 weeks and 1 day/);
 });
@@ -196,6 +200,16 @@ test("formats age and days copy summaries", () => {
   const days = calculateDaysUntilSince("2025-01-11", "2025-01-01");
   assert.match(formatAgeCopyText("2000-01-01", "2000-01-10", age), /9 total days lived/);
   assert.match(formatDaysCopyText("2025-01-11", "2025-01-01", days), /10 calendar days until/);
+});
+
+test("formats singular years, months, days, and birthday countdowns in age summaries", () => {
+  const age = calculateAge("2020-01-01", "2021-02-02");
+  const summary = formatAgeCopyText("2020-01-01", "2021-02-02", age);
+  assert.match(summary, /1 year, 1 month, and 1 day/);
+  const oneDayLived = calculateAge("2025-01-01", "2025-01-02");
+  assert.match(formatAgeCopyText("2025-01-01", "2025-01-02", oneDayLived), /1 total day lived/);
+  const oneDayUntilBirthday = calculateAge("2000-01-02", "2025-01-01");
+  assert.match(formatAgeCopyText("2000-01-02", "2025-01-01", oneDayUntilBirthday), /1 day until the next birthday/);
 });
 
 test("reconstructs a range through clamped calendar years, months, then days", () => {

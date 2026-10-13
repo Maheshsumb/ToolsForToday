@@ -13,6 +13,7 @@ import {
   dateCalculatorReducer,
   formatAgeCopyText,
   formatCalendarDate,
+  formatCount,
   formatWeekBreakdown,
   formatDateDifferenceCopyText,
   formatDaysCopyText,
@@ -111,11 +112,11 @@ export function DateDifferenceAgeCalculator() {
         {difference?.ok ? <>
           <output className="mt-1 block break-words font-heading text-3xl font-semibold tracking-tight text-text sm:text-4xl">{difference.absoluteDays.toLocaleString()} calendar {difference.absoluteDays === 1 ? "day" : "days"}</output>
           <p className="mt-3 break-words text-sm text-muted">{difference.years} {difference.years === 1 ? "year" : "years"}, {difference.months} {difference.months === 1 ? "month" : "months"}, {difference.days} {difference.days === 1 ? "day" : "days"} · {formatWeekBreakdown(difference.wholeWeeks, difference.weekDays)}</p>
-          <p className="mt-1 text-sm text-muted">{difference.direction === "same" ? "The dates are the same." : `The end date is ${difference.absoluteDays.toLocaleString()} days ${difference.direction} the start date.`}</p>
+          <p className="mt-1 text-sm text-muted">{difference.direction === "same" ? "The dates are the same." : `The end date is ${formatCount(difference.absoluteDays.toLocaleString(), "day", "days")} ${difference.direction} the start date.`}</p>
         </> : null}
         {age?.ok ? <>
           <output className="mt-1 block break-words font-heading text-3xl font-semibold tracking-tight text-text sm:text-4xl">{age.years} {age.years === 1 ? "year" : "years"}, {age.months} {age.months === 1 ? "month" : "months"}, {age.days} {age.days === 1 ? "day" : "days"}</output>
-          <p className="mt-3 break-words text-sm text-muted">{age.totalDaysLived.toLocaleString()} total calendar days lived · {age.daysUntilNextBirthday === null ? "Next birthday is beyond the supported date range." : `${age.daysUntilNextBirthday} ${age.daysUntilNextBirthday === 1 ? "day" : "days"} until the next birthday`}</p>
+          <p className="mt-3 break-words text-sm text-muted">{formatCount(age.totalDaysLived.toLocaleString(), "total calendar day", "total calendar days")} lived · {age.daysUntilNextBirthday === null ? "Next birthday is beyond the supported date range." : `${age.daysUntilNextBirthday} ${age.daysUntilNextBirthday === 1 ? "day" : "days"} until the next birthday`}</p>
           {state.birthDate.endsWith("-02-29") ? <p className="mt-1 text-sm text-muted">In non-leap years, the birthday is observed on February 28 for this calculation.</p> : null}
         </> : null}
         {days?.ok ? <>
