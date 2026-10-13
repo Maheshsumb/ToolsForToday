@@ -71,6 +71,16 @@ test("Date Difference & Age Calculator uses a fixed sanitized route and title fo
   assert.equal(JSON.stringify(view).includes("?"), false);
 });
 
+test("QR Code Generator uses a fixed sanitized route and title without encoded user content", () => {
+  const view = preparePageView("qrCodeGenerator", origin, "/tools/date-difference-age-calculator");
+  assert.equal(view?.payload.page_title, "QR Code Generator | ToolsForToday");
+  assert.equal(view?.payload.page_location, `${origin}/tools/qr-code-generator`);
+  assert.equal(view?.payload.page_path, "/tools/qr-code-generator");
+  assert.equal(view?.payload.page_referrer, `${origin}/tools/date-difference-age-calculator`);
+  assert.equal(JSON.stringify(view).includes("?"), false);
+  assert.equal(JSON.stringify(view).includes("example.com"), false);
+});
+
 test("browser back and forward navigation each emit one page view", () => {
   let lastPath = null;
   let count = 0;

@@ -102,10 +102,11 @@ export const tools = [
     slug: "qr-code-generator",
     title: "QR Code Generator",
     category: "utility",
-    description: "Create a QR code from text or a web address.",
+    description: "Create QR codes for text and website links instantly. Customize the colors and size, then download your QR code as PNG or SVG.",
     searchKeywords: ["qr", "quick response code", "link to qr", "url qr", "barcode"],
     icon: "qr-code",
-    availability: "coming-soon",
+    availability: "available",
+    href: "/tools/qr-code-generator",
   },
   {
     id: "word-character-counter",

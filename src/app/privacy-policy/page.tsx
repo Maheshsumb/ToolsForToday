@@ -48,7 +48,7 @@ export default function PrivacyPolicyPage() {
             <section aria-labelledby="tools-heading">
               <h2 id="tools-heading" className="font-heading text-xl font-semibold text-text">Browser-based tools</h2>
               <p className="mt-3">
-                The Word &amp; Character Counter, Percentage Calculator, Unit Converter, and Date Difference &amp; Age Calculator process the values you enter locally in your browser. Tool inputs are not sent to a ToolsForToday application server or included in the site&apos;s manual Google Analytics page-view events.
+                The Word &amp; Character Counter, Percentage Calculator, Unit Converter, Date Difference &amp; Age Calculator, and QR Code Generator process the values you enter locally in your browser. QR content is encoded locally. Tool inputs are not sent to a ToolsForToday application server or included in the site&apos;s manual Google Analytics page-view events.
               </p>
             </section>
 
