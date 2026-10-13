@@ -10,6 +10,7 @@ export const ANALYTICS_PAGES = {
   imageConverter: { path: "/tools/image-converter", title: "JPG, PNG & WebP Image Converter | ToolsForToday" },
   mergePdf: { path: "/tools/merge-pdf", title: "Merge PDF | ToolsForToday" },
   splitPdf: { path: "/tools/split-pdf", title: "Split PDF | ToolsForToday" },
+  imagesToPdf: { path: "/tools/images-to-pdf", title: "Images to PDF | ToolsForToday" },
   privacyPolicy: { path: "/privacy-policy", title: "ToolsForToday | Privacy Policy" },
   notFound: { path: "/404", title: "ToolsForToday | Page not found" },
 } as const;

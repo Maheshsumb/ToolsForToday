@@ -147,6 +147,24 @@ test("Split PDF route is included in the fixed analytics allowlist", () => {
   });
 });
 
+test("Images to PDF uses a fixed sanitized route and title without image details", () => {
+  const view = preparePageView("imagesToPdf", origin, "/tools/split-pdf");
+  assert.equal(view?.payload.page_title, "Images to PDF | ToolsForToday");
+  assert.equal(view?.payload.page_location, `${origin}/tools/images-to-pdf`);
+  assert.equal(view?.payload.page_path, "/tools/images-to-pdf");
+  assert.equal(view?.payload.page_referrer, `${origin}/tools/split-pdf`);
+  for (const privateValue of ["?", "private-photo.jpg", "imageWidth", "A4", "thumbnail", "image-order"]) {
+    assert.equal(JSON.stringify(view).includes(privateValue), false);
+  }
+});
+
+test("Images to PDF route is included in the fixed analytics allowlist", () => {
+  assert.deepEqual(ANALYTICS_PAGES.imagesToPdf, {
+    path: "/tools/images-to-pdf",
+    title: "Images to PDF | ToolsForToday",
+  });
+});
+
 test("Merge PDF Analytics data does not contain file names, pages, or contents", () => {
   const view = preparePageView("mergePdf", origin, "/");
   const payload = JSON.stringify(view);
