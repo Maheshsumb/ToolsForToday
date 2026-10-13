@@ -13,6 +13,7 @@ import {
   dateCalculatorReducer,
   formatAgeCopyText,
   formatCalendarDate,
+  formatWeekBreakdown,
   formatDateDifferenceCopyText,
   formatDaysCopyText,
   getLocalTodayDate,
@@ -109,7 +110,7 @@ export function DateDifferenceAgeCalculator() {
         <p className="text-sm font-semibold text-muted">Result</p>
         {difference?.ok ? <>
           <output className="mt-1 block break-words font-heading text-3xl font-semibold tracking-tight text-text sm:text-4xl">{difference.absoluteDays.toLocaleString()} calendar {difference.absoluteDays === 1 ? "day" : "days"}</output>
-          <p className="mt-3 break-words text-sm text-muted">{difference.years} {difference.years === 1 ? "year" : "years"}, {difference.months} {difference.months === 1 ? "month" : "months"}, {difference.days} {difference.days === 1 ? "day" : "days"} · {difference.wholeWeeks} weeks and {difference.weekDays} days</p>
+          <p className="mt-3 break-words text-sm text-muted">{difference.years} {difference.years === 1 ? "year" : "years"}, {difference.months} {difference.months === 1 ? "month" : "months"}, {difference.days} {difference.days === 1 ? "day" : "days"} · {formatWeekBreakdown(difference.wholeWeeks, difference.weekDays)}</p>
           <p className="mt-1 text-sm text-muted">{difference.direction === "same" ? "The dates are the same." : `The end date is ${difference.absoluteDays.toLocaleString()} days ${difference.direction} the start date.`}</p>
         </> : null}
         {age?.ok ? <>
@@ -119,7 +120,7 @@ export function DateDifferenceAgeCalculator() {
         </> : null}
         {days?.ok ? <>
           <output className="mt-1 block break-words font-heading text-3xl font-semibold tracking-tight text-text sm:text-4xl">{days.absoluteDays.toLocaleString()} {days.absoluteDays === 1 ? "day" : "days"} {days.direction === "future" ? "until" : days.direction === "past" ? "since" : "from today"}</output>
-          <p className="mt-3 break-words text-sm text-muted">{days.wholeWeeks} weeks and {days.weekDays} days · Target: {formatCalendarDate(state.targetDate)}</p>
+          <p className="mt-3 break-words text-sm text-muted">{formatWeekBreakdown(days.wholeWeeks, days.weekDays)} · Target: {formatCalendarDate(state.targetDate)}</p>
         </> : null}
         {!difference?.ok && !age?.ok && !days?.ok ? <p className={`mt-2 text-sm ${error ? "font-medium text-error" : "text-muted"}`}>{error || "Enter the required dates above to calculate."}</p> : null}
       </div>

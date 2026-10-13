@@ -15,6 +15,7 @@ import {
   formatCalendarDate,
   formatDateDifferenceCopyText,
   formatDaysCopyText,
+  formatWeekBreakdown,
   isLeapYear,
   parseCalendarDate,
 } from "./date-calculations.ts";
@@ -178,6 +179,16 @@ test("formats dates and difference copy summaries", () => {
   const result = calculateDateDifference("2024-01-01", "2024-01-11");
   assert.equal(formatCalendarDate("2024-01-01"), "January 1, 2024");
   assert.match(formatDateDifferenceCopyText("2024-01-01", "2024-01-11", result), /10 calendar days/);
+});
+
+test("formats week and day singulars correctly in every date-difference display", () => {
+  assert.equal(formatWeekBreakdown(0, 1), "0 weeks and 1 day");
+  assert.equal(formatWeekBreakdown(1, 1), "1 week and 1 day");
+  assert.equal(formatWeekBreakdown(2, 2), "2 weeks and 2 days");
+  const oneDay = calculateDateDifference("2025-01-01", "2025-01-02");
+  assert.match(formatDateDifferenceCopyText("2025-01-01", "2025-01-02", oneDay), /0 weeks and 1 day/);
+  const relative = calculateDaysUntilSince("2025-01-02", "2025-01-01");
+  assert.match(formatDaysCopyText("2025-01-02", "2025-01-01", relative), /0 weeks and 1 day/);
 });
 
 test("formats age and days copy summaries", () => {

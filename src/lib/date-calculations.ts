@@ -255,9 +255,17 @@ export function formatCalendarDate(value: string): string {
   return `${MONTH_NAMES[date.month - 1]} ${date.day}, ${String(date.year).padStart(4, "0")}`;
 }
 
+export function formatWeekBreakdown(wholeWeeks: number, weekDays: number): string {
+  return `${wholeWeeks} ${wholeWeeks === 1 ? "week" : "weeks"} and ${weekDays} ${weekDays === 1 ? "day" : "days"}`;
+}
+
+function formatCalendarDayCount(value: number): string {
+  return `${value} calendar ${value === 1 ? "day" : "days"}`;
+}
+
 export function formatDateDifferenceCopyText(startDate: string, endDate: string, result: Extract<DateDifferenceResult, { ok: true }>): string {
   const direction = result.direction === "before" ? "the end date is before the start date" : result.direction === "after" ? "the end date is after the start date" : "both dates are the same";
-  return `Date difference: ${formatCalendarDate(startDate)} to ${formatCalendarDate(endDate)}. ${result.absoluteDays} calendar days; ${direction}. Calendar breakdown: ${result.years} years, ${result.months} months, ${result.days} days. ${result.wholeWeeks} weeks and ${result.weekDays} days.`;
+  return `Date difference: ${formatCalendarDate(startDate)} to ${formatCalendarDate(endDate)}. ${formatCalendarDayCount(result.absoluteDays)}; ${direction}. Calendar breakdown: ${result.years} years, ${result.months} months, ${result.days} days. ${formatWeekBreakdown(result.wholeWeeks, result.weekDays)}.`;
 }
 
 export function formatAgeCopyText(birthDate: string, asOfDate: string, result: Extract<AgeResult, { ok: true }>): string {
@@ -267,7 +275,7 @@ export function formatAgeCopyText(birthDate: string, asOfDate: string, result: E
 
 export function formatDaysCopyText(targetDate: string, today: string, result: Extract<DaysRelativeResult, { ok: true }>): string {
   const timing = result.direction === "future" ? "until" : result.direction === "past" ? "since" : "from today";
-  return `${result.absoluteDays} calendar days ${timing} ${formatCalendarDate(targetDate)} (today: ${formatCalendarDate(today)}). ${result.wholeWeeks} weeks and ${result.weekDays} days.`;
+  return `${formatCalendarDayCount(result.absoluteDays)} ${timing} ${formatCalendarDate(targetDate)} (today: ${formatCalendarDate(today)}). ${formatWeekBreakdown(result.wholeWeeks, result.weekDays)}.`;
 }
 
 export function getLocalTodayDate(): string {
