@@ -35,7 +35,7 @@ function decodeEntities(value) {
   return value.replaceAll("&amp;", "&").replaceAll("&lt;", "<").replaceAll("&gt;", ">").replaceAll("&quot;", '"').replaceAll("&#x27;", "'");
 }
 
-test("static export contains accurate unique page titles, descriptions, canonicals and noindex", async () => {
+test("static export contains accurate page metadata and indexable canonical pages", async () => {
   const descriptions = new Set();
   for (const page of pages) {
     const html = await htmlFor(page.file);
@@ -53,8 +53,19 @@ test("static export contains accurate unique page titles, descriptions, canonica
     assert.equal(canonicals.length, 1, `${page.route} canonical count`);
     assert.equal(canonicals[0][1], `${origin}${page.route}`, `${page.route} canonical`);
     assert.ok(!canonicals[0][1].includes("?"), `${page.route} canonical query`);
-    assert.ok(headTag(html, /<meta name="robots" content="noindex, follow"\s*\/?\s*>/gi).length === 1, `${page.route} robots`);
+    const robots = headTag(html, /<meta name="robots" content="([^"]+)"\s*\/?\s*>/gi);
+    assert.equal(robots.length, 1, `${page.route} robots count`);
+    assert.equal(robots[0][1], "index, follow", `${page.route} robots directive`);
+    assert.doesNotMatch(headTag(html, /<meta\b[^>]*>/gi).join("\n"), /name="(?:robots|googlebot)"[^>]*noindex/i, `${page.route} noindex`);
+    assert.equal(headTag(html, /<meta name="googlebot"[^>]*>/gi).length, 0, `${page.route} Googlebot directive`);
   }
+});
+
+test("custom 404 remains non-indexable with the expected not-found content", async () => {
+  const html = await htmlFor("404.html");
+  assert.match(html, /Page not found/);
+  const robots = headTag(html, /<meta name="robots" content="([^"]+)"\s*\/?\s*>/gi);
+  assert.ok(robots.some(([, content]) => /noindex/i.test(content)), "404 must retain Next.js noindex");
 });
 
 test("homepage describes all 12 available tools and category counts truthfully", async () => {
@@ -64,6 +75,7 @@ test("homepage describes all 12 available tools and category counts truthfully",
   assert.match(html, /5 Utilities, 3 Image Tools and 4 PDF Tools/);
   assert.doesNotMatch(html, /planned collection|eight available tools|four more tools are in development|being built/i);
   assert.equal((catalogue.match(/>Available<\/span>/g) ?? []).length, 12);
+  assert.equal((catalogue.match(/>Coming Soon<\/span>/g) ?? []).length, 0);
   const toolHrefs = [...catalogue.matchAll(/href="(\/tools\/[a-z0-9-]+\/)"/g)].map((match) => match[1]);
   assert.equal(new Set(toolHrefs).size, 12);
 });
@@ -76,9 +88,11 @@ test("sitemap lists exactly the 14 canonical content pages without generated dat
   assert.equal(urls.length, 14);
   assert.equal(new Set(urls).size, 14);
   assert.deepEqual(new Set(urls), new Set(pages.map((page) => `${origin}${page.route}`)));
+  assert.ok(urls.every((url) => url.endsWith("/")), "sitemap URLs must use trailing slashes");
   const sitemapLocations = urls.join("\n");
   assert.doesNotMatch(sitemapLocations, /pages\.dev|www\.toolsfortoday|localhost|\?|404/i);
   assert.doesNotMatch(xml, /<lastmod|<priority|<changefreq/i);
+  assert.match(xml, /<\/urlset>\s*$/);
 });
 
 test("structured data is valid JSON-LD and does not invent ratings or reviews", async () => {
@@ -112,6 +126,7 @@ test("related links stay within the intended tool routes and favicon and AdSense
   assert.equal(headTag(html, /<meta name="google-adsense-account" content="ca-pub-9582226210309650"\s*\/?\s*>/gi).length, 1);
   assert.equal(headTag(html, /<link rel="icon"[^>]*favicon\.ico[^>]*>/gi).length, 1);
   assert.doesNotMatch(html, /pagead2\.googlesyndication\.com|adsbygoogle\.js/i);
+  assert.equal(await readFile(path.join(output, "ads.txt"), "utf8"), "google.com, pub-9582226210309650, DIRECT, f08c47fec0942fa0\n");
 });
 
 test("page-specific Open Graph metadata contains each canonical URL", async () => {
@@ -128,11 +143,13 @@ test("page-specific Open Graph metadata contains each canonical URL", async () =
 test("SEO additions leave Analytics source allowlist and consent code intact", async () => {
   const pageSource = await readFile("src/components/analytics/analytics-page.ts", "utf8");
   const consentSource = await readFile("src/components/analytics/analytics-consent.tsx", "utf8");
+  const layoutSource = await readFile("src/app/layout.tsx", "utf8");
   assert.match(pageSource, /ANALYTICS_PAGES/);
   assert.match(pageSource, /export function preparePageView/);
   assert.match(consentSource, /send_page_view:\s*false/);
   assert.match(consentSource, /analytics_storage:\s*analyticsGranted\s*\?\s*"granted"\s*:\s*"denied"/);
   assert.match(consentSource, /G-8HTP8B0KY5/);
+  assert.doesNotMatch(layoutSource, /static\.cloudflareinsights\.com|beacon\.min\.js|cdn-cgi\/rum/);
 });
 
 test("Privacy Policy contains the approved Cloudflare Web Analytics disclosure once", async () => {
@@ -154,5 +171,5 @@ test("Privacy Policy contains the approved Cloudflare Web Analytics disclosure o
   assert.match(html, /mailto:maheshsumb\.dev@gmail\.com/);
   assert.match(html, /<title>Privacy Policy \| ToolsForToday<\/title>/);
   assert.match(html, /<link rel="canonical" href="https:\/\/toolsfortoday\.online\/privacy-policy\/"/);
-  assert.match(html, /<meta name="robots" content="noindex, follow"/);
+  assert.match(html, /<meta name="robots" content="index, follow"/);
 });

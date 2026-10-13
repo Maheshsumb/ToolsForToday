@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title: "ToolsForToday | Everyday Tools. One Simple Place.",
   description: "Explore free online tools for PDFs, images, calculations, dates, text and QR codes. ToolsForToday brings everyday tasks together in one place.",
   robots: {
-    index: false,
+    index: true,
     follow: true,
   },
   other: {
