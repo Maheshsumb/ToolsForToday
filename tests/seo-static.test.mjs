@@ -134,3 +134,25 @@ test("SEO additions leave Analytics source allowlist and consent code intact", a
   assert.match(consentSource, /analytics_storage:\s*analyticsGranted\s*\?\s*"granted"\s*:\s*"denied"/);
   assert.match(consentSource, /G-8HTP8B0KY5/);
 });
+
+test("Privacy Policy contains the approved Cloudflare Web Analytics disclosure once", async () => {
+  const html = await htmlFor("privacy-policy/index.html");
+  const sections = [...html.matchAll(/<section aria-labelledby="cloudflare-analytics-heading">([\s\S]*?)<\/section>/g)];
+  assert.equal(sections.length, 1, "Cloudflare Web Analytics disclosure count");
+  const section = sections[0][1];
+
+  assert.match(section, /<h2 id="cloudflare-analytics-heading"[^>]*>Cloudflare Web Analytics<\/h2>/);
+  assert.match(section, /Cloudflare may use a browser-based beacon/);
+  assert.match(section, /page and referrer information, browser and device details/);
+  assert.match(section, /operates separately from Google Analytics/);
+  assert.match(section, /Google Analytics consent preference on ToolsForToday does not control Cloudflare Web Analytics/);
+  assert.equal((section.match(/href="https:\/\/developers\.cloudflare\.com\/speed\/observatory\/rum-beacon\/"/g) ?? []).length, 1);
+  assert.equal((section.match(/href="https:\/\/developers\.cloudflare\.com\/web-analytics\/faq\/"/g) ?? []).length, 1);
+  assert.match(section, /handles IP addresses, processes performance information internationally, and retains analytics data/);
+
+  assert.match(html, /Mahesh Sumb/);
+  assert.match(html, /mailto:maheshsumb\.dev@gmail\.com/);
+  assert.match(html, /<title>Privacy Policy \| ToolsForToday<\/title>/);
+  assert.match(html, /<link rel="canonical" href="https:\/\/toolsfortoday\.online\/privacy-policy\/"/);
+  assert.match(html, /<meta name="robots" content="noindex, follow"/);
+});

@@ -104,6 +104,28 @@ export default function PrivacyPolicyPage() {
               </p>
             </section>
 
+            <section aria-labelledby="cloudflare-analytics-heading">
+              <h2 id="cloudflare-analytics-heading" className="font-heading text-xl font-semibold text-text">Cloudflare Web Analytics</h2>
+              <p className="mt-3">
+                We use Cloudflare Web Analytics to understand website visits and improve website performance.
+              </p>
+              <p className="mt-3">
+                Cloudflare may use a browser-based beacon to collect technical information, including page and referrer information, browser and device details, page-loading measurements, and website performance metrics.
+              </p>
+              <p className="mt-3">
+                Cloudflare Web Analytics operates separately from Google Analytics. The Google Analytics consent preference on ToolsForToday does not control Cloudflare Web Analytics.
+              </p>
+              <p className="mt-3">
+                According to Cloudflare&apos;s published documentation, its Web Analytics beacon does not access browser cookies or other browser storage. Cloudflare also describes how it handles IP addresses, processes performance information internationally, and retains analytics data.
+              </p>
+              <p className="mt-3">
+                For more information, see Cloudflare&apos;s <ExternalLink href="https://developers.cloudflare.com/speed/observatory/rum-beacon/">RUM beacon documentation</ExternalLink> and <ExternalLink href="https://developers.cloudflare.com/web-analytics/faq/">Web Analytics FAQ</ExternalLink>.
+              </p>
+              <p className="mt-3">
+                We may update this disclosure as our analytics configuration or Cloudflare&apos;s services change.
+              </p>
+            </section>
+
             <section aria-labelledby="ads-heading">
               <h2 id="ads-heading" className="font-heading text-xl font-semibold text-text">Google AdSense</h2>
               <p className="mt-3">
