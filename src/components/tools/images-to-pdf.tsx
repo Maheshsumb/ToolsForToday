@@ -315,6 +315,7 @@ export function ImagesToPdfTool() {
             type="file"
             accept={allowedExtensions}
             multiple
+            aria-label="Choose images to convert to PDF"
             disabled={isBusy}
             onChange={(event) => { void acceptFiles(event.currentTarget.files ?? [], replaceRef.current); event.currentTarget.value = ""; }}
             className="sr-only"

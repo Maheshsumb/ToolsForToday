@@ -33,7 +33,7 @@ export function ToolCard({ tool }: ToolCardProps) {
   );
 
   return tool.availability === "available" && tool.href ? (
-    <Link href={tool.href} aria-label={tool.title} className="block cursor-pointer rounded-2xl text-current no-underline hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus-ring">
+    <Link href={tool.href} className="block cursor-pointer rounded-2xl text-current no-underline hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus-ring">
       {card}
     </Link>
   ) : card;
