@@ -219,6 +219,27 @@ test("uses only fixed allowlisted paths and excludes query strings", () => {
   assert.equal(JSON.stringify(view).includes("?"), false);
 });
 
+test("Guides use fixed sanitized Analytics routes", () => {
+  const guidePages = [
+    ["guides", "/guides", "ToolsForToday | Guides"],
+    ["guideImageCompression", "/guides/how-to-compress-images-in-your-browser", "How to Compress Images in Your Browser | ToolsForToday"],
+    ["guideMergePdf", "/guides/how-to-merge-pdf-files", "How to Merge PDF Files in Order | ToolsForToday"],
+    ["guideImagesToPdf", "/guides/how-to-turn-images-into-pdf", "How to Convert Images to PDF | ToolsForToday"],
+    ["guideResizeCrop", "/guides/how-to-resize-and-crop-images", "How to Resize and Crop Images | ToolsForToday"],
+    ["guidePercentageChange", "/guides/how-to-calculate-percentage-change", "How to Calculate Percentage Change | ToolsForToday"],
+  ];
+
+  for (const [key, path, title] of guidePages) {
+    const view = preparePageView(key, origin, "/guides/");
+    assert.equal(view?.payload.page_title, title);
+    assert.equal(view?.payload.page_path, path);
+    assert.equal(view?.payload.page_location, `${origin}${path}`);
+    assert.equal(view?.payload.page_referrer, `${origin}/guides/`);
+    assert.equal(JSON.stringify(view).includes("?"), false);
+    assert.equal(JSON.stringify(view).includes("sample.pdf"), false);
+  }
+});
+
 test("tracks a genuine not-found render only through its explicit marker", () => {
   const view = preparePageView("notFound", origin, "/");
 

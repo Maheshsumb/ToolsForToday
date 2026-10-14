@@ -20,6 +20,12 @@ const pages = [
   { route: "/tools/images-to-pdf/", file: "tools/images-to-pdf/index.html", title: "Images to PDF Converter – JPG, PNG & WebP | ToolsForToday" },
   { route: "/tools/pdf-to-jpg/", file: "tools/pdf-to-jpg/index.html", title: "PDF to JPG Converter – Extract Pages | ToolsForToday" },
   { route: "/privacy-policy/", file: "privacy-policy/index.html", title: "Privacy Policy | ToolsForToday" },
+  { route: "/guides/", file: "guides/index.html", title: "Free Online Tool Guides & Tutorials | ToolsForToday" },
+  { route: "/guides/how-to-compress-images-in-your-browser/", file: "guides/how-to-compress-images-in-your-browser/index.html", title: "How to Compress Images in Your Browser | ToolsForToday" },
+  { route: "/guides/how-to-merge-pdf-files/", file: "guides/how-to-merge-pdf-files/index.html", title: "How to Merge PDF Files in Order | ToolsForToday" },
+  { route: "/guides/how-to-turn-images-into-pdf/", file: "guides/how-to-turn-images-into-pdf/index.html", title: "How to Convert Images to PDF | ToolsForToday" },
+  { route: "/guides/how-to-resize-and-crop-images/", file: "guides/how-to-resize-and-crop-images/index.html", title: "How to Resize and Crop Images | ToolsForToday" },
+  { route: "/guides/how-to-calculate-percentage-change/", file: "guides/how-to-calculate-percentage-change/index.html", title: "How to Calculate Percentage Change | ToolsForToday" },
 ];
 
 async function htmlFor(file) {
@@ -68,6 +74,84 @@ test("custom 404 remains non-indexable with the expected not-found content", asy
   assert.ok(robots.some(([, content]) => /noindex/i.test(content)), "404 must retain Next.js noindex");
 });
 
+test("guides are visible, indexable static articles with canonical metadata and accessible structure", async () => {
+  const guidePages = pages.filter(({ route }) => route.startsWith("/guides/"));
+  assert.equal(guidePages.length, 6, "one hub plus five published guide routes");
+  const descriptions = new Set();
+
+  for (const page of guidePages) {
+    const html = await htmlFor(page.file);
+    const title = headTag(html, /<title>([\s\S]*?)<\/title>/gi);
+    assert.equal(title.length, 1, `${page.route} title count`);
+    assert.equal(decodeEntities(title[0][1]), page.title, `${page.route} unique title`);
+    const description = headTag(html, /<meta name="description" content="([^"]+)"\s*\/?\s*>/gi);
+    assert.equal(description.length, 1, `${page.route} description count`);
+    assert.ok(description[0][1].length > 50, `${page.route} useful description`);
+    assert.ok(!descriptions.has(description[0][1]), `${page.route} duplicate description`);
+    descriptions.add(description[0][1]);
+    const canonical = headTag(html, /<link rel="canonical" href="([^"]+)"\s*\/?\s*>/gi);
+    assert.equal(canonical.length, 1, `${page.route} canonical count`);
+    assert.equal(canonical[0][1], `${origin}${page.route}`);
+    assert.match(html, /<meta name="robots" content="index, follow"/);
+    assert.match(html, /<h1\b/);
+    assert.match(html, /<nav aria-label="Breadcrumb"/);
+    assert.doesNotMatch(html, /draft guide|coming soon/i);
+    assert.doesNotMatch(html, /TODO|PLACEHOLDER|lorem ipsum/i);
+
+    if (page.route !== "/guides/") {
+      assert.match(html, /<article\b/);
+      assert.match(html, /Step by step/);
+      assert.match(html, /Common mistakes to avoid/);
+      assert.match(html, /Ready to try it\?/);
+      const structuredData = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
+      assert.equal(structuredData.length, 1, `${page.route} one JSON-LD block`);
+      const parsed = JSON.parse(structuredData[0][1]);
+      assert.ok(Array.isArray(parsed), `${page.route} Article and BreadcrumbList JSON-LD array`);
+      assert.ok(parsed.some((item) => item["@type"] === "Article" && item.mainEntityOfPage?.["@id"] === `${origin}${page.route}`), `${page.route} matching Article JSON-LD`);
+      assert.ok(parsed.some((item) => item["@type"] === "BreadcrumbList" && item.itemListElement?.length === 3 && item.itemListElement.at(-1)?.item === `${origin}${page.route}`), `${page.route} visible breadcrumb JSON-LD`);
+    }
+  }
+});
+
+test("guides hub, tool pages, and related guide links use only published routes", async () => {
+  const publishedGuideRoutes = new Set(pages.filter(({ route }) => route.startsWith("/guides/")).map(({ route }) => route));
+  const hub = await htmlFor("guides/index.html");
+  for (const page of pages.filter(({ route }) => route.startsWith("/guides/") && route !== "/guides/")) {
+    assert.ok(hub.includes(`href="${page.route}"`), `hub links to ${page.route}`);
+  }
+
+  const toolGuidePairs = [
+    ["image-compressor/index.html", "/guides/how-to-compress-images-in-your-browser/"],
+    ["merge-pdf/index.html", "/guides/how-to-merge-pdf-files/"],
+    ["images-to-pdf/index.html", "/guides/how-to-turn-images-into-pdf/"],
+    ["image-resizer-cropper/index.html", "/guides/how-to-resize-and-crop-images/"],
+    ["percentage-calculator/index.html", "/guides/how-to-calculate-percentage-change/"],
+  ];
+  for (const [file, route] of toolGuidePairs) {
+    const html = await htmlFor(`tools/${file}`);
+    assert.ok(html.includes(`href="${route}"`), `${file} links to its guide`);
+  }
+
+  const htmlFiles = [...pages.map(({ file }) => file)];
+  for (const file of htmlFiles) {
+    const html = await htmlFor(file);
+    for (const [, href] of html.matchAll(/href="(\/guides\/[^"?#]+)"/g)) {
+      assert.ok(publishedGuideRoutes.has(href), `${file} points to published route ${href}`);
+    }
+  }
+});
+
+test("static sitemap contains all original pages and exactly six published guide URLs", async () => {
+  const sitemap = await htmlFor("sitemap.xml");
+  const urls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(([, url]) => url);
+  assert.equal(urls.length, 20, "14 existing URLs plus Guides hub and five guides");
+  assert.equal(new Set(urls).size, urls.length, "no duplicate URLs");
+  for (const page of pages) assert.ok(urls.includes(`${origin}${page.route}`), `sitemap includes ${page.route}`);
+  assert.ok(urls.every((url) => url.startsWith(`${origin}/`)), "sitemap uses HTTPS apex URLs only");
+  assert.ok(urls.every((url) => url.endsWith("/")), "sitemap uses trailing slash routes");
+  assert.ok(!urls.some((url) => /localhost|pages\.dev|preview|draft/i.test(url)), "no development or preview URL");
+});
+
 test("homepage describes all 12 available tools and category counts truthfully", async () => {
   const html = await htmlFor("index.html");
   const catalogue = html.match(/<section id="tools"[\s\S]*?<\/section>/)?.[0] ?? "";
@@ -80,13 +164,13 @@ test("homepage describes all 12 available tools and category counts truthfully",
   assert.equal(new Set(toolHrefs).size, 12);
 });
 
-test("sitemap lists exactly the 14 canonical content pages without generated dates", async () => {
+test("sitemap lists exactly the 20 canonical content pages without generated dates", async () => {
   const xml = await readFile(path.join(output, "sitemap.xml"), "utf8");
   assert.match(xml, /^<\?xml/);
   assert.match(xml, /<urlset[^>]+xmlns="http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9"/);
   const urls = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
-  assert.equal(urls.length, 14);
-  assert.equal(new Set(urls).size, 14);
+  assert.equal(urls.length, 20);
+  assert.equal(new Set(urls).size, 20);
   assert.deepEqual(new Set(urls), new Set(pages.map((page) => `${origin}${page.route}`)));
   assert.ok(urls.every((url) => url.endsWith("/")), "sitemap URLs must use trailing slashes");
   const sitemapLocations = urls.join("\n");
@@ -104,12 +188,15 @@ test("structured data is valid JSON-LD and does not invent ratings or reviews", 
     const values = Array.isArray(parsed) ? parsed : [parsed];
     for (const value of values) {
       assert.equal(value["@context"], "https://schema.org");
-      assert.equal(value.inLanguage, "en");
-      assert.ok(value.url.startsWith(origin));
+      if (value.inLanguage !== undefined) assert.equal(value.inLanguage, "en");
+      const canonical = value.url ?? value.mainEntityOfPage?.["@id"] ?? value.itemListElement?.at(-1)?.item;
+      assert.ok(typeof canonical === "string" && canonical.startsWith(origin));
       assert.ok(!("aggregateRating" in value));
       assert.ok(!("review" in value));
     }
     if (page.route === "/") assert.deepEqual(values.map((value) => value["@type"]), ["WebSite", "WebPage"]);
+    else if (page.route === "/guides/") assert.equal(values[0]["@type"], "CollectionPage");
+    else if (page.route.startsWith("/guides/")) assert.deepEqual(values.map((value) => value["@type"]), ["Article", "BreadcrumbList"]);
     else assert.equal(values[0]["@type"], "WebPage");
   }
 });

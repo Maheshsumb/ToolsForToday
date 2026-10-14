@@ -58,6 +58,7 @@ export function MobileNavigation() {
         className="absolute right-0 top-full z-50 mt-2 w-56 rounded-xl border border-border bg-surface p-2 shadow-lg"
       >
         <NavigationLink href="/" onClick={handleNavigate} className="w-full px-3">Home</NavigationLink>
+        <NavigationLink href="/guides/" onClick={handleNavigate} className="w-full px-3">Guides</NavigationLink>
       </nav>
     </div>
   );

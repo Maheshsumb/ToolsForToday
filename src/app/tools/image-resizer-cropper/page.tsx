@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { createPageMetadata } from "@/lib/seo-metadata";
 import { AnalyticsPageView } from "@/components/analytics/analytics-consent";
 import { ImageResizerCropper } from "@/components/tools/image-resizer-cropper";
+import { ToolGuideLink } from "@/components/guides/tool-guide-link";
 import { ToolHelpSection } from "@/components/tools/tool-help-section";
 import { ToolPageShell } from "@/components/tools/tool-page-shell";
 import { tools } from "@/config/tools";
@@ -45,6 +46,7 @@ export default function ImageResizerCropperPage() {
         { question: "Will a larger output look sharper?", answer: "Not necessarily. Upscaling increases pixel dimensions but cannot recreate detail absent from the source." },
         { question: "Why is my transparent image white in JPG?", answer: "JPG has no transparency. Choose a background color before exporting; PNG and supported WebP outputs can retain transparency." },
       ]} />
+      <ToolGuideLink href="/guides/how-to-resize-and-crop-images/" title="How to Resize and Crop Images Without Distorting Them" />
     </ToolPageShell>
   </>;
 }

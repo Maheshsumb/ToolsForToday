@@ -4,6 +4,7 @@ import { AnalyticsPageView } from "@/components/analytics/analytics-consent";
 import { ToolHelpSection } from "@/components/tools/tool-help-section";
 import { ToolPageShell } from "@/components/tools/tool-page-shell";
 import { PercentageCalculator } from "@/components/tools/percentage-calculator";
+import { ToolGuideLink } from "@/components/guides/tool-guide-link";
 import { tools } from "@/config/tools";
 
 const tool = tools.find((entry) => entry.id === "percentage-calculator") as (typeof tools)[number];
@@ -79,6 +80,7 @@ export default function PercentageCalculatorPage() {
             },
           ]}
         />
+        <ToolGuideLink href="/guides/how-to-calculate-percentage-change/" title="How to Calculate Percentage Increase and Decrease" />
       </ToolPageShell>
     </>
   );

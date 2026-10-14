@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { createPageMetadata } from "@/lib/seo-metadata";
 import { AnalyticsPageView } from "@/components/analytics/analytics-consent";
 import { MergePdfTool } from "@/components/tools/merge-pdf";
+import { ToolGuideLink } from "@/components/guides/tool-guide-link";
 import { ToolHelpSection } from "@/components/tools/tool-help-section";
 import { ToolPageShell } from "@/components/tools/tool-page-shell";
 import { tools } from "@/config/tools";
@@ -65,6 +66,7 @@ export default function MergePdfPage() {
             { question: "Are the PDFs uploaded or scanned for malware?", answer: "No. PDF content is processed in your browser and is not uploaded to ToolsForToday. This tool does not sanitize files or provide malware scanning." },
           ]}
         />
+        <ToolGuideLink href="/guides/how-to-merge-pdf-files/" title="How to Merge PDF Files in the Correct Order" />
       </ToolPageShell>
     </>
   );

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { createPageMetadata } from "@/lib/seo-metadata";
 import { AnalyticsPageView } from "@/components/analytics/analytics-consent";
 import { ImagesToPdfTool } from "@/components/tools/images-to-pdf";
+import { ToolGuideLink } from "@/components/guides/tool-guide-link";
 import { ToolHelpSection } from "@/components/tools/tool-help-section";
 import { ToolPageShell } from "@/components/tools/tool-page-shell";
 import { tools } from "@/config/tools";
@@ -54,6 +55,7 @@ export default function ImagesToPdfPage() {
             { question: "Are my images uploaded?", answer: "No. Image decoding and PDF creation happen in your browser. Image data, filenames, thumbnails, settings, and generated PDFs are not sent to the ToolsForToday application server." },
           ]}
         />
+        <ToolGuideLink href="/guides/how-to-turn-images-into-pdf/" title="How to Turn JPG, PNG, and WebP Images into a PDF" />
       </ToolPageShell>
     </>
   );

@@ -17,6 +17,7 @@ export function SiteFooter() {
         <div className="flex flex-col gap-3 sm:items-end">
           <nav aria-label="Footer navigation" className="flex flex-wrap gap-x-5 gap-y-1">
             <Link href="/" className="inline-flex min-h-11 items-center rounded-md text-sm font-medium text-muted hover:text-text hover:underline hover:underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus-ring">Home</Link>
+            <Link href="/guides/" className="inline-flex min-h-11 items-center rounded-md text-sm font-medium text-muted hover:text-text hover:underline hover:underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus-ring">Guides</Link>
             <Link href="/privacy-policy" className="inline-flex min-h-11 items-center rounded-md text-sm font-medium text-muted hover:text-text hover:underline hover:underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus-ring">Privacy Policy</Link>
             <AnalyticsSettingsButton />
           </nav>

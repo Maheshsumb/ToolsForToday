@@ -30,6 +30,7 @@ export function SiteHeader() {
         </Link>
         <nav aria-label="Primary navigation" className="hidden items-center gap-8 md:flex">
           <NavigationLink href="/">Home</NavigationLink>
+          <NavigationLink href="/guides/">Guides</NavigationLink>
         </nav>
         <MobileNavigation />
       </Container>

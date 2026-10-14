@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { createPageMetadata } from "@/lib/seo-metadata";
 import { AnalyticsPageView } from "@/components/analytics/analytics-consent";
 import { ImageCompressor } from "@/components/tools/image-compressor";
+import { ToolGuideLink } from "@/components/guides/tool-guide-link";
 import { ToolHelpSection } from "@/components/tools/tool-help-section";
 import { ToolPageShell } from "@/components/tools/tool-page-shell";
 import { tools } from "@/config/tools";
@@ -67,6 +68,7 @@ export default function ImageCompressorPage() {
             { question: "Are my images uploaded?", answer: "No. This tool uses browser image decoding and canvas encoding. Image contents, filenames, and metadata are not sent to ToolsForToday servers or its manual Analytics page views." },
           ]}
         />
+        <ToolGuideLink href="/guides/how-to-compress-images-in-your-browser/" title="How to Compress Images in Your Browser" />
       </ToolPageShell>
     </>
   );

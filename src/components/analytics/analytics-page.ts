@@ -13,6 +13,12 @@ export const ANALYTICS_PAGES = {
   imagesToPdf: { path: "/tools/images-to-pdf", title: "Images to PDF | ToolsForToday" },
   pdfToJpg: { path: "/tools/pdf-to-jpg", title: "PDF to JPG Converter | ToolsForToday" },
   privacyPolicy: { path: "/privacy-policy", title: "ToolsForToday | Privacy Policy" },
+  guides: { path: "/guides", title: "ToolsForToday | Guides" },
+  guideImageCompression: { path: "/guides/how-to-compress-images-in-your-browser", title: "How to Compress Images in Your Browser | ToolsForToday" },
+  guideMergePdf: { path: "/guides/how-to-merge-pdf-files", title: "How to Merge PDF Files in Order | ToolsForToday" },
+  guideImagesToPdf: { path: "/guides/how-to-turn-images-into-pdf", title: "How to Convert Images to PDF | ToolsForToday" },
+  guideResizeCrop: { path: "/guides/how-to-resize-and-crop-images", title: "How to Resize and Crop Images | ToolsForToday" },
+  guidePercentageChange: { path: "/guides/how-to-calculate-percentage-change", title: "How to Calculate Percentage Change | ToolsForToday" },
   notFound: { path: "/404", title: "ToolsForToday | Page not found" },
 } as const;
 
