@@ -31,6 +31,9 @@ jobs:
       - name: Typecheck
         run: npm run typecheck
 
+      - name: Build static site
+        run: npm run build
+
       - name: Run tests
         shell: bash
         run: |
@@ -49,6 +52,3 @@ jobs:
           npm run test:analytics
           npm run test:text-counter
           npm run test:seo
-
-      - name: Build static site
-        run: npm run build
