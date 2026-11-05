@@ -59,22 +59,67 @@ export function inspectInvisibleCharacters(text: string): InvisibleCharacterCoun
   });
 }
 
+function protectMarkdownCode(text: string): { text: string; restore: (value: string) => string } {
+  const protectedParts: string[] = [];
+  let markerPrefix = "\uE000ToolsForTodayCode";
+  while (text.includes(markerPrefix)) markerPrefix += "\uE000";
+  const markerEnd = "\uE001";
+  const protect = (value: string) => `${markerPrefix}${protectedParts.push(value) - 1}${markerEnd}`;
+  const lines = text.match(/[^\n]*\n|[^\n]+$/gu) ?? [];
+  let output = "";
+  let fence: { character: "`" | "~"; length: number; content: string } | null = null;
+  let skipBlankLinesAfterFence = false;
+
+  for (const line of lines) {
+    const lineContent = line.endsWith("\n") ? line.slice(0, -1) : line;
+    if (!fence && skipBlankLinesAfterFence) {
+      if (/^[\t ]*(?:\n)?$/u.test(line)) continue;
+      skipBlankLinesAfterFence = false;
+    }
+    if (fence) {
+      const closing = /^ {0,3}(`+|~+)[\t ]*$/u.exec(lineContent);
+      if (closing && closing[1][0] === fence.character && closing[1].length >= fence.length) {
+        output += protect(fence.content);
+        fence = null;
+        skipBlankLinesAfterFence = true;
+      } else {
+        fence.content += line;
+      }
+      continue;
+    }
+
+    const opening = /^ {0,3}(`{3,}|~{3,})[^\n]*$/u.exec(lineContent);
+    if (opening) {
+      fence = { character: opening[1][0] as "`" | "~", length: opening[1].length, content: "" };
+    } else {
+      output += line;
+    }
+  }
+  if (fence) output += protect(fence.content);
+
+  output = output.replace(/(`+)([^\n]+?)\1(?!`)/gu, (_match, _ticks: string, content: string) => protect(content));
+  const markerPattern = new RegExp(`${markerPrefix}(\\d+)${markerEnd}`, "gu");
+  return {
+    text: output,
+    restore: (value) => value.replace(markerPattern, (_match, index: string) => protectedParts[Number(index)] ?? _match),
+  };
+}
+
 function stripMarkdown(text: string): string {
-  return text
-    .replace(/^\s{0,3}(```|~~~)[^\r\n]*\r?\n/gmu, "")
-    .replace(/^\s{0,3}(?:```|~~~)\s*$/gmu, "")
+  const protectedCode = protectMarkdownCode(text);
+  const result = protectedCode.text
     .replace(/^\s{0,3}#{1,6}[\t ]+/gmu, "")
     .replace(/^\s{0,3}>[\t ]?/gmu, "")
     .replace(/^([\t ]*)([-*+])[\t ]+/gmu, "$1• ")
     .replace(/^([\t ]*)(\d+\.)[\t ]+/gmu, "$1$2 ")
     .replace(/!\[([^\]]*)\]\(([^)]+)\)/gu, "$1 ($2)")
     .replace(/\[([^\]]+)\]\(([^)]+)\)/gu, "$1 ($2)")
-    .replace(/`([^`]+)`/gu, "$1")
     .replace(/\*\*([^*]+)\*\*/gu, "$1")
-    .replace(/__([^_]+)__/gu, "$1")
     .replace(/~~([^~]+)~~/gu, "$1")
     .replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/gu, "$1$2")
-    .replace(/(^|[^_])_([^_\n]+)_(?!_)/gu, "$1$2");
+    .replace(/(?<![\\\p{L}\p{M}\p{N}_])__(?!_)(?=\S)([^\n]*?\S)(?<!_)__(?![\p{L}\p{M}\p{N}_])/gu, "$1")
+    .replace(/(?<![\\\p{L}\p{M}\p{N}_])_(?!_)(?=\S)([^\n]*?\S)(?<!_)_(?![\p{L}\p{M}\p{N}_])/gu, "$1");
+  return protectedCode.restore(result);
 }
 
 export function cleanCopiedText(input: string, options: TextCleanerOptions = DEFAULT_TEXT_CLEANER_OPTIONS): string {
