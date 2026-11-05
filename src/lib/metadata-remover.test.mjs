@@ -64,6 +64,35 @@ test("WebP EXIF and XMP chunks can be selected independently and RIFF length is 
   assert.ok(Buffer.from(output).includes(Buffer.from("VP8L")));
 });
 
+test("sequential WebP removals use the cleaned bytes and never restore EXIF or GPS", async () => {
+  const original = await fixture("synthetic-exif-xmp.webp");
+  const first = await removeSelectedMetadata(original, "webp", ["exif"]);
+  const afterExif = await inspectMetadata(first);
+  assert.deepEqual(afterExif.options.map(({ id }) => id), ["xmp"]);
+  assert.equal(afterExif.fields.some(({ label }) => label.toLowerCase().includes("gps")), false);
+
+  const final = await removeSelectedMetadata(first, "webp", ["xmp"]);
+  const afterXmp = await inspectMetadata(final);
+  assert.deepEqual(afterXmp.options, []);
+  assert.equal(afterXmp.fields.some(({ label }) => label.toLowerCase().includes("gps")), false);
+  assert.equal(Buffer.from(final).toString("ascii", 0, 4), "RIFF");
+  assert.equal(Buffer.from(final).readUInt32LE(4), final.length - 8);
+  assert.ok(Buffer.from(final).includes(Buffer.from("VP8L")));
+});
+
+test("sequential WebP removals also work in reverse order", async () => {
+  const original = await fixture("synthetic-exif-xmp.webp");
+  const first = await removeSelectedMetadata(original, "webp", ["xmp"]);
+  const afterXmp = await inspectMetadata(first);
+  assert.deepEqual(afterXmp.options.map(({ id }) => id), ["exif"]);
+  assert.ok(afterXmp.fields.some(({ label, value }) => label === "GPS coordinates" && value === "37.808333, -122.404167"));
+
+  const final = await removeSelectedMetadata(first, "webp", ["exif"]);
+  const afterExif = await inspectMetadata(final);
+  assert.deepEqual(afterExif.options, []);
+  assert.equal(afterExif.fields.some(({ label }) => label.toLowerCase().includes("gps")), false);
+});
+
 test("PNG text metadata is removed while pixel content remains valid", async () => {
   const input = pngWithTextChunk("tEXt", Buffer.from("Author\0Synthetic Writer", "utf8"));
   const before = await inspectMetadata(input);

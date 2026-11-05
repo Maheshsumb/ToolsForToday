@@ -51,6 +51,7 @@ jobs:
           npm run test:pdf-to-jpg
           npm run test:online-notepad
           npm run test:metadata-remover
+          npm run test:metadata-remover-operations
           npm run test:ai-text-cleaner
           npm run test:analytics
           npm run test:text-counter

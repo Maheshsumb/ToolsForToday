@@ -1,11 +1,12 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { FileDropzone } from "@/components/tools/file-dropzone";
 import { ToolPrivacyNote } from "@/components/tools/tool-help-section";
 import { ToolWorkspace } from "@/components/tools/tool-workspace";
 import { Button } from "@/components/ui/button";
 import { detectMetadataFileFormat, formatMetadataFileName, getMetadataImageDimensions, inspectMetadata, MetadataFileError, removeSelectedMetadata, type MetadataInspection } from "@/lib/metadata-remover";
+import { MetadataSelectionGuard } from "@/lib/metadata-remover-operations";
 
 const MAX_FILE_SIZE = 20 * 1024 * 1024;
 const allowedTypes = [
@@ -37,10 +38,14 @@ export function MetadataRemover() {
   const [error, setError] = useState("");
   const [output, setOutput] = useState<{ blob: Blob; name: string } | null>(null);
   const [verification, setVerification] = useState<{ removed: string[]; retained: string[] } | null>(null);
+  const selectionGuardRef = useRef(new MetadataSelectionGuard());
+  const workingCopyRef = useRef<{ generation: number; bytes: Uint8Array } | null>(null);
   const selectedCount = selected.length;
   const noMetadata = useMemo(() => Boolean(inspection && inspection.options.length === 0), [inspection]);
 
   async function inspectFile(nextFile: File | null) {
+    const generation = selectionGuardRef.current.beginSelection();
+    workingCopyRef.current = null;
     setFile(nextFile);
     setInspection(null);
     setSelected([]);
@@ -48,10 +53,13 @@ export function MetadataRemover() {
     setVerification(null);
     setStatus("");
     setError("");
-    if (!nextFile) return;
+    if (!nextFile) {
+      setBusy(false);
+      return;
+    }
     setBusy(true);
     setStatus("Checking the file contents and supported metadata locally…");
-    try {
+    await selectionGuardRef.current.run(generation, async () => {
       const bytes = new Uint8Array(await nextFile.arrayBuffer());
       if (bytes.length > MAX_FILE_SIZE) throw new MetadataFileError("Files must be 20 MB or smaller.");
       const format = detectMetadataFileFormat(bytes);
@@ -62,53 +70,71 @@ export function MetadataRemover() {
         bitmap.close();
       }
       const nextInspection = await inspectMetadata(bytes);
-      setInspection(nextInspection);
-      setSelected(nextInspection.options.map((option) => option.id));
-      setStatus(`Inspected ${format.toUpperCase()} file contents in this browser.`);
-    } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Could not inspect this file.");
-      setStatus("");
-    } finally {
-      setBusy(false);
-    }
+      return { bytes, format, inspection: nextInspection };
+    }, {
+      onSuccess: ({ bytes, format, inspection: nextInspection }) => {
+        workingCopyRef.current = { generation, bytes: new Uint8Array(bytes) };
+        setInspection(nextInspection);
+        setSelected(nextInspection.options.map((option) => option.id));
+        setStatus(`Inspected ${format.toUpperCase()} file contents in this browser.`);
+      },
+      onError: (reason) => {
+        setError(reason instanceof Error ? reason.message : "Could not inspect this file.");
+        setStatus("");
+      },
+      onFinally: () => setBusy(false),
+    });
   }
 
   async function processFile() {
-    if (!file || !inspection || selectedCount === 0) return;
+    const currentGeneration = workingCopyRef.current?.generation;
+    if (currentGeneration === undefined || !selectionGuardRef.current.isCurrent(currentGeneration)
+      || !file || !inspection || selectedCount === 0 || !selectionGuardRef.current.beginProcessing(currentGeneration)) return;
+    const processingGeneration = currentGeneration;
+    const sourceBytes = workingCopyRef.current!.bytes;
+    const sourceInspection = inspection;
+    const sourceFile = file;
+    const selectedIds = [...selected];
     setBusy(true);
     setError("");
-    setOutput(null);
     setStatus("Removing the selected metadata locally…");
-    try {
-      const inputBytes = new Uint8Array(await file.arrayBuffer());
-      const result = await removeSelectedMetadata(inputBytes, inspection.format, selected);
+    await selectionGuardRef.current.run(processingGeneration, async () => {
+      const result = await removeSelectedMetadata(new Uint8Array(sourceBytes), sourceInspection.format, selectedIds);
       const after = await inspectMetadata(result);
-      const removedOptions = selected.map((id) => inspection.options.find((option) => option.id === id)).filter((option) => option && !after.options.some((remaining) => remaining.id === option.id));
-      const retainedOptions = selected.map((id) => inspection.options.find((option) => option.id === id)).filter((option) => option && after.options.some((remaining) => remaining.id === option.id));
+      const removedOptions = selectedIds.map((id) => sourceInspection.options.find((option) => option.id === id)).filter((option) => option && !after.options.some((remaining) => remaining.id === option.id));
+      const retainedOptions = selectedIds.map((id) => sourceInspection.options.find((option) => option.id === id)).filter((option) => option && after.options.some((remaining) => remaining.id === option.id));
       const removed = removedOptions.map((option) => option!.label);
       const retained = retainedOptions.map((option) => option!.label);
       const outputBuffer = new ArrayBuffer(result.byteLength);
       new Uint8Array(outputBuffer).set(result);
-      const blob = new Blob([outputBuffer], { type: mimeForFormat(inspection.format) });
-      if (inspection.format !== "pdf") {
+      const blob = new Blob([outputBuffer], { type: mimeForFormat(sourceInspection.format) });
+      if (sourceInspection.format !== "pdf") {
         const bitmap = await createImageBitmap(blob);
         bitmap.close();
       } else {
         await inspectMetadata(new Uint8Array(result));
       }
-      setOutput({ blob, name: formatMetadataFileName(file.name) });
-      setVerification({ removed, retained });
-      setInspection(after);
-      setSelected([]);
-      setStatus(removed.length > 0
-        ? `Reinspection confirmed removal of ${removed.length} selected ${removed.length === 1 ? "category" : "categories"}${retained.length ? `; ${retained.length} selected categories remain` : ""}. Download and review the output.`
-        : "Reinspection did not confirm removal of the selected metadata. The output is available for your review.");
-    } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "The file could not be processed safely.");
-      setStatus("");
-    } finally {
-      setBusy(false);
-    }
+      return { result, blob, after, removed, retained };
+    }, {
+      onSuccess: ({ result, blob, after, removed, retained }) => {
+        workingCopyRef.current = { generation: processingGeneration, bytes: new Uint8Array(result) };
+        setOutput({ blob, name: formatMetadataFileName(sourceFile.name) });
+        setVerification({ removed, retained });
+        setInspection(after);
+        setSelected([]);
+        setStatus(removed.length > 0
+          ? `Reinspection confirmed removal of ${removed.length} selected ${removed.length === 1 ? "category" : "categories"}${retained.length ? `; ${retained.length} selected categories remain` : ""}. Download and review the output.`
+          : "Reinspection did not confirm removal of the selected metadata. The output is available for your review.");
+      },
+      onError: (reason) => {
+        setError(reason instanceof Error ? reason.message : "The file could not be processed safely.");
+        setStatus("");
+      },
+      onFinally: () => {
+        selectionGuardRef.current.endProcessing(processingGeneration);
+        setBusy(false);
+      },
+    });
   }
 
   function downloadOutput() {
