@@ -130,12 +130,9 @@ export function FileDropzone({ label, instructions, allowedTypes, maxFileSizeByt
             onChange={handleInputChange}
             className="peer sr-only"
           />
-          <label
-            htmlFor={inputId}
-            className="mt-4 inline-flex min-h-11 cursor-pointer items-center justify-center rounded-lg bg-action-primary px-4 py-2.5 text-sm font-semibold text-action-primary-foreground hover:bg-action-primary-hover focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-focus-ring peer-focus-visible:outline-2 peer-focus-visible:outline-offset-4 peer-focus-visible:outline-focus-ring"
-          >
+          <Button className="mt-4 peer-focus-visible:outline-2 peer-focus-visible:outline-offset-4 peer-focus-visible:outline-focus-ring" aria-describedby={hintId} onClick={() => inputRef.current?.click()}>
             Choose {maxFiles > 1 ? "files" : "a file"}
-          </label>
+          </Button>
           {acceptedFormats ? <p className="mt-3 text-xs text-muted">Supported: {acceptedFormats}. Maximum {formatLimit(maxFileSizeBytes)} per file.</p> : null}
         </div>
       </div>

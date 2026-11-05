@@ -8,6 +8,9 @@ const origin = "https://toolsfortoday.online";
 const pages = [
   { route: "/", file: "index.html", title: "ToolsForToday – Free Online PDF, Image & Utility Tools" },
   { route: "/tools/word-character-counter/", file: "tools/word-character-counter/index.html", title: "Word Counter & Character Counter Online | ToolsForToday" },
+  { route: "/tools/online-notepad/", file: "tools/online-notepad/index.html", title: "Free Online Notepad — Write, Save & Download Notes | ToolsForToday" },
+  { route: "/tools/metadata-remover/", file: "tools/metadata-remover/index.html", title: "Free Image & File Metadata Remover | ToolsForToday" },
+  { route: "/tools/ai-text-cleaner/", file: "tools/ai-text-cleaner/index.html", title: "Free AI Text Cleaner — Clean Copied Text & Formatting | ToolsForToday" },
   { route: "/tools/percentage-calculator/", file: "tools/percentage-calculator/index.html", title: "Percentage Calculator – Percent & Change | ToolsForToday" },
   { route: "/tools/unit-converter/", file: "tools/unit-converter/index.html", title: "Unit Converter – Length, Mass & More | ToolsForToday" },
   { route: "/tools/date-difference-age-calculator/", file: "tools/date-difference-age-calculator/index.html", title: "Date Difference & Age Calculator | ToolsForToday" },
@@ -141,10 +144,10 @@ test("guides hub, tool pages, and related guide links use only published routes"
   }
 });
 
-test("static sitemap contains all original pages and exactly six published guide URLs", async () => {
+test("static sitemap contains all 15 tool pages and exactly six published guide URLs", async () => {
   const sitemap = await htmlFor("sitemap.xml");
   const urls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(([, url]) => url);
-  assert.equal(urls.length, 20, "14 existing URLs plus Guides hub and five guides");
+  assert.equal(urls.length, 23, "17 tool and policy pages plus Guides hub and five guides");
   assert.equal(new Set(urls).size, urls.length, "no duplicate URLs");
   for (const page of pages) assert.ok(urls.includes(`${origin}${page.route}`), `sitemap includes ${page.route}`);
   assert.ok(urls.every((url) => url.startsWith(`${origin}/`)), "sitemap uses HTTPS apex URLs only");
@@ -152,25 +155,25 @@ test("static sitemap contains all original pages and exactly six published guide
   assert.ok(!urls.some((url) => /localhost|pages\.dev|preview|draft/i.test(url)), "no development or preview URL");
 });
 
-test("homepage describes all 12 available tools and category counts truthfully", async () => {
+test("homepage describes all 15 available tools and categories truthfully", async () => {
   const html = await htmlFor("index.html");
   const catalogue = html.match(/<section id="tools"[\s\S]*?<\/section>/)?.[0] ?? "";
-  assert.match(html, /12 available tools/);
-  assert.match(html, /5 Utilities, 3 Image Tools and 4 PDF Tools/);
+  assert.match(html, /15 available tools/);
+  assert.match(html, /five useful categories/);
   assert.doesNotMatch(html, /planned collection|eight available tools|four more tools are in development|being built/i);
-  assert.equal((catalogue.match(/>Available<\/span>/g) ?? []).length, 12);
+  assert.equal((catalogue.match(/>Available<\/span>/g) ?? []).length, 15);
   assert.equal((catalogue.match(/>Coming Soon<\/span>/g) ?? []).length, 0);
   const toolHrefs = [...catalogue.matchAll(/href="(\/tools\/[a-z0-9-]+\/)"/g)].map((match) => match[1]);
-  assert.equal(new Set(toolHrefs).size, 12);
+  assert.equal(new Set(toolHrefs).size, 15);
 });
 
-test("sitemap lists exactly the 20 canonical content pages without generated dates", async () => {
+test("sitemap lists exactly the 23 canonical content pages without generated dates", async () => {
   const xml = await readFile(path.join(output, "sitemap.xml"), "utf8");
   assert.match(xml, /^<\?xml/);
   assert.match(xml, /<urlset[^>]+xmlns="http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9"/);
   const urls = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
-  assert.equal(urls.length, 20);
-  assert.equal(new Set(urls).size, 20);
+  assert.equal(urls.length, 23);
+  assert.equal(new Set(urls).size, 23);
   assert.deepEqual(new Set(urls), new Set(pages.map((page) => `${origin}${page.route}`)));
   assert.ok(urls.every((url) => url.endsWith("/")), "sitemap URLs must use trailing slashes");
   const sitemapLocations = urls.join("\n");

@@ -42,5 +42,11 @@ export function ToolIcon({ name, className = "" }: ToolIconProps) {
       return <svg {...common}><path d="M3 7h16m-4-4 4 4-4 4M21 17H5m4-4-4 4 4 4" /></svg>;
     case "date-calculator":
       return <svg {...common}><rect x="3" y="5" width="18" height="16" rx="2" /><path d="M7 3v4m10-4v4M3 10h18m-13 4h2m3 0h2m-7 3h2m3 0h2" /></svg>;
+    case "online-notepad":
+      return <svg {...common}><path d="M6 3.5h9l4 4V20a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 5 20V5a1.5 1.5 0 0 1 1-1.5Z" /><path d="M14.5 3.5V8H19M8 12h8m-8 3.5h8m-8 3.5h5" /></svg>;
+    case "metadata-remover":
+      return <svg {...common}><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5v13a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 18.5z" /><circle cx="9" cy="9" r="1.3" /><path d="m5 17 4-4 2.5 2.5 2.5-3 5 5M3 3l18 18" /></svg>;
+    case "text-cleaner":
+      return <svg {...common}><path d="M4 5h16M4 9h11M4 13h16M4 17h10" /><path d="m18 15 1 2.2 2 1-2 1L18 22l-1-2.8-2-1 2-1z" /></svg>;
   }
 }

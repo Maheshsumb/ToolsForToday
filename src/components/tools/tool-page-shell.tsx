@@ -17,6 +17,8 @@ const iconTones = {
   image: "bg-[#FFF1EB] text-[#8C351C]",
   pdf: "bg-[#EAF5FB] text-[#14536C]",
   utility: "bg-[#E9F7F3] text-[#14563F]",
+  text: "bg-[#FFF7E8] text-[#80510F]",
+  privacy: "bg-[#F2EEFB] text-[#5C4385]",
 } as const;
 
 export function ToolPageShell({ tool, children, showRelatedTools = true }: ToolPageShellProps) {

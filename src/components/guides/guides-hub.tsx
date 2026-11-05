@@ -52,7 +52,7 @@ export function GuidesHub() {
             ))}
           </section>
 
-          <p className="mt-10 text-sm text-muted">Need a tool first? <Link href="/#tools" className="font-medium text-text underline underline-offset-4 hover:text-[#14536C] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring">Browse all 12 ToolsForToday tools</Link>.</p>
+            <p className="mt-10 text-sm text-muted">Need a tool first? <Link href="/#tools" className="font-medium text-text underline underline-offset-4 hover:text-[#14536C] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring">Browse all 15 ToolsForToday tools</Link>.</p>
         </Container>
       </main>
     </>

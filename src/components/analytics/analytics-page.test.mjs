@@ -91,6 +91,28 @@ test("Image Compressor uses a fixed sanitized route and title without file detai
   assert.equal(JSON.stringify(view).includes("photo-private-name.jpg"), false);
 });
 
+test("new browser tools use fixed sanitized Analytics routes", () => {
+  const cases = [
+    ["onlineNotepad", "/tools/online-notepad", "Online Notepad | ToolsForToday"],
+    ["metadataRemover", "/tools/metadata-remover", "Image & File Metadata Remover | ToolsForToday"],
+    ["aiTextCleaner", "/tools/ai-text-cleaner", "AI Text Cleaner | ToolsForToday"],
+  ];
+
+  for (const [pageKey, path, title] of cases) {
+    const view = preparePageView(pageKey, origin, "/");
+    assert.equal(view?.payload.page_title, title);
+    assert.equal(view?.payload.page_location, `${origin}${path}`);
+    assert.equal(view?.payload.page_path, path);
+    assert.equal(view?.payload.page_referrer, `${origin}/`);
+    assert.equal(JSON.stringify(view).includes("?"), false);
+  }
+
+  const draft = "Private note text with query-like value=secret";
+  for (const [pageKey] of cases) {
+    assert.equal(JSON.stringify(preparePageView(pageKey, origin, "/")).includes(draft), false);
+  }
+});
+
 test("Image Resizer & Cropper uses its fixed sanitized route and excludes image details", () => {
   const view = preparePageView("imageResizerCropper", origin, "/tools/image-compressor");
   assert.equal(view?.payload.page_title, "Image Resizer & Cropper | ToolsForToday");
@@ -253,4 +275,94 @@ test("requires accepted consent and an initialized tag before tracking", () => {
   assert.equal(canTrackPageView("accepted", false), false);
   assert.equal(canTrackPageView("accepted", true), true);
   assert.equal(canTrackPageView("rejected", false), false);
+});
+
+test("Stage 07A acceptance journey uses one fixed page view per route transition", () => {
+  const routes = ["home", "onlineNotepad", "aiTextCleaner", "metadataRemover", "home"];
+  let previousPath = null;
+  const views = routes.map((page) => {
+    const view = preparePageView(page, origin, previousPath);
+    assert.ok(view, `${page} is a genuine route transition`);
+    previousPath = view.pagePath;
+    return view;
+  });
+
+  assert.deepEqual(views.map((view) => view.payload.page_path), [
+    "/",
+    "/tools/online-notepad",
+    "/tools/ai-text-cleaner",
+    "/tools/metadata-remover",
+    "/",
+  ]);
+  assert.equal(views[1].payload.page_referrer, `${origin}/`);
+  assert.equal(views[2].payload.page_referrer, `${origin}/tools/online-notepad`);
+  assert.equal(views[3].payload.page_referrer, `${origin}/tools/ai-text-cleaner`);
+  assert.equal(views[4].payload.page_referrer, `${origin}/tools/metadata-remover`);
+});
+
+test("repeated effects do not duplicate a view, while back and forward route transitions do", () => {
+  const routes = ["home", "onlineNotepad", "aiTextCleaner", "onlineNotepad", "aiTextCleaner"];
+  let previousPath = null;
+  const paths = [];
+
+  for (const page of routes) {
+    const view = preparePageView(page, origin, previousPath);
+    assert.ok(view);
+    paths.push(view.pagePath);
+    previousPath = view.pagePath;
+    assert.equal(preparePageView(page, origin, previousPath), null);
+  }
+
+  assert.deepEqual(paths, [
+    "/",
+    "/tools/online-notepad",
+    "/tools/ai-text-cleaner",
+    "/tools/online-notepad",
+    "/tools/ai-text-cleaner",
+  ]);
+});
+
+test("direct tool entry and fresh acceptance require both accepted consent and configured Analytics", () => {
+  assert.equal(canTrackPageView(null, true), false);
+  assert.equal(canTrackPageView("accepted", false), false);
+  assert.equal(canTrackPageView("accepted", true), true);
+
+  const firstView = preparePageView("onlineNotepad", origin, null);
+  assert.equal(firstView?.payload.page_path, "/tools/online-notepad");
+  assert.equal(firstView?.payload.page_title, "Online Notepad | ToolsForToday");
+});
+
+test("rejection and withdrawal keep every route untracked", () => {
+  for (const page of ["home", "onlineNotepad", "aiTextCleaner", "metadataRemover"]) {
+    assert.equal(canTrackPageView("rejected", true), false, `${page} remains blocked after rejection`);
+    assert.equal(canTrackPageView(null, false), false, `${page} remains blocked before re-acceptance`);
+  }
+});
+
+test("query values and trailing slash variants cannot enter the fixed route payload", () => {
+  const view = preparePageView("aiTextCleaner", origin, "/tools/online-notepad");
+
+  assert.equal(view?.payload.page_path, "/tools/ai-text-cleaner");
+  assert.equal(view?.payload.page_location, `${origin}/tools/ai-text-cleaner`);
+  assert.equal(view?.payload.page_title, "AI Text Cleaner | ToolsForToday");
+  assert.equal(JSON.stringify(view).includes("?"), false);
+  assert.equal(ANALYTICS_PAGES.aiTextCleaner.path.endsWith("/"), false);
+});
+
+test("new-tool Analytics payloads exclude note, cleaner, and file canaries", () => {
+  const canaries = [
+    "NOTE_CANARY_only-in-browser_7f1a",
+    "CLEANER_CANARY_only-in-browser_8b2c",
+    "private-file-canary-9d3e.pdf",
+  ];
+  const payloads = [
+    preparePageView("onlineNotepad", origin, "/"),
+    preparePageView("aiTextCleaner", origin, "/tools/online-notepad"),
+    preparePageView("metadataRemover", origin, "/tools/ai-text-cleaner"),
+  ];
+  const encoded = JSON.stringify(payloads);
+
+  for (const canary of canaries) {
+    assert.equal(encoded.includes(canary), false);
+  }
 });

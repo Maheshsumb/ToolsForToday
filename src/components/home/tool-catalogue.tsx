@@ -14,6 +14,8 @@ const filters: { id: CategoryFilter; label: string }[] = [
   { id: "image", label: toolCategories.image },
   { id: "pdf", label: toolCategories.pdf },
   { id: "utility", label: toolCategories.utility },
+  { id: "text", label: toolCategories.text },
+  { id: "privacy", label: toolCategories.privacy },
 ];
 
 export function ToolCatalogue() {
@@ -39,7 +41,7 @@ export function ToolCatalogue() {
           <SectionHeading
             id="tools-heading"
             title="Find the tool you need"
-            description="Search all 12 available tools or browse 5 Utilities, 3 Image Tools and 4 PDF Tools."
+            description="Search all 15 available tools or browse Utilities, Image Tools, PDF Tools, Text & Writing, and Privacy & File Tools."
           />
           <div className="w-full lg:max-w-sm">
             <label htmlFor="tool-search" className="mb-2 block text-sm font-semibold text-text">Search tools</label>
@@ -97,7 +99,7 @@ export function ToolCatalogue() {
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" className="h-6 w-6"><circle cx="10.8" cy="10.8" r="6.8" /><path strokeLinecap="round" d="m16 16 4.5 4.5M8 10.8h5.6" /></svg>
             </div>
             <h3 className="mt-4 font-heading text-lg font-semibold text-text">No tools found</h3>
-            <p className="mt-1 text-sm text-muted">Try another search or clear it to see all 12 tools.</p>
+            <p className="mt-1 text-sm text-muted">Try another search or clear it to see all 15 tools.</p>
             {query ? <Button variant="secondary" onClick={() => setQuery("")} className="mt-5">Clear search</Button> : null}
           </div>
         )}

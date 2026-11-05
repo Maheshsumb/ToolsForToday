@@ -1,4 +1,4 @@
-export type ToolCategory = "image" | "pdf" | "utility";
+export type ToolCategory = "image" | "pdf" | "utility" | "text" | "privacy";
 export type ToolAvailability = "coming-soon" | "available";
 export type ToolIcon =
   | "image-compressor"
@@ -12,7 +12,10 @@ export type ToolIcon =
   | "text-counter"
   | "percentage"
   | "unit-converter"
-  | "date-calculator";
+  | "date-calculator"
+  | "online-notepad"
+  | "metadata-remover"
+  | "text-cleaner";
 
 export interface ToolDefinition {
   id: string;
@@ -171,10 +174,48 @@ export const tools = [
     href: "/tools/date-difference-age-calculator",
     relatedToolIds: ["percentage-calculator", "unit-converter"],
   },
+  {
+    id: "online-notepad",
+    slug: "online-notepad",
+    title: "Online Notepad",
+    category: "utility",
+    description: "Write and edit notes in your browser. Notes autosave to this browser only, with TXT and Markdown downloads.",
+    searchKeywords: ["notepad", "notes", "text editor", "write online", "markdown editor", "local notes"],
+    icon: "online-notepad",
+    availability: "available",
+    href: "/tools/online-notepad",
+    relatedToolIds: ["word-character-counter", "ai-text-cleaner"],
+  },
+  {
+    id: "metadata-remover",
+    slug: "metadata-remover",
+    title: "Image & File Metadata Remover",
+    category: "privacy",
+    description: "Inspect and remove selected metadata from JPEG, PNG, WebP, and PDF files locally. Provenance records and invisible watermarks are not removed.",
+    searchKeywords: ["metadata remover", "remove exif", "strip exif", "gps metadata", "remove image location", "pdf properties", "privacy"],
+    icon: "metadata-remover",
+    availability: "available",
+    href: "/tools/metadata-remover",
+    relatedToolIds: ["image-compressor", "image-converter"],
+  },
+  {
+    id: "ai-text-cleaner",
+    slug: "ai-text-cleaner",
+    title: "AI Text Cleaner",
+    category: "text",
+    description: "Clean copied text formatting, whitespace, and selected invisible characters locally. This is a text-formatting tool, not an AI detector.",
+    searchKeywords: ["clean text", "AI text formatting", "remove invisible characters", "clean copied text", "plain text", "markdown cleaner"],
+    icon: "text-cleaner",
+    availability: "available",
+    href: "/tools/ai-text-cleaner",
+    relatedToolIds: ["online-notepad", "word-character-counter"],
+  },
 ] as const satisfies readonly ToolDefinition[];
 
 export const toolCategories = {
   image: "Image Tools",
   pdf: "PDF Tools",
   utility: "Utilities",
+  text: "Text & Writing",
+  privacy: "Privacy & File Tools",
 } satisfies Record<ToolCategory, string>;
