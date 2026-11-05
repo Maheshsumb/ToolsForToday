@@ -5,15 +5,16 @@ import { Button } from "@/components/ui/button";
 import { ToolPrivacyNote } from "@/components/tools/tool-help-section";
 import { ToolWorkspace } from "@/components/tools/tool-workspace";
 import { countText } from "@/lib/text-counts";
-import { countNoteLines, deleteSavedNote, loadSavedNote, replaceNoteText, saveNote } from "@/lib/online-notepad";
+import { countNoteLines, replaceNoteText } from "@/lib/online-notepad";
+import { notePersistence, type NotePersistenceState } from "@/lib/online-notepad-persistence";
 
 type SaveState = "loading" | "saved" | "saving" | "error";
 
 export function OnlineNotepad() {
   const [text, setText] = useState("");
   const [ready, setReady] = useState(false);
-  const [saveState, setSaveState] = useState<SaveState>("loading");
-  const [saveMessage, setSaveMessage] = useState("Loading your note from this browser…");
+  const [saveState, setSaveState] = useState<SaveState>(() => notePersistence.getSnapshot().status);
+  const [saveMessage, setSaveMessage] = useState(() => notePersistence.getSnapshot().message);
   const [feedback, setFeedback] = useState("");
   const [findValue, setFindValue] = useState("");
   const [replaceValue, setReplaceValue] = useState("");
@@ -23,11 +24,14 @@ export function OnlineNotepad() {
 
   useEffect(() => {
     let active = true;
-    loadSavedNote().then((saved) => {
+    const unsubscribe = notePersistence.subscribe((state: NotePersistenceState) => {
+      if (!active) return;
+      setSaveState(state.status);
+      setSaveMessage(state.message);
+    });
+    notePersistence.load().then((saved) => {
       if (!active) return;
       setText(saved);
-      setSaveState("saved");
-      setSaveMessage("Your note is loaded from this browser.");
     }).catch(() => {
       if (!active) return;
       setSaveState("error");
@@ -35,24 +39,12 @@ export function OnlineNotepad() {
     }).finally(() => {
       if (active) setReady(true);
     });
-    return () => { active = false; };
+    return () => {
+      active = false;
+      unsubscribe();
+      void notePersistence.flush().catch(() => undefined);
+    };
   }, []);
-
-  useEffect(() => {
-    if (!ready) return;
-    const timer = window.setTimeout(() => {
-      setSaveState("saving");
-      setSaveMessage("Saving in this browser…");
-      saveNote(text).then(() => {
-        setSaveState("saved");
-        setSaveMessage("Saved in this browser.");
-      }).catch(() => {
-        setSaveState("error");
-        setSaveMessage("Could not save to browser storage. Copy or download your note before leaving this page.");
-      });
-    }, 500);
-    return () => window.clearTimeout(timer);
-  }, [text, ready]);
 
   async function copyText() {
     try {
@@ -77,22 +69,16 @@ export function OnlineNotepad() {
   function startNewNote() {
     if (text && !window.confirm("Start a new blank note? This replaces the note saved in this browser.")) return;
     setText("");
+    notePersistence.update("");
     setFeedback("New blank note started.");
     editorRef.current?.focus();
   }
 
-  async function clearNote() {
+  function clearNote() {
     if (!text) return;
     if (!window.confirm("Clear this note and delete its saved copy from this browser?")) return;
     setText("");
-    try {
-      await deleteSavedNote();
-      setSaveState("saved");
-      setSaveMessage("Note cleared from this browser.");
-    } catch {
-      setSaveState("error");
-      setSaveMessage("The note was cleared on screen, but its saved copy could not be deleted.");
-    }
+    void notePersistence.clear().catch(() => undefined);
     setFeedback("Note cleared.");
     editorRef.current?.focus();
   }
@@ -125,7 +111,7 @@ export function OnlineNotepad() {
           ref={editorRef}
           id="notepad-text"
           value={text}
-          onChange={(event) => { setText(event.target.value); setFeedback(""); setSaveState("saving"); setSaveMessage("Changes will be saved in this browser shortly…"); }}
+          onChange={(event) => { setText(event.target.value); notePersistence.update(event.target.value); setFeedback(""); }}
           placeholder="Start typing or paste your note…"
           rows={15}
           spellCheck
