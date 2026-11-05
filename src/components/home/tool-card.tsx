@@ -7,6 +7,8 @@ const iconStyles = {
   image: "bg-[#FFF1EB] text-[#B84222]",
   pdf: "bg-[#EAF5FB] text-[#176A8B]",
   utility: "bg-[#E9F7F3] text-[#176B58]",
+  text: "bg-[#FFF7E8] text-[#8A5710]",
+  privacy: "bg-[#F2EEFB] text-[#5C4385]",
 } as const;
 
 interface ToolCardProps {

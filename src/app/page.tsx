@@ -7,7 +7,7 @@ import { Container } from "@/components/ui/container";
 import { createPageMetadata } from "@/lib/seo-metadata";
 import { StructuredData } from "@/components/seo/structured-data";
 
-const description = "Use 12 free browser-based tools for PDFs, images, text and everyday calculations. Convert files, work with documents and get clear results in one place.";
+const description = "Use 15 free browser-based tools for PDFs, images, text, metadata and everyday calculations. Convert files, clean text, work with documents and get clear results in one place.";
 
 export const metadata: Metadata = createPageMetadata({
   title: "ToolsForToday – Free Online PDF, Image & Utility Tools",
@@ -33,7 +33,7 @@ export default function Home() {
             <div className="max-w-2xl">
               <p className="text-sm font-semibold text-[#F4B99F]">ToolsForToday</p>
               <h2 id="closing-heading" className="mt-2 font-heading text-2xl leading-tight font-semibold sm:text-3xl">Everyday Tools. One Simple Place.</h2>
-              <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">Explore all 12 available tools for text, calculations, dates, QR codes, images, and PDFs, with 5 Utilities, 3 Image Tools, and 4 PDF Tools.</p>
+              <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/80 sm:text-base">Explore all 15 available tools for text, calculations, dates, QR codes, images, metadata, and PDFs across five useful categories.</p>
             </div>
             <a href="#tools" className="mt-7 inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-semibold text-deep-navy transition-colors hover:bg-[#F3F6FA] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white lg:mt-0">
               Explore the catalogue
