@@ -94,6 +94,7 @@ export function OnlineNotepad() {
       return;
     }
     setText(result.text);
+    notePersistence.update(result.text);
     setFeedback(`Replaced ${result.replacements} ${result.replacements === 1 ? "match" : "matches"}.`);
   }
 

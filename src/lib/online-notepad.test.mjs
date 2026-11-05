@@ -345,3 +345,12 @@ test("repeated navigation flushes share one pending write", async () => {
   await Promise.all([firstFlush, secondFlush]);
   assert.deepEqual(h.writes, ["one write for this revision"]);
 });
+
+test("text replacement result can be persisted through the same note lifecycle", async () => {
+  const h = harness({ initial: "replace this phrase" });
+  await h.coordinator.load();
+  const result = replaceNoteText("replace this phrase", "replace", "updated");
+  h.coordinator.update(result.text);
+  await h.coordinator.flush();
+  assert.equal(h.values.current, "updated this phrase");
+});
